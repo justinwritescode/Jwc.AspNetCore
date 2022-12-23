@@ -1,0 +1,39 @@
+<!--
+ * JustinWritesCode.Payloads.csproj
+ * 
+ *   Created: 2022-11-20-07:14:18
+ *   Modified: 2022-12-01-06:04:25
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- <TargetFramework>netstandard2.0</TargetFramework> -->
+    <TargetFrameworks>net7.0</TargetFrameworks>
+    <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
+    <PackageId>JustinWritesCode.Payloads</PackageId>
+    <AssemblyName>$(PackageId)</AssemblyName>
+    <RootNamespace>$(PackageId)</RootNamespace>
+    <ExcludeRestorePackageImports>false</ExcludeRestorePackageImports>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+    <PackageReference Include="System.Text.Json.Usings" />
+    <PackageReference Include="System.Text.RegularExpressions.Usings" />
+    <PackageReference Include="Vogen" />
+    <!-- <PackageReference Include="JustinWritesCode.System.Extensions" /> -->
+    <ProjectReference Include="../Http/Extensions/JustinWritesCode.Http.Extensions.csproj" />
+    <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" />
+    <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+    <ProjectReference Include="../../../Types/src/Domain/JustinWritesCode.Domain.csproj" />
+    <ProjectReference Include="../../../Types/src/Enumerations/Enumeration/JustinWritesCode.Enumerations.Enumeration.csproj" />
+    <!-- <ProjectReference Include="../../../Types/src/Extensions/JustinWritesCode.System.Extensions.csproj" /> -->
+    <PackageReference Include="JustinWritesCode.System.Extensions" IncludeAssets="ContentFiles" ExcludeAssets="Lib;Runtime;Native;Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+</Project>

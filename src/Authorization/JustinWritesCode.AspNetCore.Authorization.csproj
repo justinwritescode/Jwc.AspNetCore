@@ -1,0 +1,46 @@
+<!--
+ * JustinWritesCode.AspNetCore.Controllers.csproj
+ *
+ *   Created: 2022-12-10-07:12:05
+ *   Modified: 2022-12-10-07:12:06
+ *
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *
+ *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net7.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <!-- <PackageReference Include="Microsoft.AspNetCore.OpenApi" Condition="'$(TargetFramework)' == 'net7.0'" />  -->
+    <PackageReference Include="Microsoft.OpenApi" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <!-- <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />
+    <PackageReference Include="JustinWritesCode.Abstractions" /> -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" VersionOverride="$(JsonPatchVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <!-- <PackageReference Include="JustinWritesCode.System.Extensions" IncludeAssets="ContentFiles; Build" ExcludeAssets="Lib; Compile; Runtime; Native; Analyzers" />  -->
+    <PackageReference Include="System.Usings" />
+    <PackageReference Include="JustinWritesCode.System.Extensions" IncludeAssets="ContentFiles; Build" ExlcudeAssets="Lib; Compile; Native; Analyzers" PrivateAssets="All"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../EntityFrameworkCore/src/Abstractions/JustinWritesCode.EntityFrameworkCore.Abstractions.csproj" />
+    <ProjectReference Include="../../../Types/src/Core/Abstractions/JustinWritesCode.Abstractions.csproj" />
+    <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+    <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" />
+    <ProjectReference Include="../../../Identity/src/Claims/JustinWritesCode.Identity.Claims.csproj" />
+    <ProjectReference Include="../../../Identity/src/Models/JustinWritesCode.Identity.Models.csproj" />
+    <ProjectReference Include="../../../Identity/src/EntityFrameworkCore/JustinWritesCode.Identity.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="../../../Identity/src/AspNetCore/JustinWritesCode.Identity.AspNetCore.csproj" />
+    <!-- <ProjectReference Include="../../../Types/src/Extensions/JustinWritesCode.System.Extensions.csproj" /> -->
+    <ProjectReference Include="../../../Telegram/src/Identity/Telegram.Identity.csproj" />
+  </ItemGroup>
+  <Import Project="../../../Telegram/src/Identity/Telegram.Identity.props" />
+</Project>

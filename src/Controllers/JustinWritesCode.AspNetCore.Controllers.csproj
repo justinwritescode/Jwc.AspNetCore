@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net7.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" />
+    <!-- <PackageReference Include="JustinWritesCode.Abstractions" /> -->
+    <!-- <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" /> -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" VersionOverride="$(JsonPatchVersion)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.OpenApi" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters.Abstractions" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="System.All.Usings" />
+    <PackageReference Include="JustinWritesCode.Http" />
+    <PackageReference Include="JustinWritesCode.Payloads" />
+    <PackageReference Include="JustinWritesCode.MediatR" />
+    <PackageReference Include="JustinWritesCode.MediatR.Abstractions" />
+    <PackageReference Include="System.Net.Mime.MediaTypeNames" />
+    <PackageReference Include="JustinWritesCode.Abstractions" />
+    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />
+    <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" /> -->
+    <!-- <ProjectReference Include="../Payloads/JustinWritesCode.Payloads.csproj" /> -->
+    <!-- <ProjectReference Include="../../../MediatR/src/MediatR/JustinWritesCode.MediatR.csproj" /> -->
+    <!-- <ProjectReference Include="../../../MediatR/src/Abstractions/JustinWritesCode.MediatR.Abstractions.csproj" /> -->
+    <!-- <ProjectReference Include="../../../Types/src/Core/Abstractions/JustinWritesCode.Abstractions.csproj" />
+    <ProjectReference Include="../../../EntityFrameworkCore/src/Abstractions/JustinWritesCode.EntityFrameworkCore.Abstractions" /> -->
+  </ItemGroup>
+</Project>

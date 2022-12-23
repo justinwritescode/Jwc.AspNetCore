@@ -1,0 +1,58 @@
+<!--
+ * JustinWritesCode.AspNetCore.Startup.csproj
+ *
+ *   Created: 2022-12-10-04:47:36
+ *   Modified: 2022-12-10-04:47:37
+ *
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *
+ *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net7.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- <PackageReference Include="Microsoft.AspNetCore.App.Ref" /> -->
+    <PackageReference Include="AnyOf.Usings" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Azure.Identity" />
+    <PackageReference Include="Ben.Demystifier" />
+    <!-- <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles"/> -->
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" ExcludeAssets="ContentFiles" VersionOverride="[5.2.0,)" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" />
+    <PackageReference Include="SendPulse.Data" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="System.All.Usings" />
+    <PackageReference Include="System.Text.Json.Usings" />
+    <ProjectReference Include="../Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles"/>
+    <ProjectReference Include="../Hosting.Extensions/JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Payloads/JustinWritesCode.Payloads.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Formatters/JustinWritesCode.AspNetCore.Formatters.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../../../Identity/src/AspNetCore/JustinWritesCode.Identity.AspNetCore.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../../../SendPulse/src/Data/SendPulse.Data.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../../../Types/src/Extensions/JustinWritesCode.System.Extensions.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../../../Identity/src/EntityFrameworkCore/JustinWritesCode.Identity.EntityFrameworkCore.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Swagger/JustinWritesCode.AspNetCore.Swagger.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Hashids/JustinWritesCode.AspNetCore.Hashids.csproj" ExcludeAssets="ContentFiles" />
+  </ItemGroup>
+  <!-- <UsingTask TaskName="WriteSwaggerGenExtensionsClassToTempFile" AssemblyFile="$(OutputPath)/net7.0/$(AssemblyName).dll" />
+  <Target Name="WriteSwaggerGenExtensionsClassToTempFile" AfterTargets="Build">
+    <WriteSwaggerGenExtensionsClassToTempFile>
+      <Output TaskParameter="Output" ItemName="SwaggerGenExtensionsClass" />
+    </WriteSwaggerGenExtensionsClassToTempFile>
+    <ItemGroup>
+      <Compile Include="SwaggerGenExtensionsClass" />
+    </ItemGroup>
+  </Target> -->
+  <Import Project="../../../Types/src/Extensions/JustinWritesCode.System.Extensions.props" />
+</Project>

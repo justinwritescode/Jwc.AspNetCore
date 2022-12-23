@@ -1,0 +1,35 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.AspNetCore.Hashids", "JustinWritesCode.AspNetCore.Hashids.csproj", "{6D4746D9-2862-4EE0-8AF0-680454B7CD42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{781779C6-BD9F-4F1F-BEBD-2AA63C99FF03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Local|Any CPU = Local|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Staging|Any CPU = Staging|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Testing|Any CPU = Testing|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Local|Any CPU.ActiveCfg = Local|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Local|Any CPU.Build.0 = Local|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Staging|Any CPU.Build.0 = Staging|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42}.Testing|Any CPU.Build.0 = Testing|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6D4746D9-2862-4EE0-8AF0-680454B7CD42} = {781779C6-BD9F-4F1F-BEBD-2AA63C99FF03}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {616BA374-D548-4E8A-BE49-F936030D0CE5}
+	EndGlobalSection
+EndGlobal

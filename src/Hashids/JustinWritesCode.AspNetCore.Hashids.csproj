@@ -1,0 +1,23 @@
+<!--
+ * JustinWritesCode.AspNetCore.Hashids.csproj
+ * 
+ *   Created: 2022-12-20-05:18:06
+ *   Modified: 2022-12-20-05:18:06
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.Hashids" />
+    <PackageReference Include="Microsoft.OpenApi" />
+    <PackageReference Include="SWashbuckle.AspNetCore.SwaggerGen" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+</Project>

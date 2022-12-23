@@ -1,0 +1,51 @@
+<!--
+ * JustinWritesCode.AspNetCore.Startup.props
+ * 
+ *   Created: 2022-12-05-07:29:55
+ *   Modified: 2022-12-05-07:29:55
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" />
+    <PackageReference Include="ThisAssembly.Project" />
+    <PackageReference Include="ThisAssembly" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectProperty Include="PackageVersion" />
+    <ProjectProperty Include="Version" />
+    <ProjectProperty Include="Title" />
+    <ProjectProperty Include="Description" />
+    <ProjectProperty Include="TermsOfServiceUrl" />
+    <ProjectProperty Include="Company" />
+    <ProjectProperty Include="Owners" />
+    <ProjectProperty Include="Authors" />
+    <ProjectProperty Include="LicenseExpression" />
+    <ProjectProperty Include="ContactEmail" />
+    <ProjectProperty Include="PackageProjectUrl" />
+    <ProjectProperty Include="PackageTags" />
+    <ProjectProperty Include="RepositoryUrl" />
+    <ProjectProperty Include="AssemblyVersion" />
+    <ProjectProperty Include="FileVersion" />
+    <ProjectProperty Include="Version" />
+    <ProjectProperty Include="SwaggerTheme" />
+  </ItemGroup>
+  <PropertyGroup>
+    <SwaggerTheme Condition="'$(SwaggerTheme)' == ''">theme-material.css</SwaggerTheme>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- <Compile Include="$(MSBuildThisFileDirectory)AddSwaggerMetadataExtension.cs" Condition="'$(ProjectId)' != 'JustinWritesCode.AspNetCore.Startup'" /> -->
+    <!-- This file will be compiled into the target project's code -->
+    <!-- <Compile Include="$(MSBuildThisFileDirectory)AddSwaggerGenExtension.cs" PackagePath="build/AddSwaggerGenExtensions.cs" /> -->
+    <!-- <PackageFile Include="$(MSBuildThisFileDirectory)AddSwaggerGenExtension.cs" PackagePath="build/AddSwaggerGenExtensions.cs" Path="build/AddSwaggerGenExtensions.cs" PackFolder="build" /> -->
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="System.Uri" Alias="@uri" />
+  </ItemGroup>
+</Project>

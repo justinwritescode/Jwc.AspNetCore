@@ -1,0 +1,38 @@
+<!--
+ * JustinWritesCode.AspNetCore.Swagger.csproj
+ *
+ *   Created: 2022-12-17-01:58:38
+ *   Modified: 2022-12-17-01:58:39
+ *
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *
+ *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net7.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
+    <PackageReference Include="ThisAssembly.Project" />
+    <!-- <PackageReference Include="ThisAssembly.Resources" /> -->
+    <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles"/>
+    <ProjectReference Include="../../../SendPulse/src/Data/SendPulse.Data.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../../../Telegram/src/Telegram/Telegram.Bot.Extensions.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../../../Identity/src/Claims/JustinWritesCode.Identity.Claims.csproj" ExcludeAssets="ContentFiles" />
+  </ItemGroup>
+  <ItemGroup>
+   <EmbeddedResource Include="./swagger-ui/themes/*.css" LogicalName="%(Filename)%(Extension)" />
+   <EmbeddedResource Include="./swagger-ui/SwaggerUI.index.html" LogicalName="%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>
