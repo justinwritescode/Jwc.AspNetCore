@@ -15,6 +15,8 @@ namespace JustinWritesCode.Payloads;
 using System.Diagnostics;
 using System.Net;
 
+/// <summary><inheritdoc cref="ISingleItemPager"/> </summary>
+/// <remarks>Items are of type <see langword="object" />.</remarks>
 [DebuggerDisplay($"{{{nameof(StringValue)}}}, {nameof(Page)}: {{{nameof(Page)}}} of {{{nameof(TotalRecords)}}}")]
 public class SingleItemPager : SingleItemPager<object>
 {

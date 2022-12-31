@@ -21,9 +21,7 @@ public static class DescribeHashidsExtensions
     public static WebApplicationBuilder DescribeHashids(this WebApplicationBuilder builder, params Assembly[]? assemblies)
     {
         builder.Services.ConfigureSwaggerGen(options =>
-        {
-            options.OperationFilter<HashidsOperationFilter>();
-        });
+            options.OperationFilter<HashidsOperationFilter>());
         // assemblies ??= AppDomain.CurrentDomain.GetAssemblies();
         // builder.Services.DescribeHashidsFromAssemblies(assemblies);
         return builder;

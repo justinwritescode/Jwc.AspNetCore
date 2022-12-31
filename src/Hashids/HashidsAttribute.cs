@@ -10,7 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-namespace Microsoft.AspNetCore;
+namespace System.Text.Json;
 
 public class HashidsAttribute : System.Text.Json.Serialization.JsonConverterAttribute
 {

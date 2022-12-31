@@ -11,27 +11,47 @@
  */
 
 namespace Microsoft.Extensions.DependencyInjection;
-using JustinWritesCode.AspNetCore.Authorization;
+using JustinWritesCode.AspNetCore.Formatters;
+using MessagePack;
+using MessagePack.AspNetCoreMvcFormatter;
+using MessagePack.Resolvers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.DependencyInjection;
 
 public static class StartupExtensions
 {
-    public static WebApplicationBuilder AddOutputFormatters(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddFormatters(this WebApplicationBuilder builder)
     {
-        builder.Services.AddControllers(options =>
+        _ = builder.Services.AddControllers(options =>
         {
-            options.OutputFormatters.Insert(0, new JustinWritesCode.Payloads.Formatters.PlainTextPayloadFormatter());
-            // options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-            options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-            options.OutputFormatters.Add(new JustinWritesCode.AspNetCore.Formatters.PlainTextProblemDetailsOutputFormatter());
-            options.OutputFormatters.Add(new JustinWritesCode.AspNetCore.Formatters.PlainTextOutputFormatter());
-
             options.RespectBrowserAcceptHeader = true;
             options.ReturnHttpNotAcceptable = true;
+
+            options.OutputFormatters.Insert(0, new JustinWritesCode.Payloads.Formatters.PlainTextPayloadFormatter());
+            options.InputFormatters.Add(new PlainTextInputFormatter());
+
+            options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+            options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            options.OutputFormatters.Add(new BsonMediaTypeFormatter());
+            options.OutputFormatters.Add(new PlainTextProblemDetailsOutputFormatter());
+            options.OutputFormatters.Add(new PlainTextOutputFormatter());
+
+            options.OutputFormatters.Add(new MessagePackOutputFormatter(new MessagePackSerializerOptions(ContractlessStandardResolver.Instance)));
+            options.InputFormatters.Add(new MessagePackInputFormatter(new MessagePackSerializerOptions(ContractlessStandardResolver.Instance)));
+
+            options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+            // options.InputFormatters.Add(new XmlSerializerInputFormatter());
+        }).AddXmlSerializerFormatters();
+        _ = builder.AddPayloadFormatters();
+        _ = builder.AddInputFormatters();
+        return builder;
+    }
+
+    public static WebApplicationBuilder AddInputFormatters(this WebApplicationBuilder builder)
+    {
+        _ = builder.Services.AddControllers(options =>
+        {
         });
-        builder.AddPayloadFormatters();
         return builder;
     }
 

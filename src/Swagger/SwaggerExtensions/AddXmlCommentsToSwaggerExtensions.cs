@@ -25,7 +25,9 @@ public static class AddXmlCommentsToSwaggerExtensions
         var xmlDocs = Directory.GetFiles(binRoot, "*.xml");
         builder.Services.ConfigureSwaggerGen(options =>
         {
-            Array.ForEach(xmlDocs, xmlDoc => options.IncludeXmlCommentsWithRemarks(xmlDoc));
+            Array.ForEach(xmlDocs, xmlDoc => {
+                try { options.IncludeXmlCommentsWithRemarks(xmlDoc); }
+                catch(Exception ex) { WriteLine($"Error in file {xmlDoc}: {ex.Message}");  } });
             options.IncludeXmlCommentsFromInheritDocs(true);
 
             // or configured:

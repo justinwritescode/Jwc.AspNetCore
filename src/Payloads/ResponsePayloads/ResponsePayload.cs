@@ -15,6 +15,7 @@ namespace JustinWritesCode.Payloads;
 using System.Net;
 using JustinWritesCode.Payloads.Abstractions;
 
+/// <inheritdoc cref="IResponsePayload"/>
 public class ResponsePayload : ResponsePayload<object>, IResponsePayload
 {
     public ResponsePayload()
@@ -28,7 +29,7 @@ public class ResponsePayload : ResponsePayload<object>, IResponsePayload
         StringValue = value.ToString();
     }
 
-    public static new ResponsePayload NotFound() => new () { StatusCode = (int)HttpStatusCode.NotFound };
-    public static new ResponsePayload BadRequest() => new () { StatusCode = (int)HttpStatusCode.BadRequest };
-    public static new ResponsePayload NoContent() => new () { StatusCode = (int)HttpStatusCode.NoContent };
+    public static ResponsePayload NotFound() => new () { StatusCode = (int)HttpStatusCode.NotFound };
+    public static ResponsePayload BadRequest() => new () { StatusCode = (int)HttpStatusCode.BadRequest };
+    public static ResponsePayload NoContent() => new () { StatusCode = (int)HttpStatusCode.NoContent };
 }

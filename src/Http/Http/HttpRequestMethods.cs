@@ -9,17 +9,27 @@
  *   Copyright © 2022 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
+using System.ComponentModel.DataAnnotations;
+
 namespace System.Net.Http;
 
-[GenerateEnumerationClass("HttpRequestMethod")]
+[GenerateEnumerationRecordStruct("HttpRequestMethod")]
 public enum HttpRequestMethodEnum
 {
+    [Display(Name = HttpRequestMethodNames.Get)]
     Get,
+    [Display(Name = HttpRequestMethodNames.Post)]
     Post,
+    [Display(Name = HttpRequestMethodNames.Put)]
     Put,
+    [Display(Name = HttpRequestMethodNames.Delete)]
     Delete,
+    [Display(Name = HttpRequestMethodNames.Patch)]
     Patch,
+    [Display(Name = HttpRequestMethodNames.Head)]
     Head,
+    [Display(Name = HttpRequestMethodNames.Options)]
     Options,
+    [Display(Name = HttpRequestMethodNames.Trace)]
     Trace
 }

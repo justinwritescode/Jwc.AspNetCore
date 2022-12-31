@@ -12,7 +12,15 @@
 
 namespace JustinWritesCode.Payloads.Abstractions;
 
-/// <inheritdoc cref="IArrayResponsePayload{object}"/>
+/// <summary>Represents a response payload with an array of values</summary>
+/// <remarks>
+///  <para>
+///  <see cref="IArrayResponsePayload"/> is a <see cref="IArrayResponsePayload{Object}"/> with an array of <see langword="object" />s.
+/// </para>
+///  <para>
+///  <see cref="ArrayResponsePayload"/> is a <see cref="ArrayResponsePayload{Object}"/> with an array of <see langword="object" />s.
+/// </para>
+/// </remarks>
 public interface IArrayResponsePayload : IArrayResponsePayload<object>
 {
 }

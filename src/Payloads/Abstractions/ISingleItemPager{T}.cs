@@ -11,6 +11,7 @@
  */
 
 namespace JustinWritesCode.Payloads.Abstractions;
+/// <summary>Represents a strongly-typed single-item pager (i.e., one item per page) of items of type <typeparamref name="T"/>.</summary>
 public interface ISingleItemPager<T> : IResponsePayload<T>
 {
     [JProp("item")]
@@ -18,7 +19,6 @@ public interface ISingleItemPager<T> : IResponsePayload<T>
     [JProp("totalRecords")]
     int TotalRecords { get; set; }
     int PageSize { get; set; }
-
     int Page { get; set; }
     int PageStartIndex { get; }
     int PageEndIndex { get; }

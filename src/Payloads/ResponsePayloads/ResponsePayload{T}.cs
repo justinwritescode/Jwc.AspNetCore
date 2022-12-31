@@ -29,6 +29,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
+/// <inheritdoc cref="IResponsePayload{T}"/>
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]
 // [SwaggerSubType(typeof(ResponsePayload))]
 public class ResponsePayload<T> : Payload<T>, IResponsePayload<T>, IPayload

@@ -17,6 +17,7 @@ namespace JustinWritesCode.Payloads;
 using System.Diagnostics;
 using JustinWritesCode.Payloads.Abstractions;
 
+/// <inheritdoc cref="IArrayResponsePayload"/>
 [DebuggerDisplay($"{{{nameof(StringValue)}}}; Count = {{{nameof(Count)}}}")]
 public class ArrayResponsePayload : ArrayResponsePayload<object>, IArrayResponsePayload
 {

@@ -13,11 +13,10 @@
 namespace JustinWritesCode.Payloads.Abstractions;
 using System.Net;
 
-/// <summary>Represents <inheritdoc cref="IResponsePayload{T}" path="/value/node()" />.</summary>
-/// <value>a strongly-typed response payload of type <typeparamref name="T" /></value>
+/// <summary>Represents a strongly-typed response payload of type <typeparamref name="T" />.</summary>
 public interface IResponsePayload<T> : IPayload<T>, IResponsePayload
 {
-    public static new virtual IResponsePayload<T> NotFound() => new ResponsePayload<T> { StatusCode = (int)HttpStatusCode.NotFound };
-    public static new virtual IResponsePayload<T> BadRequest() => new ResponsePayload<T> { StatusCode = (int)HttpStatusCode.BadRequest };
-    public static new virtual IResponsePayload<T> NoContent() => new ResponsePayload<T> { StatusCode = (int)HttpStatusCode.NoContent };
+    public static virtual IResponsePayload<T> NotFound() => new ResponsePayload<T> { StatusCode = (int)HttpStatusCode.NotFound };
+    public static virtual IResponsePayload<T> BadRequest() => new ResponsePayload<T> { StatusCode = (int)HttpStatusCode.BadRequest };
+    public static virtual IResponsePayload<T> NoContent() => new ResponsePayload<T> { StatusCode = (int)HttpStatusCode.NoContent };
 }

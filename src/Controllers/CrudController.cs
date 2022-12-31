@@ -15,31 +15,68 @@ using System.Net.Mime.MediaTypes;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
+using global::MediatR;
 using JustinWritesCode.Abstractions;
 using JustinWritesCode.Payloads;
 using JustinWritesCode.Payloads.Abstractions;
 using JustinWritesCode.Payloads.ModelBinders;
-using Microsoft.EntityFrameworkCore.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Abstractions;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
-using global::MediatR;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace JustinWritesCode.AspNetCore.Controllers;
 
 [Authorize]
 [ApiController]
+public abstract class CrudController<TModel, TDbContext, TId> : CrudController<TModel, TModel, TModel, TModel, TDbContext, TId>
+    where TModel : class, IIdentifiable<TId>
+    where TDbContext : IDbContext, IDbContext<TDbContext>
+    where TId : IComparable, IEquatable<TId>
+{
+    public CrudController(TDbContext dbContext, ILogger logger, IMapper mapper, IMediator mediator) : base(dbContext, logger, mapper, mediator)
+    {
+    }
+}
+
+[Authorize]
+[ApiController]
+public abstract class CrudController<TModel, TDto, TDbContext, TId> : CrudController<TModel, TDto, TDto, TDto, TDbContext, TId>
+    where TModel : class, IIdentifiable<TId>
+    where TDbContext : IDbContext, IDbContext<TDbContext>
+    where TId : IComparable, IEquatable<TId>
+    where TDto : class
+{
+    public CrudController(TDbContext dbContext, ILogger logger, IMapper mapper, IMediator mediator) : base(dbContext, logger, mapper, mediator)
+    {
+    }
+}
+[Authorize]
+[ApiController]
+public abstract class CrudController<TModel, TInsertDto, TDto, TDbContext, TId> : CrudController<TModel, TInsertDto, TDto, TDto, TDbContext, TId>
+    where TModel : class, IIdentifiable<TId>
+    where TDbContext : IDbContext, IDbContext<TDbContext>
+    where TId : IComparable, IEquatable<TId>
+    where TDto : class
+{
+    public CrudController(TDbContext dbContext, ILogger logger, IMapper mapper, IMediator mediator) : base(dbContext, logger, mapper, mediator)
+    {
+    }
+}
+
+[Authorize]
+[ApiController]
 public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, TDbContext, TId> : ApiControllerBase<TDbContext>, ILog, IHaveADbContext<TDbContext>
     where TModel : class, IIdentifiable<TId>
-    where TDbContext : DbContext, IDbContext<TDbContext>
-    where TInsertDto : class
+    where TDbContext : IDbContext, IDbContext<TDbContext>
     where TId : IComparable, IEquatable<TId>
+    where TUpdateDto : class
 {
     public const string DefaultItemSeparator = "\r\n";
 
@@ -140,7 +177,7 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <response code="504">If the service times out.</response>
     /// <param name="id" example="69">The unique ID of the item to return</param>
     [HttpGet("{id}")]
-    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
+    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack, TextMediaTypeNames.Plain)]
     public virtual async Task<ResponsePayload<TViewDto>> Get(TId id)
     {
         var model = await Db.Set<TModel>().FindAsync(id);
@@ -162,7 +199,7 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <response code="504">If the service times out.</response>
     /// <param name="id" example="69">The unique ID of the item to look up</param>
     [HttpHead("{id}")]
-    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
+    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack, TextMediaTypeNames.Plain)]
     public virtual async Task<ResponsePayload<TViewDto>> Head([FromRoute] TId id)
          => (await Db.Set<TModel>().FindAsync(id)) is not null ?
          new ResponsePayload<TViewDto>() :
@@ -170,17 +207,19 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
 
     /// <summary>Updates an item from a complete DTO</summary>
     [HttpPut("{id}")]
-    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
-    public virtual async Task<ResponsePayload<TViewDto>> Put(TId id, TModel model)
+    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack, TextMediaTypeNames.Plain)]
+    public virtual async Task<ResponsePayload<TViewDto>> Put(TId id, TUpdateDto dto)
     {
-        if (!id.Equals(model.Id))
+        var model = await Db.Set<TModel>().FindAsync(id);
+        if (model is null)
         {
-            return ResponsePayload<TViewDto>.BadRequest();
+            return ResponsePayload<TViewDto>.NotFound();
         }
+        Mapper.Map(dto, model);
         Db.Entry(model).State = EntityState.Modified;
         try
         {
-            await Db.SaveChangesAsync();
+            await Db.SaveChangesAsync(default);
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -193,19 +232,19 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
                 throw;
             }
         }
-        return ResponsePayload<TViewDto>.NoContent();
+        return new ResponsePayload<TViewDto>(Mapper.Map<TViewDto>(model));
     }
 
     /// <summary>Creates a new item from a complete DTO</summary>
     [HttpPost]
-    [Consumes(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml)]
-    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
+    [Consumes(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack)]
+    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack, TextMediaTypeNames.Plain)]
     public virtual async Task<ResponsePayload<TViewDto>> Post(TInsertDto insertDto)
     {
         Logger.LogInformation("Inserting {Model}...", insertDto);
         var model = Mapper.Map<TModel>(insertDto);
-        Db.Set<TModel>().Add(model);
-        await Db.SaveChangesAsync();
+       Db.Set<TModel>().Add(model);
+        await Db.SaveChangesAsync(default);
         return ResponsePayload <TViewDto>.Created(Mapper.Map<TViewDto>(model));
     }
 
@@ -220,27 +259,29 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
             return NotFound();
         }
         Db.Set<TModel>().Remove(model);
-        await Db.SaveChangesAsync();
+        await Db.SaveChangesAsync(default);
         return NoContent();
     }
 
     /// <summary>Executes a partial update on the item with ID = <paramref name="id"/></summary>
     [HttpPatch("{id}")]
     [Consumes(ApplicationMediaTypeNames.JsonPatch)]
-    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
-    public virtual async Task<ResponsePayload<TViewDto>> Patch([FromRoute] TId id, [FromBody] JsonPatchDocument<TModel> patch)
+    [Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack, TextMediaTypeNames.Plain)]
+    public virtual async Task<ResponsePayload<TViewDto>> Patch([FromRoute] TId id, [FromBody] JsonPatchDocument<TUpdateDto> patch)
     {
         if (!ModelExists(id))
         {
             return ResponsePayload<TViewDto>.NotFound();
         }
         var model = await Db.Set<TModel>().FindAsync(id);
-        patch.ApplyTo(model);
+        var dto = Mapper.Map<TUpdateDto>(model);
+        patch.ApplyTo(dto);
+        Mapper.Map(dto, model);
 
         Db.Entry(model).State = EntityState.Modified;
         try
         {
-            await Db.SaveChangesAsync();
+            await Db.SaveChangesAsync(default);
         }
         catch (DbUpdateConcurrencyException)
         {

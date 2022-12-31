@@ -12,6 +12,7 @@
 
 namespace JustinWritesCode.Payloads;
 
+/// <summary>Represents a response payload with an <see langword="int" /> value</summary>
 public class IntResponsePayload : ResponsePayload<int>
 {
     public IntResponsePayload(int value, string? message = default!) : base(value, message)

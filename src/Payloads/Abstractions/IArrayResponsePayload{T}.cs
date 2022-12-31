@@ -12,8 +12,23 @@
 
 namespace JustinWritesCode.Payloads.Abstractions;
 
-/// <inheritdoc cref="IArrayPayload{T}"/>
-/// <inheritdoc cref="IResponsePayload{T}"/>
+/// <summary>Represents a response payload with an array of values</summary>
+/// <remarks>
+///   <para>
+///    <see cref="IArrayResponsePayload{T}"/> is a <see cref="IResponsePayload{T[]}"/> with an array of values.
+///  </para>
+///   <para>
+///    <see cref="ArrayResponsePayload{T}"/> is a <see cref="ResponsePayload{T[]}"/> with an array of values.
+///  </para>
+/// </remarks>
+/// <example>
+/// <code>
+/// var payload = new ArrayResponsePayload&lt;int&gt;(new[] { 1,2,3,4,5 });
+/// </code>
+/// </example>
+/// <typeparam name="T">The type of the values in the array</typeparam>
+/// <seealso cref="IArrayPayload{T}"/>
+/// <seealso cref="IResponsePayload{T[]}"/>
 public interface IArrayResponsePayload<T> : IResponsePayload<T[]>, IArrayPayload<T>
 {
 }

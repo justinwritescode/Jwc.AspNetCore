@@ -12,6 +12,7 @@
 
 namespace JustinWritesCode.Payloads;
 
+/// <summary>Represents a response payload with a <see langword="string" /> value</summary>
 public class StringResponsePayload : ResponsePayload<string>
 {
     public StringResponsePayload(string value, string? message = default!, string stringValue = default!) : base(value, message, stringValue)

@@ -19,7 +19,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using SendPulse.Data.ValueObjects;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using static System.String;
@@ -51,6 +50,7 @@ public static partial class AddSwaggerMetadataExtension
             c.SchemaFilter<EnusAsStringsSchemaFilter>();
             c.DocumentFilter<PathLowercaseDocumentFilter>();
             c.SwaggerDoc("v1", openApiInfo);
+            c.SwaggerDoc(openApiInfo.Version, openApiInfo);
         });
 
         return builder;
@@ -110,67 +110,51 @@ public static partial class AddSwaggerMetadataExtension
 
     public static WebApplicationBuilder DescribeDataTypesToSwagger(this WebApplicationBuilder builder)
     {
-        builder.Services.DescribeSendPulseId();
+        builder.Services.Describe<uri>();
+        builder.Services.Describe<ObjectId>();
+        builder.Services.Describe<System.Domain.PhoneNumber>();
+        builder.Services.Describe<System.Net.Mail.EmailAddress>();
         builder.Services.DescribeBotApiToken();
-        // builder.DescribeBotApiToken();
-        // builder.DescribeSendPulseId();
-        // builder.Services.ConfigureSwaggerGen(c =>
-        // {
-        //     c.MapType<SendPulseId>(
-        //         () => new OpenApiSchema { Type = "string", Pattern = SendPulse.Data.ValueObjects.SendPulseId.RegexString  });
-        //     c.MapType<BotApiToken>(
-        //         () => new OpenApiSchema { Type = "string", Pattern = SendPulse.Data.ValueObjects.BotApiToken.RegexString  });
-        // });
         return builder;
     }
 
     public static OpenApiInfo DefaultOpenApiInfo(Type tThisAssemblyProject)
     {
-        var versionString =
-        IsNullOrEmpty(new ThisAssemblyProject(tThisAssemblyProject).PackageVersion) ?
-            IsNullOrEmpty(new ThisAssemblyProject(tThisAssemblyProject).FileVersion) ?
-                IsNullOrEmpty(new ThisAssemblyProject(tThisAssemblyProject).Version) ?
-                    IsNullOrEmpty(new ThisAssemblyProject(tThisAssemblyProject).AssemblyVersion) ?
-                        "v0.0.1-Preview" :
-                        new ThisAssemblyProject(tThisAssemblyProject).AssemblyVersion :
-                    new ThisAssemblyProject(tThisAssemblyProject).Version :
-                new ThisAssemblyProject(tThisAssemblyProject).FileVersion :
-            new ThisAssemblyProject(tThisAssemblyProject).PackageVersion;
+        var thisAssemblyProject = new ThisAssemblyProject(tThisAssemblyProject);
+        var versionString = thisAssemblyProject.ApiVersion;
 
         var packageTags = new OpenApiArray();
-        packageTags.AddRange(new ThisAssemblyProject(tThisAssemblyProject).PackageTags.Split(" ").Select(tag => new OpenApiString(tag)));
+        packageTags.AddRange(thisAssemblyProject.PackageTags.Split(" ").Select(tag => new OpenApiString(tag)));
 
         return new()
         {
-            Title = new ThisAssemblyProject(tThisAssemblyProject).Title,
+            Title = thisAssemblyProject.Title,
             Version = versionString,
-            Description = new ThisAssemblyProject(tThisAssemblyProject).Description,
-            TermsOfService = !string.IsNullOrEmpty(new ThisAssemblyProject(tThisAssemblyProject).TermsOfServiceUrl)
-                ? new Uri(new ThisAssemblyProject(tThisAssemblyProject).TermsOfServiceUrl)
-                : null,
+            Description = thisAssemblyProject.Description,
+            TermsOfService = thisAssemblyProject.TermsOfServiceUrl,
             Extensions =
             {
                 [nameof(ThisAssemblyProject.PackageProjectUrl)]
-                    = new OpenApiString(new ThisAssemblyProject(tThisAssemblyProject).PackageProjectUrl),
+                    = new OpenApiString(thisAssemblyProject.PackageProjectUrl),
                 [nameof(ThisAssemblyProject.RepositoryUrl)]
-                    = new OpenApiString(new ThisAssemblyProject(tThisAssemblyProject).RepositoryUrl),
+                    = new OpenApiString(thisAssemblyProject.RepositoryUrl),
                 ["Tags"] = packageTags
             },
             Contact = new()
             {
-                Name = new ThisAssemblyProject(tThisAssemblyProject).Company,
+                Name = thisAssemblyProject.Company,
                 Email = new ThisAssemblyProject(tThisAssemblyProject).ContactEmail,
-                Url = new(new ThisAssemblyProject(tThisAssemblyProject).PackageProjectUrl),
+                Url = thisAssemblyProject.PackageProjectUrl,
                 Extensions =
                 {
-                    [nameof(ThisAssemblyProject.Authors)] = new OpenApiString(new ThisAssemblyProject(tThisAssemblyProject).Authors),
-                    [nameof(ThisAssemblyProject.Owners)] = new OpenApiString(new ThisAssemblyProject(tThisAssemblyProject).Owners)
+                    [nameof(ThisAssemblyProject.Authors)] = new OpenApiString(thisAssemblyProject.Authors),
+                    [nameof(ThisAssemblyProject.Owners)] = new OpenApiString(thisAssemblyProject.Owners)
                 }
             },
             License = new()
             {
-                Name =new ThisAssemblyProject(tThisAssemblyProject).LicenseExpression,
-                Url = new($"https://opensource.org/licenses/{new ThisAssemblyProject(tThisAssemblyProject).LicenseExpression}")
+                Name = thisAssemblyProject.LicenseExpression,
+                Url = thisAssemblyProject.LicenseUrl
             }
         };
     }
@@ -182,7 +166,7 @@ public static partial class AddSwaggerMetadataExtension
 //             {
 //                 Type = "object",
 //                 Schema
-//                 Description = "A SendPulseId is a 24-character hexadecimal string that uniquely identifies a SendPulse entity."
+//                 Description = "A ObjectId is a 24-character hexadecimal string that uniquely identifies a SendPulse entity."
 //             })
 //         });
 //     }

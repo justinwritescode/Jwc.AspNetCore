@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net7.0</TargetFrameworks>
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -21,14 +22,15 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="System.All.Usings" />
-    <PackageReference Include="JustinWritesCode.Http" />
-    <PackageReference Include="JustinWritesCode.Payloads" />
-    <PackageReference Include="JustinWritesCode.MediatR" />
-    <PackageReference Include="JustinWritesCode.MediatR.Abstractions" />
+    <PackageReference Include="JustinWritesCode.Http" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Payloads" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.MediatR" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.MediatR.Abstractions" ExcludeAssets="ContentFiles" />
     <PackageReference Include="System.Net.Mime.MediaTypeNames" />
-    <PackageReference Include="JustinWritesCode.Abstractions" />
-    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />
-    <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
+    <PackageReference Include="JustinWritesCode.Abstractions" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Primitives" ExcludeAssets="ContentFiles" />
   </ItemGroup>
   <ItemGroup>
     <!-- <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" /> -->

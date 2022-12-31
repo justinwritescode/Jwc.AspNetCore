@@ -14,6 +14,7 @@ using System.Net;
 
 namespace JustinWritesCode.Payloads;
 
+/// <summary>Represents a payload of a newly-created resource</summary>
 public class CreatedResponsePayload<T> : ResponsePayload<T>
 {
     public uri? Location { get; }

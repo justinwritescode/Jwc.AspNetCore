@@ -15,27 +15,40 @@ namespace JustinWritesCode.AspNetCore.Controllers;
 using System.Net.Mime.MediaTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 
 public static class PingExtensions
 {
     /// <symmary>Adds a simple health check to the app</symmary>
     public static WebApplication MapPing(this WebApplication app)
     {
-        app.MapGet("/ping", () => "pong")
-           .Produces<string>(contentType: TextMediaType.Plain.DisplayName)
+        _ = app.MapGet("/ping", () => "pong")
+           .Produces<string>(contentType: TextMediaTypeNames.Plain)
            .AllowAnonymous()
            .WithDisplayName("Ping")
            .WithName("Ping")
            .WithTags("Diagnostics")
-           .WithOpenApi();
+           .WithOpenApi(op =>
+           {
+            op.Responses["200"] = new() { Description = "Pong", Content = { [TextMediaTypeNames.Plain] = new() { Schema = new() { Type = "pong", Description = "a simple reply" }, Example = new OpenApiString("pong") } } };
+            return op;
+           });
 
-        app.MapHealthChecks(
+        _ = app.MapHealthChecks(
             "/health-check",
             new (){
                 AllowCachingResponses = false,
                 ResponseWriter = async (ctx, rpt) => await ctx.Response.WriteAsJsonAsync(rpt),
                 Predicate = _ => true })
-            .AllowAnonymous();
+            .WithTags("Diagnostics")
+            .AllowAnonymous()
+            .WithOpenApi(op =>
+            {
+                op.Responses["200"] = new() { Description = "Pong", Content = { [TextMediaTypeNames.Plain] = new() { Schema = new() { Reference = new () { Type = ReferenceType.Schema, Id = typeof(HealthReport).Name } } } } };
+                return op;
+            });
 
         return app;
     }

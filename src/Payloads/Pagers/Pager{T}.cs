@@ -23,6 +23,7 @@ using static System.Net.HttpStatusCode;
 
 namespace JustinWritesCode.Payloads;
 
+/// <inheritdoc cref="IPager{T}"/>
 [DebuggerDisplay($"{{{nameof(StringValue)}}}, {nameof(Page)}: {{{nameof(Page)}}} of {{{nameof(TotalRecords)}}}")]
 public class Pager<T> : ArrayResponsePayload<T>, IPayload<T[]>, IPager<T>, IPayload, IPager
 {
@@ -87,7 +88,7 @@ public class Pager<T> : ArrayResponsePayload<T>, IPayload<T[]>, IPager<T>, IPayl
         return schema;
     }
 
-    public static new Pager<T> NotFound() => new () { StatusCode = (int)HttpStatusCode.NotFound };
-    public static new Pager<T> BadRequest() => new () { StatusCode = (int)HttpStatusCode.BadRequest };
-    public static new Pager<T> NoContent() => new () { StatusCode = (int)HttpStatusCode.NoContent };
+    public static Pager<T> NotFound() => new () { StatusCode = (int)HttpStatusCode.NotFound };
+    public static Pager<T> BadRequest() => new () { StatusCode = (int)HttpStatusCode.BadRequest };
+    public static Pager<T> NoContent() => new () { StatusCode = (int)HttpStatusCode.NoContent };
 }

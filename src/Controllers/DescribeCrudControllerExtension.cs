@@ -27,10 +27,7 @@ public static class DescribeCrudControllerExtension
 {
     public static WebApplicationBuilder DescribeCrudController(this WebApplicationBuilder builder)
     {
-        builder.Services.ConfigureSwaggerGen(options =>
-        {
-            options.OperationFilter<CrudControllerOperationFilter>();
-        });
+        builder.Services.ConfigureSwaggerGen(options => options.OperationFilter<CrudControllerOperationFilter>());
         return builder;
     }
 }
@@ -56,7 +53,7 @@ public class CrudControllerOperationFilter : IOperationFilter
 
             switch(context.MethodInfo.Name)
             {
-                case HttpRequestMethodNames.Post:
+                case Post:
                     operation.RequestBody = new OpenApiRequestBody
                     {
                         Content =
@@ -67,7 +64,7 @@ public class CrudControllerOperationFilter : IOperationFilter
                         }
                     };
                     break;
-                case HttpRequestMethodNames.Put:
+                case Put:
                     operation.RequestBody = new OpenApiRequestBody
                     {
                         Content =
@@ -78,10 +75,10 @@ public class CrudControllerOperationFilter : IOperationFilter
                         }
                     };
                     break;
-                case HttpRequestMethodNames.Delete:
+                case Delete:
                     operation.RequestBody = null;
                     break;
-                case HttpRequestMethodNames.Patch:
+                case Patch:
                     operation.RequestBody = new OpenApiRequestBody
                     {
                         Content =
@@ -92,7 +89,7 @@ public class CrudControllerOperationFilter : IOperationFilter
                         }
                     };
                     break;
-                case HttpRequestMethodNames.Get:
+                case Get:
                     operation.RequestBody = null;
                     operation.Responses.Add(Status200OK.ToString(),
                     new OpenApiResponse
@@ -106,7 +103,7 @@ public class CrudControllerOperationFilter : IOperationFilter
                         }
                     });
                     break;
-                case HttpRequestMethodNames.Get + "All":
+                case Get + "All":
                     operation.RequestBody = null;
                     operation.Responses.Add(Status200OK.ToString(),
                         new OpenApiResponse
@@ -136,7 +133,7 @@ public class CrudControllerOperationFilter : IOperationFilter
     }
 
 
-    private static Type? GetCrudControllerModelType(Type type)
+    private static type? GetCrudControllerModelType(type type)
     {
         return (type.IsConstructedGenericType && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>))) ?
                type.GetGenericArguments()[0] :
@@ -144,7 +141,7 @@ public class CrudControllerOperationFilter : IOperationFilter
                GetCrudControllerModelType(type.BaseType) :
                null;
     }
-    private static Type? GetCrudControllerIdType(Type type)
+    private static type? GetCrudControllerIdType(type type)
     {
         return (type.IsConstructedGenericType && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>))) ?
                type.GetGenericArguments()[3] :
@@ -153,12 +150,10 @@ public class CrudControllerOperationFilter : IOperationFilter
                null;
     }
 
-    private static bool IsCrudController(Type type)
+    private static bool IsCrudController(type type)
     {
-        return (type.IsConstructedGenericType && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>)))
+        return ((type.IsConstructedGenericType && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>)))
                ||
-               type.BaseType != typeof(object) ?
-               IsCrudController(type.BaseType) :
-               false;
+               type.BaseType != typeof(object)) && IsCrudController(type.BaseType);
     }
 }

@@ -17,9 +17,9 @@ using System.Net;
 using JustinWritesCode.Payloads.Abstractions;
 using Microsoft.OpenApi.Models;
 
+/// <inheritdoc cref="ISingleItemPager{T}"/>
 [DebuggerDisplay($"{{{nameof(StringValue)}}}, {nameof(Page)}: {{{nameof(Page)}}} of {{{nameof(TotalRecords)}}}")]
 public class SingleItemPager<T> : Pager<T>, ISingleItemPager<T>, IPager
-
 {
     public SingleItemPager() : this(default, 0, 0)
     {

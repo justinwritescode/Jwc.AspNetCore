@@ -1,19 +1,17 @@
 namespace Microsoft.Extensions.DependencyInjection;
 
 using System.Net.Http.Headers;
-
 using System.Net.Mime.MediaTypes;
+using AutoMapper;
 using JustinWritesCode.AspNetCore.Authorization;
 using JustinWritesCode.AspNetCore.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SendPulse.Data.ValueObjects;
-using AutoMapper;
 public static class AddTheWorksExtensions
 {
-    public static WebApplicationBuilder AddTheWorks(this WebApplicationBuilder builder, type? tThisAssemblyProject = null, IEnumerable<type>? typesToUseForAutoMapper = default, Action<WebApplicationBuilder>? configure = default)
+    public static WebApplicationBuilder AddTheWorks(this WebApplicationBuilder builder, type? tThisAssemblyProject = null, IEnumerable<type>? typesToUseForAutoMapperAndMediatR = default, Action<WebApplicationBuilder>? configure = default)
     {
         builder.Logging
                .AddConfiguration(builder.Configuration.GetSection("Logging"))
@@ -22,19 +20,20 @@ public static class AddTheWorksExtensions
 
         builder.AddIdentity();
 
-        typesToUseForAutoMapper ??= System.AppDomain.CurrentDomain.GetAssemblies()
+        typesToUseForAutoMapperAndMediatR ??= AppDomain.CurrentDomain.GetAssemblies()
                                                             .SelectMany(a => a.GetTypes());
-        builder.Services.AddAutoMapper(typesToUseForAutoMapper.ToArray());
+        builder.Services.AddAutoMapper(typesToUseForAutoMapperAndMediatR.ToArray());
 
         tThisAssemblyProject ??= typeof(ThisAssembly.Project);
-        builder.Services.AddSwaggerGen();
-        builder.AddSwaggerMetadata(tThisAssemblyProject)
+        builder.AddSwaggerGen()
+               .AddSwaggerMetadata(tThisAssemblyProject)
                .DescribeDataTypesToSwagger()
                .DescribeBasicApiAuthentication()
                .AddXmlCommentsToSwagger()
                .DescribeCrudController()
                .AddSwaggerExamples()
-               .AddSwaggerHeaderOperationFilter();
+               .AddSwaggerHeaderOperationFilter()
+               .DescribeFileUploads();
 
         builder.Services
                .AddControllers()
@@ -51,19 +50,21 @@ public static class AddTheWorksExtensions
 
         builder.AddApiAuthentication();
 
-        builder.AddApiAuthentication(_ => { });
+        // builder.AddApiAuthentication(_ => { });
 
-        builder.AddOutputFormatters();
+        builder.AddFormatters();
 
         builder.Services.AddHealthChecks();
 
         builder.AddPayloadServices();
 
-        builder.DescribeIdentityDataTypes();
+        // builder.DescribeIdentityDataTypes();
 
         builder.DescribeSchemasViaAttributes();
 
         builder.AddHashids();
+
+        builder.Services.AddMediatR(typesToUseForAutoMapperAndMediatR.ToArray());
 
         // builder.();
 
@@ -102,15 +103,15 @@ public static class AddTheWorksExtensions
         // app.UseSwaggerUI();
         app.UseCustomizedSwaggerUI(tThisAssemblyProject);
 
+        app.UseApiBasicAuthentication();
+
         app.UseWelcomePage(new WelcomePageOptions { Path = "/welcome" });
 
         app.MapPing();
 
-        app.UseApiBasicAuthentication();
+        app.MapRazorPages();
 
         app.MapControllers();
-
-        app.MapRazorPages();
 
         return app;
     }

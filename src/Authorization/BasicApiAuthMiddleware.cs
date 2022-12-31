@@ -16,6 +16,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
+using static System.Text.TextEncodingExtensions;
 using JustinWritesCode.Abstractions;
 using JustinWritesCode.AspNetCore.Authorization;
 using JustinWritesCode.Identity;
@@ -43,7 +44,7 @@ public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
         {
             var authHeader = AuthenticationHeaderValue.Parse(context.Request.Headers["Authorization"]);
             var credentialBytes = FromBase64String(authHeader.Parameter);
-            var credentials = UTF8.GetString(credentialBytes).Split(':', 2);
+            var credentials = GetUTF8String(credentialBytes).Split(':', 2);
             var authUsername = credentials[0];
             var authPassword = credentials[1];
             Logger.AuthenticatingUser(authUsername);
@@ -63,16 +64,15 @@ public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
             else
             {
                 Logger.UserAuthenticationFailed(authUsername);
-                context.Response.Headers["WWW-Authenticate"] = "Basic";
-                context.Response.StatusCode = (int)Unauthorized;
-
+                // context.Response.Headers["WWW-Authenticate"] = "Basic";
+                // context.Response.StatusCode = (int)Unauthorized;
             }
         }
         catch
         {
             Logger.InvalidAuthHeader(context.TraceIdentifier);
-            context.Response.Headers["WWW-Authenticate"] = "Basic";
-            context.Response.StatusCode = (int)Unauthorized;
+            // context.Response.Headers["WWW-Authenticate"] = "Basic";
+            // context.Response.StatusCode = (int)Unauthorized;
 
         }
 

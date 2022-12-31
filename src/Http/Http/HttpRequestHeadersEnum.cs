@@ -17,7 +17,7 @@ using System.Runtime.Serialization;
 /// <summary>
 /// Contains the standard set of headers applicable to an HTTP request.
 /// </summary>
-[GenerateEnumerationClass("HttpRequestHeaderName")]
+[GenerateEnumerationRecordStruct("HttpRequestHeaderName")]
 public enum HttpRequestHeaderNameEnum
 {
     /// <summary>The number of the page being requested</summary>

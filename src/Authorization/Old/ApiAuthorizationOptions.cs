@@ -33,9 +33,6 @@ public class ApiBasicAuthenticationOptions : AuthenticationSchemeOptions
     // public override string ClaimsIssuer => JustinWritesCode.Security.Claims.
 
     public const string AuthenticationSchemeName = "Basic";
-    public const string UserHeaderName = "X-User-Key";
-    public const string AdminHeaderName = "X-Admin-Key";
-
-    // public string? UserApiKey { get; set; }
-    // public string? AdminApiKey { get; set; }
+    public const string AuthenticationSchemeDisplayName = "Basic Authentication";
+    public const string AuthenticationSchemeDescription = "Basic Authentication with a username and password";
 }

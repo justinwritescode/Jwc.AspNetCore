@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace JustinWritesCode.Payloads.Abstractions;
 
 /// <summary>Represents a response payload</summary>
+/// <remarks>The type of the payload is <see langword="object"/>.</remarks>
 public interface IResponsePayload : IPayload, IStatusCodeActionResult
 {
     /// <summary>If the request was successful</summary>

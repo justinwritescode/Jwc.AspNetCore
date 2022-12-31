@@ -13,14 +13,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <Description>Provides a set of constants for the most common media types.  Fills in the gaps left by the <see cref="System.Net.Mime.MediaTypeNames" /> class.</Description>
+    <Description>Provides a set of constants for the most common media types.  Fills in the gaps left by the <see cref="System.Net.Mime.MediaTypeNames" />
+ class.</Description>
     <GenerateNuspec>true</GenerateNuspec>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
     <PackageReference Include="JustinWritesCode.Enumerations.Abstractions" />
-    <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration" IncludeAssets="Analyzers;Build" PrivateAssets="All" />  
+    <!-- <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration" IncludeAssets="Analyzers;Build" PrivateAssets="All" />   -->
     <PackageReference Include="System.ComponentModel.Annotations" />
+    <PackageReference Include="System.ComponentModel.Usings" />
+    <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration" IncludeAssets="Analyzers;Build" PrivateAssets="All" />
+    <!-- <ProjectReference Include="../../../../Types/src/Enumerations/CodeGeneration/JustinWritesCode.Enumerations.CodeGeneration.csproj" TreatAsPackageReference="true" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /> -->
   </ItemGroup>
   <ItemGroup>
     <PackageTag Include="mime" />

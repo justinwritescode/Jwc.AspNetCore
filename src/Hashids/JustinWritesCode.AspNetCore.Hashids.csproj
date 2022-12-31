@@ -15,9 +15,9 @@
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="AspNetCore.Hashids" />
     <PackageReference Include="Microsoft.OpenApi" />
     <PackageReference Include="SWashbuckle.AspNetCore.SwaggerGen" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>

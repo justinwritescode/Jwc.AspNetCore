@@ -26,6 +26,8 @@ public static class AddApiAuthenticationExtensions
     public static WebApplicationBuilder AddApiAuthentication(this WebApplicationBuilder builder, Action<ApiBasicAuthenticationOptions> configureOptions = null)
     {
         builder.Services.AddScoped<IBasicApiAuthMiddleware, BasicApiAuthMiddleware>();
+        builder.Services.AddAuthentication(ApiBasicAuthenticationOptions.AuthenticationSchemeName)
+                        .AddScheme<ApiBasicAuthenticationOptions, BasicApiAuthHandler>(ApiBasicAuthenticationOptions.AuthenticationSchemeName, ApiBasicAuthenticationOptions.AuthenticationSchemeName, _ => { });
         return builder;
         // builder.Services
         //     .AddAuthentication()

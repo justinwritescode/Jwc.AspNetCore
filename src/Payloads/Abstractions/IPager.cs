@@ -14,6 +14,7 @@ using System.Net;
 
 namespace JustinWritesCode.Payloads.Abstractions;
 
+/// <summary>Represents a response payload that supports paging</summary>
 public interface IPager : IResponsePayload
 {
     /// <summary>The array of items in the current page</summary>

@@ -12,6 +12,7 @@
 
 
 namespace JustinWritesCode.Payloads.Abstractions;
+/// <summary>Represents a single-item pager (i.e., one item per page).</summary>
 public interface ISingleItemPager : ISingleItemPager<object>, IPayload<object>
 {
 }

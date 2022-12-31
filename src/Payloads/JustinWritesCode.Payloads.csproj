@@ -27,13 +27,12 @@
     <PackageReference Include="System.Text.Json.Usings" />
     <PackageReference Include="System.Text.RegularExpressions.Usings" />
     <PackageReference Include="Vogen" />
-    <!-- <PackageReference Include="JustinWritesCode.System.Extensions" /> -->
+    <PackageReference Include="JustinWritesCode.Primitives" />
+    <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
+
     <ProjectReference Include="../Http/Extensions/JustinWritesCode.Http.Extensions.csproj" />
     <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" />
     <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
-    <ProjectReference Include="../../../Types/src/Domain/JustinWritesCode.Domain.csproj" />
-    <ProjectReference Include="../../../Types/src/Enumerations/Enumeration/JustinWritesCode.Enumerations.Enumeration.csproj" />
-    <!-- <ProjectReference Include="../../../Types/src/Extensions/JustinWritesCode.System.Extensions.csproj" /> -->
-    <PackageReference Include="JustinWritesCode.System.Extensions" IncludeAssets="ContentFiles" ExcludeAssets="Lib;Runtime;Native;Analyzers" PrivateAssets="All" />
+    <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles" />
   </ItemGroup>
 </Project>

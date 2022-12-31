@@ -23,7 +23,7 @@ public static class AddHashidsExtensions
 
     public static WebApplicationBuilder AddHashids(this WebApplicationBuilder builder)
     {
-        builder.Services.AddHashids(options =>
+        _ = builder.Services.AddHashids(options =>
             builder.Configuration.GetSection(nameof(HashidsOptions)).Bind(options));
 
         return builder;

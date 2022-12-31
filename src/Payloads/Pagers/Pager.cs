@@ -15,6 +15,8 @@ using System.Net;
 
 namespace JustinWritesCode.Payloads;
 
+/// <inheritdoc cref="IPager"/>
+/// <remarks>Items are of type <see langword="object" />.</remarks>
 [DebuggerDisplay($"{{{nameof(StringValue)}}}, {nameof(Page)}: {{{nameof(Page)}}} of {{{nameof(TotalRecords)}}}")]
 public class Pager : Pager<object>
 {

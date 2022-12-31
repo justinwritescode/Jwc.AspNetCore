@@ -12,13 +12,25 @@
 
 namespace JustinWritesCode.AspNetCore.Hashids;
 using System.Linq;
-// using AspNetCore.Hashids.Mvc;
 using global::AspNetCore.Hashids.Mvc;
+using global::AspNetCore.Hashids.Options;
+using HashidsNet;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 public class HashidsOperationFilter : IOperationFilter
 {
+    private readonly IHashids _hashids;
+    private readonly HashidsOptions _options;
+
+    public HashidsOperationFilter(IHashids hashids, IOptions<HashidsOptions> options)
+    {
+        _hashids = hashids;
+        _options = options.Value;
+    }
+
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         var hashids = context
@@ -33,6 +45,8 @@ public class HashidsOperationFilter : IOperationFilter
             {
                 parameter.Schema.Format = string.Empty;
                 parameter.Schema.Type = "string";
+                parameter.Schema.Example = new OpenApiString(_hashids.Encode(3));
+                parameter.Schema.Pattern = $"[{_options.Alphabet}]{{{_options.MinHashLength}}}";
             }
         }
 
@@ -44,6 +58,9 @@ public class HashidsOperationFilter : IOperationFilter
                 {
                     property.Value.Format = string.Empty;
                     property.Value.Type = "string";
+                    property.Value.Description = $"Hashid encoded {property.Value.Description}";
+                    property.Value.Example = new OpenApiString(_hashids.Encode(100));
+                    property.Value.Pattern = $"[{_options.Alphabet}]{{{_options.MinHashLength}}}";
                 }
             }
         }

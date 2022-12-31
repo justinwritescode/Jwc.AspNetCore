@@ -13,10 +13,11 @@
 namespace JustinWritesCode.Payloads;
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using JustinWritesCode.Payloads.Abstractions;
 
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]
-public class Payload<T> : IPayload<T>
+public class Payload<T> : IPayload<T>//, IParsable<Payload<T>>
 {
     public Payload() : this(default, default) { }
 
@@ -38,4 +39,9 @@ public class Payload<T> : IPayload<T>
     private string? _stringValue;
 
     public override string ToString() => _stringValue ?? Value?.ToString()!;
+    // public static Payload<T> Parse(string s, IFormatProvider? provider)
+    //     => TryParse(s, provider, out var result) ? result : throw new FormatException($"The string '{s}' is not a valid {nameof(Payload<T>)}");
+
+    // public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out Payload<T> result)
+    //     => (result = T.TryParse(s, provider, out var value) ? new Payload<T>(value, s) : null) != null;
 }

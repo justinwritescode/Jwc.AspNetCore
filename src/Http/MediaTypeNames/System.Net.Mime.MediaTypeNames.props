@@ -3,6 +3,5 @@
     <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
     <PackageReference Include="JustinWritesCode.Enumerations.Abstractions" />
     <Using Include="System.Net.Mime.MediaTypes" />
-    <PackageReference Include="Ardalis.SmartEnum" />
   </ItemGroup>
 </Project>

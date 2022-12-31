@@ -11,7 +11,7 @@
  */
 namespace JustinWritesCode.Payloads.Abstractions;
 
-/// <summary>Represents <inheritdoc cref="IPayload{T}" path="/value/node()" />.</summary>
+/// <summary>Represents <inheritdoc cref="IPayload{T}" path="/value" />.</summary>
 /// <value>a strongly-typed payload of type <typeparamref name="T" /></value>
 public interface IPayload<T> : IPayload
 {

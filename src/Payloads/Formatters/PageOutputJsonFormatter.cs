@@ -21,7 +21,7 @@ public class PagedOutputJsonFormatter : IOutputFormatter
 {
     public bool CanWriteResult(OutputFormatterCanWriteContext context)
     {
-        return context.Object is IPager && context.HttpContext.Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.ToLower().Equals(System.Net.Mime.MediaTypes.TextMediaTypeNames.Plain.ToLower()));
+        return context.Object is IPager && context.HttpContext.Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.ToLower().Equals(TextMediaTypeNames.Plain.ToLower()));
     }
 
     public async Task WriteAsync(OutputFormatterWriteContext context)

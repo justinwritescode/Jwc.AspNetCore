@@ -15,6 +15,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
     <PackageReference Include="ThisAssembly.Project" />
     <PackageReference Include="ThisAssembly" />
+    <PackageReference Include="JustinWritesCode.Primitives" />
   </ItemGroup>
   <PropertyGroup>
     

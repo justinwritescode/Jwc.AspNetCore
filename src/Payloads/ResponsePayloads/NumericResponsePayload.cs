@@ -12,6 +12,7 @@
 
 namespace JustinWritesCode.Payloads;
 
+/// <summary>Represents a response payload with a <see langword="decimal" /> value</summary>
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]
 public class NumericResponsePayload : ResponsePayload<decimal>
 {

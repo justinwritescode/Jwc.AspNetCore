@@ -15,6 +15,7 @@ namespace JustinWritesCode.Payloads;
 using System.Xml.Serialization;
 using JustinWritesCode.Payloads.Abstractions;
 
+/// <inheritdoc cref="IArrayResponsePayload{T}"/>
 public class ArrayResponsePayload<T> : ResponsePayload<T[]>, IArrayResponsePayload<T>
 {
     public ArrayResponsePayload()

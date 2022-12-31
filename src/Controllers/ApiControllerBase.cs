@@ -14,12 +14,12 @@ namespace JustinWritesCode.AspNetCore.Controllers;
 
 using System.Collections.Generic;
 using System.Net.Mime.MediaTypes;
+using global::Microsoft.EntityFrameworkCore.Abstractions;
 using JustinWritesCode.Abstractions;
 using JustinWritesCode.AspNetCore.ProblemDetailsExamples;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using global::Microsoft.EntityFrameworkCore.Abstractions;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -27,18 +27,17 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 
 [ApiController]
 [Route("api/[controller]")]
-[Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
-[Consumes(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
-[ProducesErrorResponseType(typeof(ProblemDetails))]
+[Produces(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack, TextMediaTypeNames.Plain)]
+[Consumes(ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, ApplicationMediaTypeNames.Bson, ApplicationMediaTypeNames.MessagePack, TextMediaTypeNames.Plain)]
 [ProducesResponseType(typeof(ValidationProblemDetails), Status400BadRequest, ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
 [ProducesResponseType(typeof(ProblemDetails), Status401Unauthorized, ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
 [ProducesResponseType(typeof(ProblemDetails), Status403Forbidden, ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
 [ProducesResponseType(typeof(ProblemDetails), Status404NotFound, ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
 [ProducesResponseType(typeof(ProblemDetails), Status500InternalServerError, ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
-[SwaggerResponse(Status400BadRequest, "Bad Request", typeof(ValidationProblemDetails))]
-[SwaggerResponse(Status401Unauthorized, "Unauthorized", typeof(ProblemDetails))]
-[SwaggerResponse(Status404NotFound, "Not Foundd", typeof(ProblemDetails))]
-[SwaggerResponse(Status500InternalServerError, "Internal Server Error", typeof(ProblemDetails))]
+[SwaggerResponse(Status400BadRequest, "Bad Request", typeof(ValidationProblemDetails), ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
+[SwaggerResponse(Status401Unauthorized, "Unauthorized", typeof(ProblemDetails), ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
+[SwaggerResponse(Status404NotFound, "Not Found", typeof(ProblemDetails), ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
+[SwaggerResponse(Status500InternalServerError, "Internal Server Error", typeof(ProblemDetails), ApplicationMediaTypeNames.Json, ApplicationMediaTypeNames.Xml, TextMediaTypeNames.Plain)]
 [SwaggerResponseExample(Status400BadRequest, typeof(BadRequestProblemDetailsExample))]
 [SwaggerResponseExample(Status401Unauthorized, typeof(UnauthorizedProblemDetailsExample))]
 [SwaggerResponseExample(Status404NotFound, typeof(NotFoundProblemDetailsExample))]
@@ -47,19 +46,13 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 public abstract class ApiControllerBase : ControllerBase, ILog
 {
     public ILogger Logger { get; }
-    public ApiControllerBase(ILogger logger)
-    {
-        Logger = logger;
-    }
+    public ApiControllerBase(ILogger logger) => Logger = logger;
 }
 
-public abstract class ApiControllerBase<TDbContext> : ApiControllerBase, Microsoft.EntityFrameworkCore.Abstractions.IHaveADbContext<TDbContext>
-    where TDbContext : DbContext, Microsoft.EntityFrameworkCore.Abstractions.IDbContext<TDbContext>
+public abstract class ApiControllerBase<TDbContext> : ApiControllerBase, IHaveADbContext<TDbContext>
+    where TDbContext : IDbContext, IDbContext<TDbContext>
 {
-    DbContext Microsoft.EntityFrameworkCore.Abstractions.IHaveADbContext.Db => Db;
+    IDbContext IHaveADbContext.Db => Db;
     public TDbContext Db { get; }
-    public ApiControllerBase(TDbContext dbContext, ILogger logger) : base(logger)
-    {
-        Db = dbContext;
-    }
+    public ApiControllerBase(TDbContext dbContext, ILogger logger) : base(logger) => Db = dbContext;
 }

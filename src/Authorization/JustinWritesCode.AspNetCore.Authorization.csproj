@@ -16,31 +16,27 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <!-- <PackageReference Include="Microsoft.AspNetCore.OpenApi" Condition="'$(TargetFramework)' == 'net7.0'" />  -->
     <PackageReference Include="Microsoft.OpenApi" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
-    <!-- <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />
-    <PackageReference Include="JustinWritesCode.Abstractions" /> -->
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" VersionOverride="$(JsonPatchVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
-    <!-- <PackageReference Include="JustinWritesCode.System.Extensions" IncludeAssets="ContentFiles; Build" ExcludeAssets="Lib; Compile; Runtime; Native; Analyzers" />  -->
     <PackageReference Include="System.Usings" />
-    <PackageReference Include="JustinWritesCode.System.Extensions" IncludeAssets="ContentFiles; Build" ExlcudeAssets="Lib; Compile; Native; Analyzers" PrivateAssets="All"/>
+    <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles; Build" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../../../EntityFrameworkCore/src/Abstractions/JustinWritesCode.EntityFrameworkCore.Abstractions.csproj" />
-    <ProjectReference Include="../../../Types/src/Core/Abstractions/JustinWritesCode.Abstractions.csproj" />
     <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
     <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" />
-    <ProjectReference Include="../../../Identity/src/Claims/JustinWritesCode.Identity.Claims.csproj" />
-    <ProjectReference Include="../../../Identity/src/Models/JustinWritesCode.Identity.Models.csproj" />
-    <ProjectReference Include="../../../Identity/src/EntityFrameworkCore/JustinWritesCode.Identity.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="../../../Identity/src/AspNetCore/JustinWritesCode.Identity.AspNetCore.csproj" />
-    <!-- <ProjectReference Include="../../../Types/src/Extensions/JustinWritesCode.System.Extensions.csproj" /> -->
-    <ProjectReference Include="../../../Telegram/src/Identity/Telegram.Identity.csproj" />
   </ItemGroup>
-  <Import Project="../../../Telegram/src/Identity/Telegram.Identity.props" />
+  <ItemGroup>
+    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />
+    <PackageReference Include="JustinWritesCode.Abstractions" />
+    <PackageReference Include="JustinWritesCode.Identity.Claims" />
+    <PackageReference Include="JustinWritesCode.Identity.Models" />
+    <PackageReference Include="JustinWritesCode.Identity.EntityFrameworkCore" />
+    <PackageReference Include="JustinWritesCode.Identity.AspNetCore" />
+    <PackageReference Include="Telegram.Identity" />
+  </ItemGroup>
 </Project>

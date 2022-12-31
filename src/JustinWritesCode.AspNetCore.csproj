@@ -1,8 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-  </PropertyGroup>
+<!--
+ * JustinWritesCode.AspNetCore.slnproj
+ * 
+ *   Created: 2022-12-10-06:11:32
+ *   Modified: 2022-12-10-06:11:32
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.Build.Traversal">
   <ItemGroup>
-    <ProjectReference Include="./**/*.csproj" />
+    <ProjectReference Include="./Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" />
+    <ProjectReference Include="./Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" />
+    <ProjectReference Include="./ErrorHandling/JustinWritesCode.AspNetCore.ErrorHandling.csproj" />
+    <ProjectReference Include="./Exceptions/JustinWritesCode.AspNetCore.Exceptions.csproj" />
+    <ProjectReference Include="./Hosting.Extensions/JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj" />
+    <ProjectReference Include="./Formatters/JustinWritesCode.AspNetCore.Formatters.csproj" />
+    <ProjectReference Include="./Http/Extensions/JustinWritesCode.Http.Extensions.csproj" />
+    <ProjectReference Include="./Http/Http/JustinWritesCode.Http.csproj" />
+    <ProjectReference Include="./Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+    <ProjectReference Include="./Payloads/JustinWritesCode.Payloads.csproj" />
+    <ProjectReference Include="./Startup/JustinWritesCode.AspNetCore.Startup.csproj" />
+    <ProjectReference Include="./Swagger/JustinWritesCode.AspNetCore.Swagger.csproj" />
   </ItemGroup>
 </Project>

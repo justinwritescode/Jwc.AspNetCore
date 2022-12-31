@@ -13,7 +13,7 @@
 namespace JustinWritesCode.Payloads.Abstractions;
 using System.Net;
 
-/// <summary>Represents a srrongly-typed response payload with a page of items</summary>
+/// <summary>Represents a srrongly-typed response payload with a page of items of type <typeparamref name="T"/></summary>
 public interface IPager<T> : IResponsePayload<T[]>, IPager
 {
     /// <summary>The array of items in the current page</summary>
