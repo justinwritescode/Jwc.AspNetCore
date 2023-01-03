@@ -1,4 +1,4 @@
-/*
+﻿/*
  * DessribeHadhidsExtensions.cs
  *
  *   Created: 2022-12-20-01:11:23
@@ -18,10 +18,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DescribeHashidsExtensions
 {
-    public static WebApplicationBuilder DescribeHashids(this WebApplicationBuilder builder, params Assembly[]? assemblies)
+    public static WebApplicationBuilder DescribeHashids(
+        this WebApplicationBuilder builder,
+        params Assembly[]? assemblies
+    )
     {
-        builder.Services.ConfigureSwaggerGen(options =>
-            options.OperationFilter<HashidsOperationFilter>());
+        builder.Services.ConfigureSwaggerGen(
+            options => options.OperationFilter<HashidsOperationFilter>()
+        );
         // assemblies ??= AppDomain.CurrentDomain.GetAssemblies();
         // builder.Services.DescribeHashidsFromAssemblies(assemblies);
         return builder;

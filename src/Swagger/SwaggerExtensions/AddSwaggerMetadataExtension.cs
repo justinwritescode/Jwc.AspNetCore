@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AddSwaggerGenExtension.cs
  *
  *   Created: 2022-12-05-07:35:08
@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 using System;
 using System.Linq;
-using JustinWritesCode.AspNetCore.Authorization;
+using JustinWritesCode.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
@@ -37,11 +37,12 @@ public static partial class AddSwaggerMetadataExtension
         this WebApplicationBuilder builder,
         Type tThisAssemblyProject,
         string version = "v1",
-        OpenApiInfo? openApiInfo = default)
+        OpenApiInfo? openApiInfo = default
+    )
     {
         openApiInfo ??= DefaultOpenApiInfo(tThisAssemblyProject);
         openApiInfo.Version ??= version;
-        if(!openApiInfo.Version.StartsWith("v"))
+        if (!openApiInfo.Version.StartsWith("v"))
             openApiInfo.Version = "v" + openApiInfo.Version;
 
         builder.Services.ConfigureSwaggerGen(c =>
@@ -56,7 +57,9 @@ public static partial class AddSwaggerMetadataExtension
         return builder;
     }
 
-    public static WebApplicationBuilder AddApiKeyToSwaggerSecurity(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddApiKeyToSwaggerSecurity(
+        this WebApplicationBuilder builder
+    )
     {
         builder.Services.ConfigureSwaggerGen(c =>
         {
@@ -64,51 +67,66 @@ public static partial class AddSwaggerMetadataExtension
             c.AddSecurityDefinition(
                 "Api-Key",
                 new OpenApiSecurityScheme
-                    {
-                        Description = "API Key Authorization", // Description of the API key
-                        Name = "Api-Key", //
-                        In = ParameterLocation.Header, // Where the API key is located
-                        Type = SecuritySchemeType.ApiKey, // Type of the API key
-                        Scheme = "Api-Key" //
-                    });
-        });
-        return builder;
-    }
-    public static WebApplicationBuilder DescribeBasicApiAuthentication(this WebApplicationBuilder builder)
-    {
-        builder.Services.ConfigureSwaggerGen(c =>
-        {
-             c.AddSecurityDefinition(
-                  "Basic",
-                  new OpenApiSecurityScheme
-                       {
-                            Description = "Basic", // Description of the API key
-                            Name = "Authorization", //
-                            In = ParameterLocation.Header, // Where the API key is located
-                            Type = SecuritySchemeType.Http, // Type of the API key
-                            Scheme = "Basic" //
-                       });
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                    {
-                        {
-                        new OpenApiSecurityScheme
-                                {
-                                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Basic" }
-                                },
-                                new List<string>()
-                        },
-                    });
+                {
+                    Description = "API Key Authorization", // Description of the API key
+                    Name = "Api-Key", //
+                    In = ParameterLocation.Header, // Where the API key is located
+                    Type = SecuritySchemeType.ApiKey, // Type of the API key
+                    Scheme = "Api-Key" //
+                }
+            );
         });
         return builder;
     }
 
-    public static WebApplicationBuilder AddSwaggerHeaderOperationFilter(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder DescribeBasicApiAuthentication(
+        this WebApplicationBuilder builder
+    )
+    {
+        builder.Services.ConfigureSwaggerGen(c =>
+        {
+            c.AddSecurityDefinition(
+                "Basic",
+                new OpenApiSecurityScheme
+                {
+                    Description = "Basic", // Description of the API key
+                    Name = "Authorization", //
+                    In = ParameterLocation.Header, // Where the API key is located
+                    Type = SecuritySchemeType.Http, // Type of the API key
+                    Scheme = "Basic" //
+                }
+            );
+            c.AddSecurityRequirement(
+                new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Basic"
+                            }
+                        },
+                        new List<string>()
+                    },
+                }
+            );
+        });
+        return builder;
+    }
+
+    public static WebApplicationBuilder AddSwaggerHeaderOperationFilter(
+        this WebApplicationBuilder builder
+    )
     {
         // builder.Services.ConfigureSwaggerGen(c => c.OperationFilter<AddHeaderOperationFilter>("Range", "Requested range of values to return", false));
         return builder;
     }
 
-    public static WebApplicationBuilder DescribeDataTypesToSwagger(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder DescribeDataTypesToSwagger(
+        this WebApplicationBuilder builder
+    )
     {
         builder.Services.Describe<uri>();
         builder.Services.Describe<ObjectId>();
@@ -124,7 +142,9 @@ public static partial class AddSwaggerMetadataExtension
         var versionString = thisAssemblyProject.ApiVersion;
 
         var packageTags = new OpenApiArray();
-        packageTags.AddRange(thisAssemblyProject.PackageTags.Split(" ").Select(tag => new OpenApiString(tag)));
+        packageTags.AddRange(
+            thisAssemblyProject.PackageTags.Split(" ").Select(tag => new OpenApiString(tag))
+        );
 
         return new()
         {
@@ -134,10 +154,12 @@ public static partial class AddSwaggerMetadataExtension
             TermsOfService = thisAssemblyProject.TermsOfServiceUrl,
             Extensions =
             {
-                [nameof(ThisAssemblyProject.PackageProjectUrl)]
-                    = new OpenApiString(thisAssemblyProject.PackageProjectUrl),
-                [nameof(ThisAssemblyProject.RepositoryUrl)]
-                    = new OpenApiString(thisAssemblyProject.RepositoryUrl),
+                [nameof(ThisAssemblyProject.PackageProjectUrl)] = new OpenApiString(
+                    thisAssemblyProject.PackageProjectUrl
+                ),
+                [nameof(ThisAssemblyProject.RepositoryUrl)] = new OpenApiString(
+                    thisAssemblyProject.RepositoryUrl
+                ),
                 ["Tags"] = packageTags
             },
             Contact = new()
@@ -147,8 +169,12 @@ public static partial class AddSwaggerMetadataExtension
                 Url = thisAssemblyProject.PackageProjectUrl,
                 Extensions =
                 {
-                    [nameof(ThisAssemblyProject.Authors)] = new OpenApiString(thisAssemblyProject.Authors),
-                    [nameof(ThisAssemblyProject.Owners)] = new OpenApiString(thisAssemblyProject.Owners)
+                    [nameof(ThisAssemblyProject.Authors)] = new OpenApiString(
+                        thisAssemblyProject.Authors
+                    ),
+                    [nameof(ThisAssemblyProject.Owners)] = new OpenApiString(
+                        thisAssemblyProject.Owners
+                    )
                 }
             },
             License = new()
@@ -159,15 +185,15 @@ public static partial class AddSwaggerMetadataExtension
         };
     }
 
-//     public static WebApplicationBuilder DescribeAnyOfTypes(this WebApplicationBuilder builder)
-//     {
-//         builder.Services.ConfigureSwaggerGen(options =>
-//             options.MapType(typeof(AnyOfTypes.AnyOf<>), > new OpenApiSchema
-//             {
-//                 Type = "object",
-//                 Schema
-//                 Description = "A ObjectId is a 24-character hexadecimal string that uniquely identifies a SendPulse entity."
-//             })
-//         });
-//     }
+    //     public static WebApplicationBuilder DescribeAnyOfTypes(this WebApplicationBuilder builder)
+    //     {
+    //         builder.Services.ConfigureSwaggerGen(options =>
+    //             options.MapType(typeof(AnyOfTypes.AnyOf<>), > new OpenApiSchema
+    //             {
+    //                 Type = "object",
+    //                 Schema
+    //                 Description = "A ObjectId is a 24-character hexadecimal string that uniquely identifies a SendPulse entity."
+    //             })
+    //         });
+    //     }
 }

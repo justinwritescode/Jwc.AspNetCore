@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AudioMediaTypeNames.cs
  *
  *   Created: 2022-12-31-01:11:28
@@ -10,14 +10,13 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
- namespace System.Net.Mime.MediaTypes;
+namespace System.Net.Mime.MediaTypes;
 
 using System.Runtime.Serialization;
 
-[GenerateEnumerationRecordStruct("ApplicationMediaType", "System.Net.Mime.MediaTypes")]
+[GenerateEnumerationRecordStruct("AudioMediaType", "System.Net.Mime.MediaTypes")]
 public enum AudioMediaTypesEnum
 {
-
     [Display(Name = AudioMediaTypeNames.Any, Description = nameof(Any))]
     [EnumMember(Value = AudioMediaTypeNames.Any)]
     Any,

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * DI.cs
  *
  *   Created: 2022-12-06-10:43:40
@@ -22,15 +22,24 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class DI
 {
     public static IServiceCollection AddJsonPatch(this IServiceCollection services) =>
-        services.AddControllers(options =>
-        {
-            options.InputFormatters.Insert(0, MyJsonPatchInputFormatter.GetJsonPatchInputFormatter());
-        }).Services;
+        services
+            .AddControllers(options =>
+            {
+                options.InputFormatters.Insert(
+                    0,
+                    MyJsonPatchInputFormatter.GetJsonPatchInputFormatter()
+                );
+            })
+            .Services;
+
     public static WebApplicationBuilder AddJsonPatch(this WebApplicationBuilder builder)
     {
         builder.Services.AddControllers(options =>
         {
-            options.InputFormatters.Insert(0, MyJsonPatchInputFormatter.GetJsonPatchInputFormatter());
+            options.InputFormatters.Insert(
+                0,
+                MyJsonPatchInputFormatter.GetJsonPatchInputFormatter()
+            );
         });
         return builder;
     }
@@ -48,9 +57,7 @@ public static class MyJsonPatchInputFormatter
 
         return builder
             .GetRequiredService<IOptions<MvcOptions>>()
-            .Value
-            .InputFormatters
-            .OfType<NewtonsoftJsonPatchInputFormatter>()
+            .Value.InputFormatters.OfType<NewtonsoftJsonPatchInputFormatter>()
             .First();
     }
 }

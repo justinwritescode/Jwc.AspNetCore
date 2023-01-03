@@ -1,4 +1,5 @@
-using System.Security.AccessControl;
+﻿using System.Security.AccessControl;
+
 /*
  * FormatOutput.cs
  *

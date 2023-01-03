@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AddSwaggerSchemasViaAttribute.cs
  *
  *   Created: 2022-12-21-08:01:55
@@ -18,7 +18,9 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class AddSwaggerSchemasViaAttributeExtension
 {
-    public static WebApplicationBuilder DescribeSchemasViaAttributes(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder DescribeSchemasViaAttributes(
+        this WebApplicationBuilder builder
+    )
     {
         builder.Services.DescribeSchemasViaAttributes();
         return builder;
@@ -32,5 +34,4 @@ public static class AddSwaggerSchemasViaAttributeExtension
         // });
         return services;
     }
-
 }

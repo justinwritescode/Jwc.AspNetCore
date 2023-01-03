@@ -1,4 +1,5 @@
-using System.Net.Mime;
+﻿using System.Net.Mime;
+
 /*
  * HttpRequestExtensions.cs
  *
@@ -17,6 +18,8 @@ using static System.Net.Mime.MediaTypeNames;
 
 public static partial class HttpRequestExtensions2
 {
-    public static string GetContentType(this HttpRequest req)
-        => req.ContentType ?? req.GetHeaderParam<string>(ContentType) ?? ApplicationMediaTypeNames.Json;
+    public static string GetContentType(this HttpRequest req) =>
+        req.ContentType
+        ?? req.GetHeaderParam<string>(ContentType)
+        ?? ApplicationMediaTypeNames.Json;
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ErrorResponsePayload.cs
  *
  *   Created: 2022-11-26-04:57:24
@@ -17,5 +17,7 @@ namespace JustinWritesCode.Payloads;
 public static class ErrorResponse
 {
     public static ProblemDetails FromException(Exception ex) => new() { Detail = ex.Message };
-    public static ProblemDetails ArgumentNullResponse(string argumentName) => new () { Detail = $"Argument '{argumentName}' cannot be null." };
+
+    public static ProblemDetails ArgumentNullResponse(string argumentName) =>
+        new() { Detail = $"Argument '{argumentName}' cannot be null." };
 }

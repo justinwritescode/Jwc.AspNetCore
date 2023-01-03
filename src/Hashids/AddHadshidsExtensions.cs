@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AddHadshids.cs
  *
  *   Created: 2022-12-20-01:16:56
@@ -23,8 +23,9 @@ public static class AddHashidsExtensions
 
     public static WebApplicationBuilder AddHashids(this WebApplicationBuilder builder)
     {
-        _ = builder.Services.AddHashids(options =>
-            builder.Configuration.GetSection(nameof(HashidsOptions)).Bind(options));
+        _ = builder.Services.AddHashids(
+            options => builder.Configuration.GetSection(nameof(HashidsOptions)).Bind(options)
+        );
 
         return builder;
     }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * IArrayResponsePayload{T}.cs
  *
  *   Created: 2022-11-26-04:51:36
@@ -29,6 +29,4 @@ namespace JustinWritesCode.Payloads.Abstractions;
 /// <typeparam name="T">The type of the values in the array</typeparam>
 /// <seealso cref="IArrayPayload{T}"/>
 /// <seealso cref="IResponsePayload{T[]}"/>
-public interface IArrayResponsePayload<T> : IResponsePayload<T[]>, IArrayPayload<T>
-{
-}
+public interface IArrayResponsePayload<T> : IResponsePayload<T[]>, IArrayPayload<T> { }

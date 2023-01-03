@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ArrayResponsePayload.cs
  *
  *   Created: 2022-11-28-09:44:00
@@ -22,7 +22,11 @@ using JustinWritesCode.Payloads.Abstractions;
 public class ArrayResponsePayload : ArrayResponsePayload<object>, IArrayResponsePayload
 {
     public ArrayResponsePayload() : this(Empty<object>()) { }
-    public ArrayResponsePayload(IEnumerable value, string? message = default, string? stringValue = default, string itemSeparator = ArrayPayload<object>.DefaultItemSeparator) : base(value.OfType<object>().ToArray(), message, stringValue)
-    {
-    }
+
+    public ArrayResponsePayload(
+        IEnumerable value,
+        string? message = default,
+        string? stringValue = default,
+        string itemSeparator = ArrayPayload<object>.DefaultItemSeparator
+    ) : base(value.OfType<object>().ToArray(), message, stringValue) { }
 }

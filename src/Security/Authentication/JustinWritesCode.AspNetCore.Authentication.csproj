@@ -27,8 +27,8 @@
     <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles; Build" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
-    <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" />
+    <ProjectReference Include="../../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+    <ProjectReference Include="../../Http/Http/JustinWritesCode.Http.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />

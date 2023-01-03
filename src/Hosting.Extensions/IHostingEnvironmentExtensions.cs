@@ -1,4 +1,4 @@
-/*
+﻿/*
  * IHostingEnvironmentExtensions.cs
  *
  *   Created: 2022-12-05-07:21:20
@@ -10,6 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 namespace Microsoft.Extensions.Hosting;
+
 public static class IHostingEnvironmentExtensions
 {
     public static bool IsLocal(this IHostEnvironment environment) =>

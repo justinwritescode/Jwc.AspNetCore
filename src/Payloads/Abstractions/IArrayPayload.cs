@@ -1,4 +1,4 @@
-/*
+﻿/*
  * IPayload copy.cs
  *
  *   Created: 2022-11-26-04:39:55
@@ -13,6 +13,4 @@
 namespace JustinWritesCode.Payloads.Abstractions;
 
 /// <inheritdoc cref="IArrayPayload{object}"/>
-public interface IArrayPayload : IArrayPayload<object>, IPayload<object[]>
-{
-}
+public interface IArrayPayload : IArrayPayload<object>, IPayload<object[]> { }

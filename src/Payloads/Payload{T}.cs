@@ -1,4 +1,4 @@
-//
+﻿//
 // Payload.cs
 //
 //   Created: 2022-10-31-08:33:05
@@ -17,7 +17,7 @@ using System.Diagnostics.CodeAnalysis;
 using JustinWritesCode.Payloads.Abstractions;
 
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]
-public class Payload<T> : IPayload<T>//, IParsable<Payload<T>>
+public class Payload<T> : IPayload<T> //, IParsable<Payload<T>>
 {
     public Payload() : this(default, default) { }
 
@@ -29,13 +29,18 @@ public class Payload<T> : IPayload<T>//, IParsable<Payload<T>>
 
     [JProp("value")]
     public virtual T? Value { get; set; }
+
     [JProp("stringValue")]
     public virtual string? StringValue
     {
         get => _stringValue ?? ToString();
         set => _stringValue = value;
     }
-    object? IPayload.Value { get => Value; set => Value = value is T t ? t : default; }
+    object? IPayload.Value
+    {
+        get => Value;
+        set => Value = value is T t ? t : default;
+    }
     private string? _stringValue;
 
     public override string ToString() => _stringValue ?? Value?.ToString()!;

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * DescribeHashidsExtensions.cs
  *
  *   Created: 2022-12-20-05:21:11
@@ -33,9 +33,7 @@ public class HashidsOperationFilter : IOperationFilter
 
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        var hashids = context
-            .ApiDescription
-            .ParameterDescriptions
+        var hashids = context.ApiDescription.ParameterDescriptions
             .Where(x => x.ModelMetadata.BinderType == typeof(HashidsModelBinder))
             .ToDictionary(d => d.Name, d => d);
 

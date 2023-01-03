@@ -1,4 +1,4 @@
-/*
+﻿/*
  * OpenApiAnyOfAttribute.cs
  *
  *   Created: 2022-12-21-08:46:55
@@ -18,8 +18,12 @@ namespace JustinWritesCode.Swagger.Annotations;
 public class OpenApiAnyOfAttribute : OpenApiSchemaAttribute
 {
     public OpenApiAnyOfAttribute(params object[] anyOf) : this(anyOf as IEnumerable<object>) { }
+
     public OpenApiAnyOfAttribute(IEnumerable<object> anyOf)
     {
-        Enum = anyOf.Select(anyOfItem => new OpenApiString(anyOfItem?.ToString())).OfType<IOpenApiAny>().ToList();
+        Enum = anyOf
+            .Select(anyOfItem => new OpenApiString(anyOfItem?.ToString()))
+            .OfType<IOpenApiAny>()
+            .ToList();
     }
 }

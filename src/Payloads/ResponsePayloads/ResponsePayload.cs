@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ResponsePayload{T}.cs
  *
  *   Created: 2022-11-29-05:25:22
@@ -18,9 +18,7 @@ using JustinWritesCode.Payloads.Abstractions;
 /// <inheritdoc cref="IResponsePayload"/>
 public class ResponsePayload : ResponsePayload<object>, IResponsePayload
 {
-    public ResponsePayload()
-        : this(default, true, default)
-    { }
+    public ResponsePayload() : this(default, true, default) { }
 
     public ResponsePayload(object? value, bool isSuccess = true, string? message = default)
     {
@@ -29,7 +27,11 @@ public class ResponsePayload : ResponsePayload<object>, IResponsePayload
         StringValue = value.ToString();
     }
 
-    public static ResponsePayload NotFound() => new () { StatusCode = (int)HttpStatusCode.NotFound };
-    public static ResponsePayload BadRequest() => new () { StatusCode = (int)HttpStatusCode.BadRequest };
-    public static ResponsePayload NoContent() => new () { StatusCode = (int)HttpStatusCode.NoContent };
+    public static ResponsePayload NotFound() => new() { StatusCode = (int)HttpStatusCode.NotFound };
+
+    public static ResponsePayload BadRequest() =>
+        new() { StatusCode = (int)HttpStatusCode.BadRequest };
+
+    public static ResponsePayload NoContent() =>
+        new() { StatusCode = (int)HttpStatusCode.NoContent };
 }

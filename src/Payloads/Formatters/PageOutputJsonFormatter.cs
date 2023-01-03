@@ -1,4 +1,4 @@
-/*
+﻿/*
  * PageOutputJsonFormatter.cs
  *
  *   Created: 2022-12-19-04:21:55
@@ -17,14 +17,25 @@ using static System.Net.Http.Headers.HttpResponseHeaderNames;
 
 namespace JustinWritesCode.Payloads.Formatters;
 
-public class PagedOutputJsonFormatter : IOutputFormatter
+public class PagedOutputJsonFormatter : OutputFormatter
 {
-    public bool CanWriteResult(OutputFormatterCanWriteContext context)
+    public PagedOutputJsonFormatter()
     {
-        return context.Object is IPager && context.HttpContext.Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.ToLower().Equals(TextMediaTypeNames.Plain.ToLower()));
+        SupportedMediaTypes.Add(TextMediaTypeNames.Plain);
+        SupportedMediaTypes.Add(TextMediaTypeNames.Any);
     }
 
-    public async Task WriteAsync(OutputFormatterWriteContext context)
+    public bool CanWriteResult(OutputFormatterCanWriteContext context)
+    {
+        return context.Object is IPager
+            && context.HttpContext.Request
+                .GetTypedHeaders()
+                .Accept.Any(
+                    a => a.MediaType.Value.ToLower().Equals(TextMediaTypeNames.Plain.ToLower())
+                );
+    }
+
+    public override void WriteResponseHeaders(OutputFormatterWriteContext context)
     {
         var payload = context.Object as IPayload;
         var response = context.HttpContext.Response;
@@ -32,26 +43,63 @@ public class PagedOutputJsonFormatter : IOutputFormatter
 
         if (payload is IPager pagedPayload)
         {
-            response.StatusCode = (!pagedPayload.HasNextPage && !pagedPayload.HasPreviousPage)
-                ? StatusCodes.Status200OK
-                : StatusCodes.Status206PartialContent;
+            response.StatusCode =
+                (!pagedPayload.HasNextPage && !pagedPayload.HasPreviousPage)
+                    ? StatusCodes.Status200OK
+                    : StatusCodes.Status206PartialContent;
             response.GetTypedHeaders().ContentRange = new(
                 pagedPayload.PageStartIndex,
                 pagedPayload.PageEndIndex,
-                pagedPayload.TotalRecords)
-            { Unit = "items" };
+                pagedPayload.TotalRecords
+            )
+            {
+                Unit = "items"
+            };
             response.Headers.Add(XPageNumber, pagedPayload.Page.ToString());
             response.Headers.Add(XPageSize, pagedPayload.PageSize.ToString());
             response.Headers.Add(XTotalRecords, pagedPayload.TotalRecords.ToString());
             response.Headers.Add(XTotalPages, pagedPayload.TotalPages.ToString());
             response.Headers.Add(XStartIndex, pagedPayload.PageStartIndex.ToString());
             response.Headers.Add(XEndIndex, pagedPayload.PageEndIndex.ToString());
-            response.Headers.Add(XHasNextPage, pagedPayload.HasNextPage.ToString());
-            response.Headers.Add(XHasPreviousPage, pagedPayload.HasPreviousPage.ToString());
-            response.Headers.Add(XIsLastPage, pagedPayload.IsLastPage.ToString());
-            response.Headers.Add(ContentRange, $"items {pagedPayload.PageStartIndex}-{pagedPayload.PageEndIndex}/{pagedPayload.TotalRecords}");
         }
-
-        await response.WriteAsync(payload.StringValue);
     }
+
+    public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
+    {
+        var payload = context?.Object as IPayload;
+        var response = context.HttpContext.Response;
+        response.ContentType = TextMediaTypeNames.Plain;
+        await response?.WriteAsync(payload?.ToString() ?? string.Empty);
+    }
+
+    // public async Task WriteAsync(OutputFormatterWriteContext context)
+    // {
+    //     var payload = context.Object as IPayload;
+    //     var response = context.HttpContext.Response;
+    //     response.ContentType = TextMediaTypeNames.Plain;
+
+    //     if (payload is IPager pagedPayload)
+    //     {
+    //         response.StatusCode = (!pagedPayload.HasNextPage && !pagedPayload.HasPreviousPage)
+    //             ? StatusCodes.Status200OK
+    //             : StatusCodes.Status206PartialContent;
+    //         response.GetTypedHeaders().ContentRange = new(
+    //             pagedPayload.PageStartIndex,
+    //             pagedPayload.PageEndIndex,
+    //             pagedPayload.TotalRecords)
+    //         { Unit = "items" };
+    //         response.Headers.Add(XPageNumber, pagedPayload.Page.ToString());
+    //         response.Headers.Add(XPageSize, pagedPayload.PageSize.ToString());
+    //         response.Headers.Add(XTotalRecords, pagedPayload.TotalRecords.ToString());
+    //         response.Headers.Add(XTotalPages, pagedPayload.TotalPages.ToString());
+    //         response.Headers.Add(XStartIndex, pagedPayload.PageStartIndex.ToString());
+    //         response.Headers.Add(XEndIndex, pagedPayload.PageEndIndex.ToString());
+    //         response.Headers.Add(XHasNextPage, pagedPayload.HasNextPage.ToString());
+    //         response.Headers.Add(XHasPreviousPage, pagedPayload.HasPreviousPage.ToString());
+    //         response.Headers.Add(XIsLastPage, pagedPayload.IsLastPage.ToString());
+    //         response.Headers.Add(ContentRange, $"items {pagedPayload.PageStartIndex}-{pagedPayload.PageEndIndex}/{pagedPayload.TotalRecords}");
+    //     }
+
+    //     await response.WriteAsync(payload.StringValue);
+    // }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * EmailSender.cs
  *
  *   Created: 2022-12-24-05:29:40
@@ -18,10 +18,12 @@ public record class EmailSenderOptions
 {
     public required string ConnectionString { get; init; }
     public required string DefaultSender { get; init; }
+
     public EmailSenderOptions(string connectionString)
     {
         ConnectionString = connectionString;
     }
+
     [SetsRequiredMembers]
     public EmailSenderOptions() : this(string.Empty) { }
 }

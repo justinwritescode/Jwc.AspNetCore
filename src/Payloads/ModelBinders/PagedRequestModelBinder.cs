@@ -19,7 +19,7 @@ namespace JustinWritesCode.Payloads.ModelBinders
             this.BindingSource = BindingSource.Header;
             this.BinderType = typeof(RangeRequestModelBinder);
             this.Name = HttpRequestHeaderNames.Range;
-         }
+        }
     }
 
     [ModelBinderAttribute(BinderType = typeof(RangeRequestModelBinder))]
@@ -32,35 +32,73 @@ namespace JustinWritesCode.Payloads.ModelBinders
             var end = int.MaxValue;
             int pageNumber = 1;
             int pageSize = int.MaxValue;
-            var rangeHeader = bindingContext.HttpContext.Request.GetTypedHeaders()?.Range?.Ranges?.FirstOrDefault();
+            var rangeHeader = bindingContext.HttpContext.Request
+                .GetTypedHeaders()
+                ?.Range?.Ranges?.FirstOrDefault();
             try
-             {
-                if(rangeHeader != null)
+            {
+                if (rangeHeader != null)
                 {
                     rangeRequest = Range.From(rangeHeader);
                     bindingContext.BindingSource = BindingSource.Header;
                     // rangeRequest.PageNumber = (int)rangeHeader.Ranges.First().From.Value;
                     // rangeRequest.PageSize = (int)rangeHeader.Ranges.First().To.Value - (int)rangeHeader.Ranges.First().From.Value;
                 }
-                else if (bindingContext.HttpContext.Request.Headers[HttpRequestHeaderNames.Range] != default(StringValues) && Range.TryParse(bindingContext.HttpContext.Request.Headers[HttpRequestHeaderNames.Range].First(), out rangeRequest))
+                else if (
+                    bindingContext.HttpContext.Request.Headers[HttpRequestHeaderNames.Range]
+                        != default(StringValues)
+                    && Range.TryParse(
+                        bindingContext.HttpContext.Request.Headers[
+                            HttpRequestHeaderNames.Range
+                        ].First(),
+                        out rangeRequest
+                    )
+                )
                 {
                     bindingContext.BindingSource = BindingSource.Header;
                 }
-                else if (bindingContext.HttpContext.Request.TryGetHeaderParam<int>(XPageSize, out pageSize) && bindingContext.HttpContext.Request.TryGetHeaderParam<int>(XPageNumber, out pageNumber))
+                else if (
+                    bindingContext.HttpContext.Request.TryGetHeaderParam<int>(
+                        XPageSize,
+                        out pageSize
+                    )
+                    && bindingContext.HttpContext.Request.TryGetHeaderParam<int>(
+                        XPageNumber,
+                        out pageNumber
+                    )
+                )
                 {
                     rangeRequest = Range.From(pageNumber, pageSize);
                     bindingContext.BindingSource = BindingSource.Header;
                     // rangeRequest.PageSize = pageSize;
                     // rangeRequest.PageNumber = pageNumber;
                 }
-                else if (bindingContext.HttpContext.Request.TryGetQueryStringParam<int>("page-size", out pageSize) && bindingContext.HttpContext.Request.TryGetQueryStringParam<int>("page", out pageNumber))
+                else if (
+                    bindingContext.HttpContext.Request.TryGetQueryStringParam<int>(
+                        "page-size",
+                        out pageSize
+                    )
+                    && bindingContext.HttpContext.Request.TryGetQueryStringParam<int>(
+                        "page",
+                        out pageNumber
+                    )
+                )
                 {
                     rangeRequest = Range.From(pageNumber, pageSize);
                     bindingContext.BindingSource = BindingSource.Query;
                     // rangeRequest.PageSize = qpageSize;
                     // rangeRequest.PageNumber = qpageNumber;
                 }
-                else if (bindingContext.HttpContext.Request.TryGetQueryStringParam<int>("pageSize", out pageSize) && bindingContext.HttpContext.Request.TryGetQueryStringParam<int>("page", out pageNumber))
+                else if (
+                    bindingContext.HttpContext.Request.TryGetQueryStringParam<int>(
+                        "pageSize",
+                        out pageSize
+                    )
+                    && bindingContext.HttpContext.Request.TryGetQueryStringParam<int>(
+                        "page",
+                        out pageNumber
+                    )
+                )
                 {
                     rangeRequest = Range.From(pageNumber, pageSize);
                     bindingContext.BindingSource = BindingSource.Query;
@@ -72,8 +110,8 @@ namespace JustinWritesCode.Payloads.ModelBinders
                     rangeRequest = default;
                     bindingContext.Result = ModelBindingResult.Failed();
                 }
-             }
-            catch(ValueObjectValidationException vove)
+            }
+            catch (ValueObjectValidationException vove)
             {
                 bindingContext.HttpContext.Response.StatusCode = (int)RequestedRangeNotSatisfiable;
                 bindingContext.ModelState.AddModelError("RangeRequest", vove.Message);

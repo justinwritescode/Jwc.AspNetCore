@@ -37,9 +37,12 @@
     <PackageReference Include="ThisAssembly.Project" />
     <PackageReference Include="JustinWritesCode.MediatR" />
     <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" />
+    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.HealthCheck" />
+    <PackageReference Include="SendPulse.Api.HealthCheck" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles" />
     <ProjectReference Include="../Hosting.Extensions/JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj" ExcludeAssets="ContentFiles" />
     <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" ExcludeAssets="ContentFiles" />
     <ProjectReference Include="../Payloads/JustinWritesCode.Payloads.csproj" ExcludeAssets="ContentFiles" />

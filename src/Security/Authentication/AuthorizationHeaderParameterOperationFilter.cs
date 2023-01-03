@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AuthorizationHeaderParameterOperationFilter.cs
  *
  *   Created: 2022-12-10-07:05:54
@@ -10,7 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-namespace JustinWritesCode.AspNetCore.Authorization;
+namespace JustinWritesCode.AspNetCore.Authentication;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -24,27 +24,28 @@ public class AuthorizationHeaderParameterOperationFilter : IOperationFilter
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         var filterPipeline = context.ApiDescription.ActionDescriptor.FilterDescriptors;
-        var isAuthorized = filterPipeline.Select(filterInfo => filterInfo.Filter).Any(filter => filter is AuthorizeFilter);
-        var allowAnonymous = filterPipeline.Select(filterInfo => filterInfo.Filter).Any(filter => filter is IAllowAnonymousFilter);
+        var isAuthorized = filterPipeline
+            .Select(filterInfo => filterInfo.Filter)
+            .Any(filter => filter is AuthorizeFilter);
+        var allowAnonymous = filterPipeline
+            .Select(filterInfo => filterInfo.Filter)
+            .Any(filter => filter is IAllowAnonymousFilter);
 
-        if (isAuthorized
-            && !allowAnonymous)
+        if (isAuthorized && !allowAnonymous)
         {
             if (operation.Parameters == null)
                 operation.Parameters = new List<OpenApiParameter>();
 
-            operation.Parameters.Add(new OpenApiParameter
+            operation.Parameters.Add(
+                new OpenApiParameter
                 {
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Description = "access token",
                     Required = true,
-                    Schema = new()
-                    {
-                        Type = "string",
-                        Default = new OpenApiString("Bearer ")
-                    }
-                });
+                    Schema = new() { Type = "string", Default = new OpenApiString("Bearer ") }
+                }
+            );
         }
     }
 }

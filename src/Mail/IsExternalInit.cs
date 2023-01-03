@@ -1,4 +1,5 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+
 /*
  * IsExternalInit.cs
  *
@@ -25,9 +26,12 @@ namespace System.Runtime.CompilerServices
 
 namespace System.Diagnostics.CodeAnalysis
 {
-    internal class SetsRequiredMembersAttribute : Attribute {
+    internal class SetsRequiredMembersAttribute : Attribute
+    {
         public SetsRequiredMembersAttribute() { }
+
         public SetsRequiredMembersAttribute(string members) { }
+
         public SetsRequiredMembersAttribute(params string[] members) { }
     }
 }

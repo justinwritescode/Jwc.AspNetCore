@@ -1,4 +1,4 @@
-/*
+﻿/*
  * PingController.cs
  *
  *   Created: 2022-12-06-10:35:09
@@ -25,28 +25,59 @@ public static class PingExtensions
     public static WebApplication MapPing(this WebApplication app)
     {
         _ = app.MapGet("/ping", () => "pong")
-           .Produces<string>(contentType: TextMediaTypeNames.Plain)
-           .AllowAnonymous()
-           .WithDisplayName("Ping")
-           .WithName("Ping")
-           .WithTags("Diagnostics")
-           .WithOpenApi(op =>
-           {
-            op.Responses["200"] = new() { Description = "Pong", Content = { [TextMediaTypeNames.Plain] = new() { Schema = new() { Type = "pong", Description = "a simple reply" }, Example = new OpenApiString("pong") } } };
-            return op;
-           });
+            .Produces<string>(contentType: TextMediaTypeNames.Plain)
+            .AllowAnonymous()
+            .WithDisplayName("Ping")
+            .WithName("Ping")
+            .WithTags("Diagnostics")
+            .WithOpenApi(op =>
+            {
+                op.Responses["200"] = new()
+                {
+                    Description = "Pong",
+                    Content =
+                    {
+                        [TextMediaTypeNames.Plain] = new()
+                        {
+                            Schema = new() { Type = "pong", Description = "a simple reply" },
+                            Example = new OpenApiString("pong")
+                        }
+                    }
+                };
+                return op;
+            });
 
         _ = app.MapHealthChecks(
-            "/health-check",
-            new (){
-                AllowCachingResponses = false,
-                ResponseWriter = async (ctx, rpt) => await ctx.Response.WriteAsJsonAsync(rpt),
-                Predicate = _ => true })
+                "/health-check",
+                new()
+                {
+                    AllowCachingResponses = false,
+                    ResponseWriter = async (ctx, rpt) => await ctx.Response.WriteAsJsonAsync(rpt),
+                    Predicate = _ => true
+                }
+            )
             .WithTags("Diagnostics")
             .AllowAnonymous()
             .WithOpenApi(op =>
             {
-                op.Responses["200"] = new() { Description = "Pong", Content = { [TextMediaTypeNames.Plain] = new() { Schema = new() { Reference = new () { Type = ReferenceType.Schema, Id = typeof(HealthReport).Name } } } } };
+                op.Responses["200"] = new()
+                {
+                    Description = "Pong",
+                    Content =
+                    {
+                        [TextMediaTypeNames.Plain] = new()
+                        {
+                            Schema = new()
+                            {
+                                Reference = new()
+                                {
+                                    Type = ReferenceType.Schema,
+                                    Id = typeof(HealthReport).Name
+                                }
+                            }
+                        }
+                    }
+                };
                 return op;
             });
 

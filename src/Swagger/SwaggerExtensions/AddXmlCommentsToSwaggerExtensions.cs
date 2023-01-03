@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AddXmlCommentsToSwaggerExtensions.cs
  *
  *   Created: 2022-12-14-03:59:45
@@ -11,6 +11,7 @@
  */
 
 using System.Reflection;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Builder;
 using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 using Unchase.Swashbuckle.AspNetCore.Extensions.Filters;
@@ -25,13 +26,22 @@ public static class AddXmlCommentsToSwaggerExtensions
         var xmlDocs = Directory.GetFiles(binRoot, "*.xml");
         builder.Services.ConfigureSwaggerGen(options =>
         {
-            Array.ForEach(xmlDocs, xmlDoc => {
-                try { options.IncludeXmlCommentsWithRemarks(xmlDoc); }
-                catch(Exception ex) { WriteLine($"Error in file {xmlDoc}: {ex.Message}");  } });
+            xmlDocs.ForEach(xmlDoc =>
+            {
+                try
+                {
+                    var xDoc = XDocument.Load(xmlDoc);
+                    options.IncludeXmlCommentsWithRemarks(xmlDoc);
+                }
+                catch (Exception ex)
+                {
+                    WriteLine($"Error in file {xmlDoc}: {ex.Message}");
+                }
+            });
             options.IncludeXmlCommentsFromInheritDocs(true);
 
             // or configured:
-            options.AddEnumsWithValuesFixFilters(o =>
+            _ = options.AddEnumsWithValuesFixFilters(o =>
             {
                 // add schema filter to fix enums (add 'x-enumNames' for NSwag or its alias from XEnumNamesAlias) in schema
                 o.ApplySchemaFilter = true;
@@ -83,7 +93,6 @@ public static class AddXmlCommentsToSwaggerExtensions
 
             // order tags by name
             options.DocumentFilter<TagOrderByNameDocumentFilter>();
-
         });
 
         return builder;

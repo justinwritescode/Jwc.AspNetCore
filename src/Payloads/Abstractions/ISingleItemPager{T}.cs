@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ISingleItemPager{T}.cs
  *
  *   Created: 2022-11-29-05:22:42
@@ -11,11 +11,13 @@
  */
 
 namespace JustinWritesCode.Payloads.Abstractions;
+
 /// <summary>Represents a strongly-typed single-item pager (i.e., one item per page) of items of type <typeparamref name="T"/>.</summary>
 public interface ISingleItemPager<T> : IResponsePayload<T>
 {
     [JProp("item")]
     T? Item { get; set; }
+
     [JProp("totalRecords")]
     int TotalRecords { get; set; }
     int PageSize { get; set; }

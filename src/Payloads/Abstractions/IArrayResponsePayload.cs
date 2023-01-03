@@ -1,4 +1,4 @@
-/*
+﻿/*
  * IArrayResponsePayload{T} copy.cs
  *
  *   Created: 2022-11-28-09:35:32
@@ -21,6 +21,4 @@ namespace JustinWritesCode.Payloads.Abstractions;
 ///  <see cref="ArrayResponsePayload"/> is a <see cref="ArrayResponsePayload{Object}"/> with an array of <see langword="object" />s.
 /// </para>
 /// </remarks>
-public interface IArrayResponsePayload : IArrayResponsePayload<object>
-{
-}
+public interface IArrayResponsePayload : IArrayResponsePayload<object> { }

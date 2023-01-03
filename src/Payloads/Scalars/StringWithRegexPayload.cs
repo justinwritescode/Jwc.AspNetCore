@@ -1,4 +1,4 @@
-/*
+﻿/*
  * StringWithRegexPayload.cs
  *
  *   Created: 2022-11-26-04:38:20
@@ -24,8 +24,14 @@ public class StringWithRegexPayload : Payload<string>
 
     [JProp("value")]
     public override string? Value { get; set; }
+
     [JProp("regex")]
     public virtual string Regex { get; set; }
+
     [JProp("stringValue")]
-    public override string? StringValue { get => Value; set => Value = value; }
+    public override string? StringValue
+    {
+        get => Value;
+        set => Value = value;
+    }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ResponsePayloadOutputFormatterSelector.cs
  *
  *   Created: 2022-12-19-02:31:16
@@ -9,33 +9,54 @@
  *   Copyright © 2022 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
+namespace JustinWritesCode.Payloads.Infrastructure;
 
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using MvcJsonOptions = Microsoft.AspNetCore.Mvc.JsonOptions;
-namespace JustinWritesCode.Payloads.Infrastructure;
 
 public class ResponsePayloadOutputFormatterSelector : OutputFormatterSelector
 {
-    public override IOutputFormatter SelectFormatter(OutputFormatterCanWriteContext context, IList<IOutputFormatter> formatters, MediaTypeCollection mediaTypes)
+    /// <inheritdoc />
+    ///// <include
+    public override IOutputFormatter SelectFormatter(
+        OutputFormatterCanWriteContext context,
+        IList<IOutputFormatter> formatters,
+        MediaTypeCollection mediaTypes
+    )
     {
         var payload = context.Object as IResponsePayload;
+        var acceptHeader = context.HttpContext.Request
+            .GetTypedHeaders()
+            .Accept.Select(a => a.MediaType.Value.ToLower());
         if (payload is not null)
         {
-            var contentType = payload.ContentTypes.Count > 0 ? payload.ContentTypes[0] : default;
-            if (contentType is not null)
+            var contentType = context.ContentType.ToString();
+            var formatter = formatters.FirstOrDefault(f =>
             {
-                var formatter = formatters.FirstOrDefault(f => f.CanWriteResult(context));
-                if (formatter is not null)
-                {
-                    context.ContentType = contentType;
-                    return formatter;
-                }
+                var @of = f as OutputFormatter;
+                var mediaTypesIntersection = @of?.SupportedMediaTypes?.Intersect(acceptHeader);
+                contentType = mediaTypesIntersection?.FirstOrDefault() ?? contentType;
+                return mediaTypesIntersection?.Any() ?? false;
+                // return mediaTypesIntersection.Any() && @of.CanWriteResult(context);
+            });
+            if (formatter is not null)
+            {
+                context.HttpContext.Response.ContentType = contentType;
+                return formatter;
             }
         }
 
-        return new SystemTextJsonOutputFormatter(context.HttpContext.RequestServices.GetRequiredService<IOptions<MvcJsonOptions>>().Value.JsonSerializerOptions);
+        return new SystemTextJsonOutputFormatter(
+            context.HttpContext.RequestServices
+                .GetRequiredService<IOptions<MvcJsonOptions>>()
+                .Value.JsonSerializerOptions
+        );
     }
 }

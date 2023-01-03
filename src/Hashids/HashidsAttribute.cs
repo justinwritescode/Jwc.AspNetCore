@@ -1,4 +1,4 @@
-/*
+﻿/*
  * HashidsAttribute.cs
  *
  *   Created: 2022-12-20-05:18:39
@@ -15,6 +15,5 @@ namespace System.Text.Json;
 public class HashidsAttribute : System.Text.Json.Serialization.JsonConverterAttribute
 {
     public HashidsAttribute() : base(typeof(global::AspNetCore.Hashids.Json.HashidsJsonConverter))
-    {
-    }
+    { }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
 * DescribeCrudControllerExtension.cs
 *
 *   Created: 2022-12-17-03:32:11
@@ -27,7 +27,9 @@ public static class DescribeCrudControllerExtension
 {
     public static WebApplicationBuilder DescribeCrudController(this WebApplicationBuilder builder)
     {
-        builder.Services.ConfigureSwaggerGen(options => options.OperationFilter<CrudControllerOperationFilter>());
+        builder.Services.ConfigureSwaggerGen(
+            options => options.OperationFilter<CrudControllerOperationFilter>()
+        );
         return builder;
     }
 }
@@ -37,30 +39,65 @@ public class CrudControllerOperationFilter : IOperationFilter
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         var crudControllerType = context.MethodInfo.DeclaringType;
-        if(IsCrudController(crudControllerType))
+        if (IsCrudController(crudControllerType))
         {
             var crudControllerModelType = GetCrudControllerModelType(crudControllerType);
             var crudControllerIdType = GetCrudControllerIdType(crudControllerType);
             var pagerType = typeof(Pager<>).MakeGenericType(crudControllerModelType);
-            var singleItemPagerType = typeof(SingleItemPager<>).MakeGenericType(crudControllerModelType);
-            var pagerPatchType = typeof(Pager<>).MakeGenericType(typeof(JsonPatchDocument<>).MakeGenericType(crudControllerModelType));
-            var pagerOpenApiSchema = pagerType.GetMethod("GetOpenApiSchema")?.Invoke(null, null) as OpenApiSchema;
-            var singleItemPagerOpenApiSchema = pagerType.GetMethod("GetOpenApiSchema")?.Invoke(null, null) as OpenApiSchema;
+            var singleItemPagerType = typeof(SingleItemPager<>).MakeGenericType(
+                crudControllerModelType
+            );
+            var pagerPatchType = typeof(Pager<>).MakeGenericType(
+                typeof(JsonPatchDocument<>).MakeGenericType(crudControllerModelType)
+            );
+            var pagerOpenApiSchema =
+                pagerType.GetMethod("GetOpenApiSchema")?.Invoke(null, null) as OpenApiSchema;
+            var singleItemPagerOpenApiSchema =
+                pagerType.GetMethod("GetOpenApiSchema")?.Invoke(null, null) as OpenApiSchema;
             // operation.Responses.Add("200", new OpenApiResponse { Description = "Success", Content = { { ApplicationMediaTypeNames.Json, new OpenApiMediaType { Schema = new OpenApiSchema { Type = "object" } } } } });
             // operation.Responses.Add("400", new OpenApiResponse { Description = "Bad Request", Content = { { ApplicationMediaTypeNames.Json, new OpenApiMediaType { Schema = new OpenApiSchema { Type = "object" } } } } });
-            operation.Responses.Add(Status401Unauthorized.ToString(), new OpenApiResponse { Description = "Unauthorized" });
-            operation.Responses.Add(Status404NotFound.ToString(), new OpenApiResponse { Description = "Not Found" });
+            operation.Responses.Add(
+                Status401Unauthorized.ToString(),
+                new OpenApiResponse { Description = "Unauthorized" }
+            );
+            operation.Responses.Add(
+                Status404NotFound.ToString(),
+                new OpenApiResponse { Description = "Not Found" }
+            );
 
-            switch(context.MethodInfo.Name)
+            switch (context.MethodInfo.Name)
             {
                 case Post:
                     operation.RequestBody = new OpenApiRequestBody
                     {
                         Content =
                         {
-                            [ApplicationMediaTypeNames.Json] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = crudControllerModelType.Name, Type = ReferenceType.Schema } } },
-                            [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = crudControllerModelType.Name, Type = ReferenceType.Schema } } },
-                            [TextMediaTypeNames.Plain] = new OpenApiMediaType { Schema = new OpenApiSchema { Type = "string" } }
+                            [ApplicationMediaTypeNames.Json] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = crudControllerModelType.Name,
+                                        Type = ReferenceType.Schema
+                                    }
+                                }
+                            },
+                            [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = crudControllerModelType.Name,
+                                        Type = ReferenceType.Schema
+                                    }
+                                }
+                            },
+                            [TextMediaTypeNames.Plain] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema { Type = "string" }
+                            }
                         }
                     };
                     break;
@@ -69,9 +106,32 @@ public class CrudControllerOperationFilter : IOperationFilter
                     {
                         Content =
                         {
-                            [ApplicationMediaTypeNames.Json] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = crudControllerModelType.Name, Type = ReferenceType.Schema } } },
-                            [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = crudControllerModelType.Name, Type = ReferenceType.Schema } } },
-                            [TextMediaTypeNames.Plain] = new OpenApiMediaType { Schema = new OpenApiSchema { Type = "string" } }
+                            [ApplicationMediaTypeNames.Json] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = crudControllerModelType.Name,
+                                        Type = ReferenceType.Schema
+                                    }
+                                }
+                            },
+                            [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = crudControllerModelType.Name,
+                                        Type = ReferenceType.Schema
+                                    }
+                                }
+                            },
+                            [TextMediaTypeNames.Plain] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema { Type = "string" }
+                            }
                         }
                     };
                     break;
@@ -83,77 +143,169 @@ public class CrudControllerOperationFilter : IOperationFilter
                     {
                         Content =
                         {
-                            [ApplicationMediaTypeNames.Json] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = typeof(JsonPatchDocument).Name, Type = ReferenceType.Schema } } },
-                            [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = typeof(JsonPatchDocument).Name, Type = ReferenceType.Schema } } },
-                            [TextMediaTypeNames.Plain] = new OpenApiMediaType { Schema = new OpenApiSchema { Type = "string" } }
+                            [ApplicationMediaTypeNames.Json] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = typeof(JsonPatchDocument).Name,
+                                        Type = ReferenceType.Schema
+                                    }
+                                }
+                            },
+                            [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = typeof(JsonPatchDocument).Name,
+                                        Type = ReferenceType.Schema
+                                    }
+                                }
+                            },
+                            [TextMediaTypeNames.Plain] = new OpenApiMediaType
+                            {
+                                Schema = new OpenApiSchema { Type = "string" }
+                            }
                         }
                     };
                     break;
                 case Get:
                     operation.RequestBody = null;
-                    operation.Responses.Add(Status200OK.ToString(),
-                    new OpenApiResponse
-                    {
-                        Description = "Success",
-                        Content =
+                    operation.Responses.Add(
+                        Status200OK.ToString(),
+                        new OpenApiResponse
                         {
-                            [ApplicationMediaTypeNames.Json] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = crudControllerModelType.Name, Type = ReferenceType.Schema } } },
-                            [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType { Schema = new OpenApiSchema { Reference = new OpenApiReference { Id = crudControllerModelType.Name, Type = ReferenceType.Schema } } },
-                            [TextMediaTypeNames.Plain] = new OpenApiMediaType { Schema = new OpenApiSchema { Type = "string" } }
+                            Description = "Success",
+                            Content =
+                            {
+                                [ApplicationMediaTypeNames.Json] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema
+                                    {
+                                        Reference = new OpenApiReference
+                                        {
+                                            Id = crudControllerModelType.Name,
+                                            Type = ReferenceType.Schema
+                                        }
+                                    }
+                                },
+                                [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema
+                                    {
+                                        Reference = new OpenApiReference
+                                        {
+                                            Id = crudControllerModelType.Name,
+                                            Type = ReferenceType.Schema
+                                        }
+                                    }
+                                },
+                                [TextMediaTypeNames.Plain] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema { Type = "string" }
+                                }
+                            }
                         }
-                    });
+                    );
                     break;
                 case Get + "All":
                     operation.RequestBody = null;
-                    operation.Responses.Add(Status200OK.ToString(),
+                    operation.Responses.Add(
+                        Status200OK.ToString(),
                         new OpenApiResponse
                         {
                             Description = "Success",
                             Content =
                             {
-                                [ApplicationMediaTypeNames.Json] = new OpenApiMediaType { Schema = new OpenApiSchema { AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema } } },
-                                [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType { Schema = new OpenApiSchema { AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema } } },
-                                [TextMediaTypeNames.Plain] = new OpenApiMediaType { Schema = new OpenApiSchema { Type = "string" } }
+                                [ApplicationMediaTypeNames.Json] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema
+                                    {
+                                        AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema }
+                                    }
+                                },
+                                [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema
+                                    {
+                                        AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema }
+                                    }
+                                },
+                                [TextMediaTypeNames.Plain] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema { Type = "string" }
+                                }
                             }
-                        });
-                        operation.Responses.Add(Status200OK.ToString(),
+                        }
+                    );
+                    operation.Responses.Add(
+                        Status200OK.ToString(),
                         new OpenApiResponse
                         {
                             Description = "Success",
                             Content =
                             {
-                                [ApplicationMediaTypeNames.Json] = new OpenApiMediaType { Schema = new OpenApiSchema { AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema } } },
-                                [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType { Schema = new OpenApiSchema { AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema } } },
-                                [TextMediaTypeNames.Plain] = new OpenApiMediaType { Schema = new OpenApiSchema { Type = "string" } }
+                                [ApplicationMediaTypeNames.Json] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema
+                                    {
+                                        AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema }
+                                    }
+                                },
+                                [ApplicationMediaTypeNames.Xml] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema
+                                    {
+                                        AnyOf = { pagerOpenApiSchema, singleItemPagerOpenApiSchema }
+                                    }
+                                },
+                                [TextMediaTypeNames.Plain] = new OpenApiMediaType
+                                {
+                                    Schema = new OpenApiSchema { Type = "string" }
+                                }
                             }
-                        });
+                        }
+                    );
                     break;
             }
         }
     }
 
-
     private static type? GetCrudControllerModelType(type type)
     {
-        return (type.IsConstructedGenericType && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>))) ?
-               type.GetGenericArguments()[0] :
-               type.BaseType != typeof(object) ?
-               GetCrudControllerModelType(type.BaseType) :
-               null;
+        return (
+            type.IsConstructedGenericType
+            && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>))
+        )
+            ? type.GetGenericArguments()[0]
+            : type.BaseType != typeof(object)
+                ? GetCrudControllerModelType(type.BaseType)
+                : null;
     }
+
     private static type? GetCrudControllerIdType(type type)
     {
-        return (type.IsConstructedGenericType && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>))) ?
-               type.GetGenericArguments()[3] :
-               type.BaseType != typeof(object) ?
-               GetCrudControllerModelType(type.BaseType) :
-               null;
+        return (
+            type.IsConstructedGenericType
+            && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>))
+        )
+            ? type.GetGenericArguments()[3]
+            : type.BaseType != typeof(object)
+                ? GetCrudControllerModelType(type.BaseType)
+                : null;
     }
 
     private static bool IsCrudController(type type)
     {
-        return ((type.IsConstructedGenericType && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>)))
-               ||
-               type.BaseType != typeof(object)) && IsCrudController(type.BaseType);
+        return (
+                (
+                    type.IsConstructedGenericType
+                    && type.GetGenericTypeDefinition().Equals(typeof(CrudController<,,,,,>))
+                )
+                || type.BaseType != typeof(object)
+            ) && IsCrudController(type.BaseType);
     }
 }

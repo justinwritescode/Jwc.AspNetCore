@@ -1,11 +1,11 @@
-/* 
+﻿/*
  * UnauthorizedProblemDetailsExample.cs
- * 
+ *
  *   Created: 2022-12-19-05:26:13
  *   Modified: 2022-12-19-05:26:38
- * 
+ *
  *   Author: Justin Chase <justin@justinwritescode.com>
- *   
+ *
  *   Copyright © 2022 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */

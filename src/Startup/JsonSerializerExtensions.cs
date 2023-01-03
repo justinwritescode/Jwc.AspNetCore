@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AddJsonSerializer.cs
  *
  *   Created: 2022-12-17-01:35:35
@@ -18,23 +18,27 @@ public static class JsonSerializerExtensions
 {
     public static WebApplicationBuilder AddJsonSerializer(this WebApplicationBuilder builder)
     {
-        _ = builder.Services.AddControllers().AddJsonOptions(x =>
-        {
-            x.AllowInputFormatterExceptionMessages = true;
-            x.JsonSerializerOptions.AllowTrailingCommas = true;
-            x.JsonSerializerOptions.DefaultIgnoreCondition = JIgnoreCond.WhenWritingNull;
-            x.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
-            x.JsonSerializerOptions.IgnoreReadOnlyFields = false;
-            x.JsonSerializerOptions.IgnoreReadOnlyProperties = false;
-            x.JsonSerializerOptions.IncludeFields = true;
-            x.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-            x.JsonSerializerOptions.NumberHandling = JNumberHandling.AllowReadingFromString | JNumberHandling.AllowNamedFloatingPointLiterals;
-            x.JsonSerializerOptions.ReadCommentHandling = JCommentHandling.Allow;
-            x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-            x.JsonSerializerOptions.UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement;
-            x.JsonSerializerOptions.WriteIndented = true;
-            x.JsonSerializerOptions.Converters.Add(new JStringEnumConverter());
-        });
+        _ = builder.Services
+            .AddControllers()
+            .AddJsonOptions(x =>
+            {
+                x.AllowInputFormatterExceptionMessages = true;
+                x.JsonSerializerOptions.AllowTrailingCommas = true;
+                x.JsonSerializerOptions.DefaultIgnoreCondition = JIgnoreCond.WhenWritingNull;
+                x.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+                x.JsonSerializerOptions.IgnoreReadOnlyFields = false;
+                x.JsonSerializerOptions.IgnoreReadOnlyProperties = false;
+                x.JsonSerializerOptions.IncludeFields = true;
+                x.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                x.JsonSerializerOptions.NumberHandling =
+                    JNumberHandling.AllowReadingFromString
+                    | JNumberHandling.AllowNamedFloatingPointLiterals;
+                x.JsonSerializerOptions.ReadCommentHandling = JCommentHandling.Allow;
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                x.JsonSerializerOptions.UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement;
+                x.JsonSerializerOptions.WriteIndented = true;
+                x.JsonSerializerOptions.Converters.Add(new JStringEnumConverter());
+            });
         builder.Services.AddSingleton(y =>
         {
             var jso = new Jso(JsonSerializerDefaults.Web)
@@ -46,36 +50,55 @@ public static class JsonSerializerExtensions
                 IgnoreReadOnlyProperties = false,
                 IncludeFields = true,
                 PropertyNameCaseInsensitive = true,
-                NumberHandling = JNumberHandling.AllowReadingFromString | JNumberHandling.AllowNamedFloatingPointLiterals,
+                NumberHandling =
+                    JNumberHandling.AllowReadingFromString
+                    | JNumberHandling.AllowNamedFloatingPointLiterals,
                 ReadCommentHandling = JCommentHandling.Allow,
                 ReferenceHandler = ReferenceHandler.IgnoreCycles,
                 UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement,
                 WriteIndented = true
             };
             jso.Converters.Add(new JStringEnumConverter());
-            y.GetServices<JConverter>().Select(converter => { jso.Converters.Add((converter)); return true; } );
+            y.GetServices<JConverter>()
+                .Select(converter =>
+                {
+                    jso.Converters.Add((converter));
+                    return true;
+                });
             return jso;
         });
         return builder;
     }
 
-    public static WebApplicationBuilder AddJsonConverter<TConverter, TImplementation>(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddJsonConverter<TConverter, TImplementation>(
+        this WebApplicationBuilder builder
+    )
         where TConverter : JConverter
         where TImplementation : TConverter
     {
-        builder.Services.TryAddEnumerable(new ServiceDescriptor(typeof(TConverter), typeof(TImplementation)));
+        builder.Services.TryAddEnumerable(
+            new ServiceDescriptor(typeof(TConverter), typeof(TImplementation))
+        );
         return builder;
     }
 
-    public static WebApplicationBuilder AddJsonConverter<TConverter, TImplementation>(this WebApplicationBuilder builder, TImplementation implementation)
+    public static WebApplicationBuilder AddJsonConverter<TConverter, TImplementation>(
+        this WebApplicationBuilder builder,
+        TImplementation implementation
+    )
         where TConverter : JConverter
         where TImplementation : TConverter
     {
-        builder.Services.TryAddEnumerable(new ServiceDescriptor(typeof(TConverter), implementation));
+        builder.Services.TryAddEnumerable(
+            new ServiceDescriptor(typeof(TConverter), implementation)
+        );
         return builder;
     }
 
-    public static WebApplicationBuilder AddJsonConverter<TConverter, TImplementation>(this WebApplicationBuilder builder, Func<IServiceProvider, TImplementation> factory)
+    public static WebApplicationBuilder AddJsonConverter<TConverter, TImplementation>(
+        this WebApplicationBuilder builder,
+        Func<IServiceProvider, TImplementation> factory
+    )
         where TConverter : JConverter
         where TImplementation : TConverter
     {

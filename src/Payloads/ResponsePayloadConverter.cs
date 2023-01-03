@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+
 /*
  * ResponsePayloadConverter.cs
  *
@@ -15,12 +16,20 @@ namespace JustinWritesCode.Payloads;
 
 public class ResponsePayloadConverter<T> : JsonConverter<ResponsePayload<T>>
 {
-    public override ResponsePayload<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ResponsePayload<T> Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
     {
         throw new NotImplementedException();
     }
 
-    public override void Write(Utf8JsonWriter writer, ResponsePayload<T> value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        ResponsePayload<T> value,
+        JsonSerializerOptions options
+    )
     {
         writer.WriteStartObject();
         writer.WriteBoolean("isSuccess", value.IsSuccess);

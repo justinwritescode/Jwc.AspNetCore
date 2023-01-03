@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Logging.cs
  *
  *   Created: 2022-12-10-11:38:03
@@ -25,7 +25,8 @@ public static class AddLoggingExtensions
         builder.Services.AddHttpLogging(opts =>
         {
             opts.LoggingFields = HttpLoggingFields.All;
-            new[] {
+            new[]
+            {
                 HttpRequestHeaderNames.Authorization,
                 HttpRequestHeaderNames.ContentType,
                 HttpRequestHeaderNames.UserAgent,
@@ -35,11 +36,13 @@ public static class AddLoggingExtensions
             opts.MediaTypeOptions.AddText(ApplicationMediaTypeNames.Json);
             opts.MediaTypeOptions.AddText(TextMediaTypeNames.Plain);
             opts.MediaTypeOptions.AddText(ApplicationMediaTypeNames.Xml);
-            new[] {
+            new[]
+            {
                 HttpResponseHeaderNames.ContentType,
                 HttpResponseHeaderNames.Location,
                 HttpResponseHeaderNames.SetCookie
-            }.Select(x => opts.RequestHeaders.Add(x)); ;
+            }.Select(x => opts.RequestHeaders.Add(x));
+            ;
         });
         return builder;
     }

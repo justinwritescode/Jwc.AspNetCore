@@ -28,11 +28,14 @@
     <PackageReference Include="Telegram.Bot.Extensions" ExcludeAssets="ContentFiles" />
     <PackageReference Include="JustinWritesCode.Identity.Claims" ExcludeAssets="ContentFiles" />
     <PackageReference Include="JustinWritesCode.Primitives" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Primitives" />
     <!-- <PackageReference Include="JustinWritesCode.Primitives" /> -->
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="..\..\..\Types\src\Primitives\JustinWritesCode.Primitives.csproj" />
+    <ProjectReference Include="../Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Payloads/JustinWritesCode.Payloads.csproj" />
+    <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
   </ItemGroup>
   <ItemGroup>
    <EmbeddedResource Include="./swagger-ui/themes/*.css" LogicalName="%(Filename)%(Extension)" />

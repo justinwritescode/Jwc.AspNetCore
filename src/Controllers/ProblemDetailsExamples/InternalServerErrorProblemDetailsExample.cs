@@ -1,11 +1,11 @@
-/* 
+﻿/*
  * UnauthorizedProblemDetailsExample.cs
- * 
+ *
  *   Created: 2022-12-19-05:26:13
  *   Modified: 2022-12-19-05:26:38
- * 
+ *
  *   Author: Justin Chase <justin@justinwritescode.com>
- *   
+ *
  *   Copyright © 2022 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
@@ -23,7 +23,8 @@ public class InternalServerErrorProblemDetailsExample : IExamplesProvider<Proble
         {
             Title = "Internal Server Error",
             Status = Status500InternalServerError,
-            Detail = "Now you've REALLY pissed off the fucking server! It's so fucked it can't even provide you with any real details on what the fuckin' problem is!",
+            Detail =
+                "Now you've REALLY pissed off the fucking server! It's so fucked it can't even provide you with any real details on what the fuckin' problem is!",
             Type = "https://httpstatuses.com/500",
             Instance = "/api/endpoint"
         };

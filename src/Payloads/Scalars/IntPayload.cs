@@ -1,4 +1,4 @@
-//
+﻿//
 // IntPayload.cs
 //
 //   Created: 2022-10-31-08:33:05
@@ -15,7 +15,12 @@ namespace JustinWritesCode.Payloads;
 public class IntPayload : Payload<int>
 {
     public IntPayload() : this(0) { }
+
     public IntPayload(int value = 0) => Value = value;
 
-    public override string? StringValue { get => Value.ToString(); set => Value = int.Parse(value); }
+    public override string? StringValue
+    {
+        get => Value.ToString();
+        set => Value = int.Parse(value);
+    }
 }

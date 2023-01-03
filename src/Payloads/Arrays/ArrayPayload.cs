@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ArrayPayload.cs
  *
  *   Created: 2022-11-20-07:14:18
@@ -19,13 +19,11 @@ namespace JustinWritesCode.Payloads;
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]
 public class ArrayPayload : ArrayPayload<object>
 {
-    public ArrayPayload()
-        : this(Array.Empty<object>())
-    {
-    }
+    public ArrayPayload() : this(Array.Empty<object>()) { }
 
-    public ArrayPayload(IEnumerable values, string? stringValue = default, string itemSeparator = DefaultItemSeparator)
-    : base(values.OfType<object>().ToArray(), stringValue, itemSeparator)
-    {
-    }
+    public ArrayPayload(
+        IEnumerable values,
+        string? stringValue = default,
+        string itemSeparator = DefaultItemSeparator
+    ) : base(values.OfType<object>().ToArray(), stringValue, itemSeparator) { }
 }

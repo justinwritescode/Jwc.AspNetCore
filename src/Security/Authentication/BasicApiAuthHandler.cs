@@ -1,4 +1,4 @@
-/*
+﻿/*
  * BasicApiAuthHandler.cs
  *
  *   Created: 2022-12-19-06:50:32
@@ -10,7 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-namespace JustinWritesCode.AspNetCore.Authorization;
+namespace JustinWritesCode.AspNetCore.Authentication;
 
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -25,14 +25,27 @@ using static System.Text.TextEncodingExtensions;
 
 using ClaimTypes = JwcCt;
 
-public class BasicApiAuthHandler : AuthenticationHandler<ApiBasicAuthenticationOptions>, IHttpContextAccessor, ILog
+public class BasicApiAuthHandler
+    : AuthenticationHandler<ApiBasicAuthenticationOptions>,
+        IHttpContextAccessor,
+        ILog
 {
     public new ILogger Logger { get; init; }
     private readonly UserManager _userManager;
     private readonly ApiBasicAuthenticationOptions _options;
-    public HttpContext? HttpContext { get => Request.HttpContext; set { } }
+    public HttpContext? HttpContext
+    {
+        get => Request.HttpContext;
+        set { }
+    }
 
-    public BasicApiAuthHandler(IOptionsMonitor<ApiBasicAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, UserManager userManager) : base(options, logger, encoder, clock)
+    public BasicApiAuthHandler(
+        IOptionsMonitor<ApiBasicAuthenticationOptions> options,
+        ILoggerFactory logger,
+        UrlEncoder encoder,
+        ISystemClock clock,
+        UserManager userManager
+    ) : base(options, logger, encoder, clock)
     {
         _userManager = userManager;
         _options = options.CurrentValue;
@@ -43,7 +56,9 @@ public class BasicApiAuthHandler : AuthenticationHandler<ApiBasicAuthenticationO
     {
         try
         {
-            var authHeader = AuthenticationHeaderValue.Parse(Request.Headers[HttpRequestHeaderNames.Authorization]);
+            var authHeader = AuthenticationHeaderValue.Parse(
+                Request.Headers[HttpRequestHeaderNames.Authorization]
+            );
             var credentialBytes = FromBase64String(authHeader.Parameter);
             var credentials = GetUTF8String(credentialBytes).Split(':', 2);
             var authUsername = credentials[0];
@@ -54,7 +69,9 @@ public class BasicApiAuthHandler : AuthenticationHandler<ApiBasicAuthenticationO
             var user = await _userManager.FindByNameAsync(authUsername);
             if (user is not null && await _userManager.CheckPasswordAsync(user, authPassword))
             {
-                var identity = new ClaimsIdentity(ApiBasicAuthenticationOptions.AuthenticationSchemeName);
+                var identity = new ClaimsIdentity(
+                    ApiBasicAuthenticationOptions.AuthenticationSchemeName
+                );
                 var userClaims = await _userManager.GetClaimsAsync(user);
 
                 userClaims.Add(new(TelegramID.Username, user.TelegramUsername));
@@ -66,7 +83,10 @@ public class BasicApiAuthHandler : AuthenticationHandler<ApiBasicAuthenticationO
 
                 identity.AddClaims(userClaims);
                 var principal = new ClaimsPrincipal(identity);
-                var ticket = new AuthenticationTicket(principal, ApiBasicAuthenticationOptions.AuthenticationSchemeName);
+                var ticket = new AuthenticationTicket(
+                    principal,
+                    ApiBasicAuthenticationOptions.AuthenticationSchemeName
+                );
                 Logger.UserAuthenticated(authUsername, userClaims.Count);
                 return AuthenticateResult.Success(ticket);
             }
@@ -76,9 +96,11 @@ public class BasicApiAuthHandler : AuthenticationHandler<ApiBasicAuthenticationO
                 return AuthenticateResult.Fail("Invalid username or password.");
             }
             Logger.UserAuthenticationFailed(authUsername);
-            return AuthenticateResult.Fail("An unknown error occurred while authenticating the user.");
+            return AuthenticateResult.Fail(
+                "An unknown error occurred while authenticating the user."
+            );
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Logger.LogError(ex, "An error occurred while authenticating the user.");
             return AuthenticateResult.Fail("An error occurred while authenticating the user.");

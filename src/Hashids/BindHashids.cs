@@ -1,4 +1,4 @@
-/*
+﻿/*
  * BindHashids.cs
  *
  *   Created: 2022-12-20-01:47:37
@@ -15,8 +15,5 @@ using global::AspNetCore.Hashids;
 
 public class HashidsAttribute : ModelBinderAttribute
 {
-    public HashidsAttribute() : base(typeof(global::AspNetCore.Hashids.Mvc.HashidsModelBinder))
-    {
-
-    }
+    public HashidsAttribute() : base(typeof(global::AspNetCore.Hashids.Mvc.HashidsModelBinder)) { }
 }

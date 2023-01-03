@@ -1,4 +1,4 @@
-/*
+﻿/*
  * BasicApiAuthMiddleware.cs
  *
  *   Created: 2022-12-14-05:48:24
@@ -10,7 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-namespace JustinWritesCode.AspNetCore.Authorization;
+namespace JustinWritesCode.AspNetCore.Authentication;
 
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -18,7 +18,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using static System.Text.TextEncodingExtensions;
 using JustinWritesCode.Abstractions;
-using JustinWritesCode.AspNetCore.Authorization;
+using JustinWritesCode.AspNetCore.Authentication;
 using JustinWritesCode.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +27,7 @@ using static System.Net.HttpStatusCode;
 
 public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
 {
-    public  UserManager UserManager { get; }
+    public UserManager UserManager { get; }
 
     public ILogger Logger { get; init; }
 
@@ -39,10 +39,16 @@ public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        Logger.BeginAuthentication(context.TraceIdentifier, context.Request.Path, context.Request.Method);
+        Logger.BeginAuthentication(
+            context.TraceIdentifier,
+            context.Request.Path,
+            context.Request.Method
+        );
         try
         {
-            var authHeader = AuthenticationHeaderValue.Parse(context.Request.Headers["Authorization"]);
+            var authHeader = AuthenticationHeaderValue.Parse(
+                context.Request.Headers["Authorization"]
+            );
             var credentialBytes = FromBase64String(authHeader.Parameter);
             var credentials = GetUTF8String(credentialBytes).Split(':', 2);
             var authUsername = credentials[0];
@@ -53,11 +59,16 @@ public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
             var user = await UserManager.FindByNameAsync(authUsername);
             if (user is not null && await UserManager.CheckPasswordAsync(user, authPassword))
             {
-                var identity = new ClaimsIdentity(ApiBasicAuthenticationOptions.AuthenticationSchemeName);
+                var identity = new ClaimsIdentity(
+                    ApiBasicAuthenticationOptions.AuthenticationSchemeName
+                );
                 var userClaims = await UserManager.GetClaimsAsync(user);
                 identity.AddClaims(userClaims);
                 var principal = new ClaimsPrincipal(identity);
-                var ticket = new AuthenticationTicket(principal, ApiBasicAuthenticationOptions.AuthenticationSchemeName);
+                var ticket = new AuthenticationTicket(
+                    principal,
+                    ApiBasicAuthenticationOptions.AuthenticationSchemeName
+                );
                 context.User = principal;
                 Logger.UserAuthenticated(authUsername, userClaims.Count);
             }
@@ -73,7 +84,6 @@ public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
             Logger.InvalidAuthHeader(context.TraceIdentifier);
             // context.Response.Headers["WWW-Authenticate"] = "Basic";
             // context.Response.StatusCode = (int)Unauthorized;
-
         }
 
         await next(context);

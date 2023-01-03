@@ -1,4 +1,4 @@
-/*
+﻿/*
  * VideoMediaTypeNames.cs
  *
  *   Created: 2022-12-31-01:35:40
@@ -15,7 +15,7 @@ namespace System.Net.Mime.MediaTypes;
 using System.Runtime.Serialization;
 
 [GenerateEnumerationRecordStruct("VideoMediaType", "System.Net.Mime.MediaTypes")]
-public enum  VideoMediaTypeEnum
+public enum VideoMediaTypeEnum
 {
     [Display(Name = VideoMediaTypeNames.Any, Description = nameof(Any))]
     [EnumMember(Value = VideoMediaTypeNames.Any)]

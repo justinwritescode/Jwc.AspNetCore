@@ -1,11 +1,11 @@
-/* 
+﻿/*
  * BadRequestProblemDetailsExample.cs
- * 
+ *
  *   Created: 2022-12-19-05:26:17
  *   Modified: 2022-12-19-05:26:19
- * 
+ *
  *   Author: Justin Chase <justin@justinwritescode.com>
- *   
+ *
  *   Copyright © 2022 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
@@ -23,7 +23,8 @@ public class BadRequestProblemDetailsExample : IExamplesProvider<ProblemDetails>
         {
             Title = "Bad Request",
             Status = Status400BadRequest,
-            Detail = "You dumb fuck! You submitted bad data to the server and now it's fucking PISSED and refusing to service your request!!!",
+            Detail =
+                "You dumb fuck! You submitted bad data to the server and now it's fucking PISSED and refusing to service your request!!!",
             Type = "https://httpstatuses.com/400",
             Instance = "/api/endpoint"
         };

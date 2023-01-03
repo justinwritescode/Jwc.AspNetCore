@@ -12,7 +12,8 @@
 
 <Project Sdk="Microsoft.Build.Traversal">
   <ItemGroup>
-    <ProjectReference Include="./Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" />
+    <ProjectReference Include="./Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" />
+    <ProjectReference Include="./Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" />
     <ProjectReference Include="./Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" />
     <ProjectReference Include="./ErrorHandling/JustinWritesCode.AspNetCore.ErrorHandling.csproj" />
     <ProjectReference Include="./Exceptions/JustinWritesCode.AspNetCore.Exceptions.csproj" />

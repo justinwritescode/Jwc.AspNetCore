@@ -1,4 +1,4 @@
-/*
+﻿/*
  * MediaTypeNames.cs
  *
  *   Created: 2022-11-29-01:56:37
@@ -11,6 +11,7 @@
  */
 
 namespace System.Net.Mime.MediaTypes;
+
 public static class MediaTypeNames
 {
     public const string All = "*/*";

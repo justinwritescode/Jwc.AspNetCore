@@ -3,41 +3,48 @@ namespace Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
 using System.Net.Mime.MediaTypes;
 using AutoMapper;
-using JustinWritesCode.AspNetCore.Authorization;
+using JustinWritesCode.AspNetCore.Authentication;
 using JustinWritesCode.AspNetCore.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 public static class AddTheWorksExtensions
 {
-    public static WebApplicationBuilder AddTheWorks(this WebApplicationBuilder builder, type? tThisAssemblyProject = null, IEnumerable<type>? typesToUseForAutoMapperAndMediatR = default, Action<WebApplicationBuilder>? configure = default)
+    public static WebApplicationBuilder AddTheWorks(
+        this WebApplicationBuilder builder,
+        type? tThisAssemblyProject = null,
+        IEnumerable<type>? typesToUseForAutoMapperAndMediatR = default,
+        Action<WebApplicationBuilder>? configure = default
+    )
     {
         builder.Logging
-               .AddConfiguration(builder.Configuration.GetSection("Logging"))
-               .AddConsole()
-               .AddDebug();
+            .AddConfiguration(builder.Configuration.GetSection("Logging"))
+            .AddConsole()
+            .AddDebug();
 
         builder.AddIdentity();
 
-        typesToUseForAutoMapperAndMediatR ??= AppDomain.CurrentDomain.GetAssemblies()
-                                                            .SelectMany(a => a.GetTypes());
+        typesToUseForAutoMapperAndMediatR = (
+            typesToUseForAutoMapperAndMediatR ??= Empty<type>()
+        ).Concat(AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes()));
+
         builder.Services.AddAutoMapper(typesToUseForAutoMapperAndMediatR.ToArray());
 
         tThisAssemblyProject ??= typeof(ThisAssembly.Project);
-        builder.AddSwaggerGen()
-               .AddSwaggerMetadata(tThisAssemblyProject)
-               .DescribeDataTypesToSwagger()
-               .DescribeBasicApiAuthentication()
-               .AddXmlCommentsToSwagger()
-               .DescribeCrudController()
-               .AddSwaggerExamples()
-               .AddSwaggerHeaderOperationFilter()
-               .DescribeFileUploads();
+        builder
+            .AddSwaggerGen()
+            .AddSwaggerMetadata(tThisAssemblyProject)
+            .DescribeDataTypesToSwagger()
+            .DescribeBasicApiAuthentication()
+            .AddXmlCommentsToSwagger()
+            .DescribeCrudController()
+            .AddSwaggerExamples()
+            .AddSwaggerHeaderOperationFilter()
+            .DescribeFileUploads();
 
-        builder.Services
-               .AddControllers()
-               .AddXmlSerializerFormatters();
+        builder.Services.AddControllers().AddXmlSerializerFormatters();
 
         builder.Services.AddRazorPages();
 
@@ -76,12 +83,15 @@ public static class AddTheWorksExtensions
 
     public static WebApplication UseTheWorks(this WebApplication app, Type tThisAssemblyProject)
     {
-        app.Use((context, next) =>
-        {
-            context.Response.Headers.AcceptRanges = "items";
-            context.Response.Headers[HttpResponseHeaderNames.AcceptPatch] = ApplicationMediaTypeNames.JsonPatch;
-            return next();
-        });
+        app.Use(
+            (context, next) =>
+            {
+                context.Response.Headers.AcceptRanges = "items";
+                context.Response.Headers[HttpResponseHeaderNames.AcceptPatch] =
+                    ApplicationMediaTypeNames.JsonPatch;
+                return next();
+            }
+        );
 
         app.UseHttpLogging();
 
@@ -116,7 +126,11 @@ public static class AddTheWorksExtensions
         return app;
     }
 
-    public static WebApplication UseTheWorks(this WebApplication app, Type tThisAssemblyProject, Action<WebApplication>? configure)
+    public static WebApplication UseTheWorks(
+        this WebApplication app,
+        Type tThisAssemblyProject,
+        Action<WebApplication>? configure
+    )
     {
         app.UseTheWorks(tThisAssemblyProject);
         configure?.Invoke(app);
@@ -124,5 +138,7 @@ public static class AddTheWorksExtensions
     }
 
     internal static bool IsLocal(this IHostEnvironment env) => env.IsEnvironment("Local");
-    internal static bool IsDevelopment(this IHostEnvironment env) => env.IsEnvironment("Development");
+
+    internal static bool IsDevelopment(this IHostEnvironment env) =>
+        env.IsEnvironment("Development");
 }

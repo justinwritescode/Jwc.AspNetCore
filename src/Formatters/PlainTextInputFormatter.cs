@@ -1,4 +1,4 @@
-/*
+﻿/*
  * PlainTextInputFormatter.cs
  *
  *   Created: 2022-12-30-11:38:40
@@ -12,31 +12,49 @@
 
 namespace JustinWritesCode.AspNetCore.Formatters;
 
+using System.Collections.Generic;
 using System.Net.Mime.MediaTypes;
 using Microsoft.AspNetCore.Mvc.Formatters;
 
 public class PlainTextInputFormatter : InputFormatter
 {
-    private const string ContentType = TextMediaTypeNames.Plain;
+    private const string ContentType = TextMediaTypeNames.Any;
 
     public PlainTextInputFormatter()
     {
-        SupportedMediaTypes.Add(ContentType);
+        SupportedMediaTypes.Add(TextMediaTypeNames.Plain);
+        SupportedMediaTypes.Add(TextMediaTypeNames.Css);
+        SupportedMediaTypes.Add(TextMediaTypeNames.Csv);
+        SupportedMediaTypes.Add(TextMediaTypeNames.Any);
     }
 
-    public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
+    /// <inheritdoc />
+    public override async Task<InputFormatterResult> ReadRequestBodyAsync(
+        InputFormatterContext context
+    )
     {
         var request = context.HttpContext.Request;
         using (var reader = new StreamReader(request.Body))
         {
             var content = await reader.ReadToEndAsync();
-            return await InputFormatterResult.SuccessAsync(Convert.ChangeType(content, context.ModelType));
+            return await InputFormatterResult.SuccessAsync(
+                Convert.ChangeType(content, context.ModelType)
+            );
         }
     }
+
+    /// <inheritdoc />
+    public override IReadOnlyList<string> GetSupportedContentTypes(
+        string contentType,
+        Type objectType
+    ) => new[] { ContentType };
 
     public override bool CanRead(InputFormatterContext context)
     {
         return (context.ModelType.IsPrimitive || context.ModelType == typeof(string)) //& || context.ModelType.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition == typeof(IPayload<>) && i.GetGenericArguments()[0].IsPrimitive)
-            && context.HttpContext.Request.ContentType.Contains(ContentType, StringComparison.OrdinalIgnoreCase);
+            && context.HttpContext.Request.ContentType.Contains(
+                ContentType,
+                StringComparison.OrdinalIgnoreCase
+            );
     }
 }

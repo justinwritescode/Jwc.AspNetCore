@@ -1,4 +1,4 @@
-/*
+﻿/*
  * StringPayload.cs
  *
  *   Created: 2022-11-20-07:14:18
@@ -23,5 +23,9 @@ public class StringPayload : Payload<string>
     public override string? Value { get; set; }
 
     [JIgnore]
-    public override string? StringValue { get => Value; set => Value = value; }
+    public override string? StringValue
+    {
+        get => Value;
+        set => Value = value;
+    }
 }

@@ -1,4 +1,4 @@
-//
+﻿//
 // IntResponsePayload.cs
 //
 //   Created: 2022-10-31-08:33:05
@@ -20,6 +20,7 @@ public class IntResponsePayload : ResponsePayload<int>
         Value = value;
         Message = message ?? string.Empty;
     }
+
     /// <inheritdoc />
     public override string? StringValue
     {

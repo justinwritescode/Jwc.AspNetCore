@@ -1,4 +1,4 @@
-//
+﻿//
 // BooleanResponsePayload.cs
 //
 //   Created: 2022-10-31-08:33:05
@@ -23,7 +23,11 @@ public class BooleanResponsePayload : ResponsePayload<bool>
     public BooleanResponsePayload(bool value, string? message = default!) : base(value, message) { }
 
     /// <inheritdoc />
-    [JProp("stringValue"), JIgnore(Condition = JIgnoreCond.WhenWritingNull), XmlAttribute("stringValue")]
+    [
+        JProp("stringValue"),
+        JIgnore(Condition = JIgnoreCond.WhenWritingNull),
+        XmlAttribute("stringValue")
+    ]
     public override string? StringValue
     {
         get => Value.ToString();

@@ -10,7 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-namespace JustinWritesCode.AspNetCore.Authorization;
+namespace JustinWritesCode.AspNetCore.Authentication;
 using JustinWritesCode.Identity;
 using Microsoft.AspNetCore.Http;
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ResponsePayloadExecutor.cs
  *
  *   Created: 2022-12-17-07:47:54
@@ -20,6 +20,7 @@ using Microsoft.Extensions.Options;
 
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using WriterFactory = System.Func<System.IO.Stream, System.Text.Encoding, System.IO.TextWriter>;
+
 namespace JustinWritesCode.Payloads.Infrastructure;
 
 public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IResponsePayload<T>>, ILog
@@ -27,21 +28,26 @@ public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IRespons
     private readonly OutputFormatterSelector _formatterSelector;
     public ILogger Logger { get; }
 
+    private ICollection<IOutputFormatter> _outputFormatters;
+
     public ResponsePayloadExecutor(
         OutputFormatterSelector formatterSelector,
         // IHttpResponseStreamWriterFactory writerFactory,
         ILogger<ResponsePayloadExecutor<T>> logger,
-        IOptions<MvcOptions> mvcOptions)
+        IOptions<MvcOptions> mvcOptions
+    )
     {
-        this._formatterSelector = formatterSelector ?? throw new ArgumentNullException(nameof(formatterSelector));
+        this._formatterSelector =
+            formatterSelector ?? throw new ArgumentNullException(nameof(formatterSelector));
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _outputFormatters = mvcOptions.Value.OutputFormatters;
     }
 
     /// <summary>
     /// Gets the writer factory delegate.
     /// </summary>
-    protected  WriterFactory WriterFactory => (stream, encoding) => new StreamWriter(stream, encoding);
-
+    protected WriterFactory WriterFactory =>
+        (stream, encoding) => new StreamWriter(stream, encoding);
 
     /// <summary>
     /// Executes the <see cref="ObjectResult"/>.
@@ -61,12 +67,16 @@ public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IRespons
             context.HttpContext,
             WriterFactory,
             payloadType,
-            payload);
+            payload
+        );
 
         var selectedFormatter = _formatterSelector.SelectFormatter(
             formatterContext,
-            (IList<IOutputFormatter>)payload.OutputFormatters ?? Empty<IOutputFormatter>(),
-            payload.ContentTypes);
+            (
+                payload.OutputFormatters?.Concat(_outputFormatters) ?? Empty<IOutputFormatter>()
+            )?.ToList(),
+            payload.ContentTypes
+        );
 
         if (selectedFormatter == null)
         {
@@ -79,7 +89,8 @@ public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IRespons
                 CultureInfo.CurrentCulture,
                 "No output formatter was found to support the content type '{0}' for use with the formatter '{1}'.",
                 Join(", ", payload.ContentTypes),
-                payloadType.FullName);
+                payloadType.FullName
+            );
             throw new HttpRequestException(message);
         }
 
@@ -129,7 +140,11 @@ public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IRespons
         // Removed Log.
         // new EventId(1, "BufferingAsyncEnumerable")
 
-        public static void PayloadFormatterExecuting(ILogger logger, IResponsePayload payload, object? value)
+        public static void PayloadFormatterExecuting(
+            ILogger logger,
+            IResponsePayload payload,
+            object? value
+        )
         {
             if (logger.IsEnabled(LogLevel.Information))
             {
@@ -139,10 +154,24 @@ public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IRespons
             }
         }
 
-        [LoggerMessage(1, LogLevel.Information, "Executing {PayloadType}, writing value of type '{PayloadValueType}'.", EventName = "IResponsePayloadExecuting", SkipEnabledCheck = true)]
-        private static partial void PayloadFormatterExecuting(ILogger logger, string payloadType, string? payloadValueType);
+        [LoggerMessage(
+            1,
+            LogLevel.Information,
+            "Executing {PayloadType}, writing value of type '{PayloadValueType}'.",
+            EventName = "IResponsePayloadExecuting",
+            SkipEnabledCheck = true
+        )]
+        private static partial void PayloadFormatterExecuting(
+            ILogger logger,
+            string payloadType,
+            string? payloadValueType
+        );
 
-        public static void NoFormatter(ILogger logger, OutputFormatterCanWriteContext context, MediaTypeCollection contentTypes)
+        public static void NoFormatter(
+            ILogger logger,
+            OutputFormatterCanWriteContext context,
+            MediaTypeCollection contentTypes
+        )
         {
             if (logger.IsEnabled(LogLevel.Warning))
             {
@@ -150,14 +179,22 @@ public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IRespons
 
                 if (context.ContentType.HasValue)
                 {
-                    considered.Add(System.Convert.ToString(context.ContentType, CultureInfo.InvariantCulture));
+                    considered.Add(
+                        System.Convert.ToString(context.ContentType, CultureInfo.InvariantCulture)
+                    );
                 }
 
                 NoFormatter(logger, considered);
             }
         }
 
-        [LoggerMessage(2, LogLevel.Warning, "No output formatter was found for content types '{ContentTypes}' to write the response.", EventName = "NoFormatter", SkipEnabledCheck = true)]
+        [LoggerMessage(
+            2,
+            LogLevel.Warning,
+            "No output formatter was found for content types '{ContentTypes}' to write the response.",
+            EventName = "NoFormatter",
+            SkipEnabledCheck = true
+        )]
         private static partial void NoFormatter(ILogger logger, List<string?> contentTypes);
     }
 }

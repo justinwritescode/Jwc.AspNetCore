@@ -1,4 +1,4 @@
-//
+﻿//
 // UriPayload.cs
 //
 //   Created: 2022-10-31-08:33:05
@@ -15,5 +15,6 @@ namespace JustinWritesCode.Payloads;
 public class UriPayload : Payload<uri>
 {
     public UriPayload() : this(uri.From("about:blank")) { }
+
     public UriPayload(uri value) : base(value) { }
 }

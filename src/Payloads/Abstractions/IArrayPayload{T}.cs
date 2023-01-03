@@ -1,4 +1,4 @@
-/*
+﻿/*
  * IArrayPayload copy.cs
  *
  *   Created: 2022-11-26-04:40:58
@@ -33,6 +33,7 @@ public interface IArrayPayload<T> : IPayload<T[]>
     /// <default>null</default>
     /// <example>[1, 2, 3]</example>
     T[]? Values { get; set; }
+
     /// <summary>The number of values in the array</summary>
     /// <example>3</example>
     /// <default>0</default>

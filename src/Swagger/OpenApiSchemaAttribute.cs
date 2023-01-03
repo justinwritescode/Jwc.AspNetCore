@@ -1,4 +1,4 @@
-/*
+﻿/*
  * OpenApiSchemaAttribute.cs
  *
  *   Created: 2022-12-21-07:55:34
@@ -19,12 +19,10 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace JustinWritesCode.Swagger.Annotations;
 
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
 public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtensible
 {
-    public OpenApiSchemaAttribute()
-    {
-
-    }
+    public OpenApiSchemaAttribute() { }
 
     public virtual OpenApiSchema ToSchema()
     {
@@ -165,7 +163,6 @@ public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtens
     //     Schema.
     public IList<OpenApiSchema> AllOf { get; set; } = new List<OpenApiSchema>();
 
-
     //
     // Summary:
     //     Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
@@ -173,14 +170,12 @@ public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtens
     //     Schema.
     public IList<OpenApiSchema> OneOf { get; set; } = new List<OpenApiSchema>();
 
-
     //
     // Summary:
     //     Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
     //     Inline or referenced schema MUST be of a Schema Object and not a standard JSON
     //     Schema.
     public IList<OpenApiSchema> AnyOf { get; set; } = new List<OpenApiSchema>();
-
 
     //
     // Summary:
@@ -222,8 +217,8 @@ public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtens
     //     Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
     //     Property definitions MUST be a Schema Object and not a standard JSON Schema (inline
     //     or referenced).
-    public IDictionary<string, OpenApiSchema> Properties { get; set; } = new Dictionary<string, OpenApiSchema>();
-
+    public IDictionary<string, OpenApiSchema> Properties { get; set; } =
+        new Dictionary<string, OpenApiSchema>();
 
     //
     // Summary:
@@ -240,7 +235,6 @@ public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtens
     //     Indicates if the schema can contain properties other than those defined by the
     //     properties map.
     public bool AdditionalPropertiesAllowed { get; set; } = true;
-
 
     //
     // Summary:
@@ -267,7 +261,6 @@ public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtens
     //     Follow JSON Schema definition: https://tools.ietf.org/html/draft-fge-json-schema-validation-00
     public IList<IOpenApiAny> Enum { get; set; } = new List<IOpenApiAny>();
 
-
     //
     // Summary:
     //     Allows sending a null value for the defined schema. Default value is false.
@@ -287,8 +280,8 @@ public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtens
     //
     // Summary:
     //     This object MAY be extended with Specification Extensions.
-    public IDictionary<string, IOpenApiExtension> Extensions { get; set; } = new Dictionary<string, IOpenApiExtension>();
-
+    public IDictionary<string, IOpenApiExtension> Extensions { get; set; } =
+        new Dictionary<string, IOpenApiExtension>();
 
     //
     // Summary:
@@ -302,14 +295,15 @@ public class OpenApiSchemaAttribute : Attribute, IOpenApiElement, IOpenApiExtens
     public OpenApiReference Reference { get; set; }
 }
 
-
-
 public class DescribeSchemasViaAttributesFilter : ISchemaFilter
 {
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var member = context.MemberInfo as ICustomAttributeProvider ?? context.ParameterInfo;
-        var openApiSchemaAttribute = member.GetCustomAttributes(true).OfType<OpenApiSchemaAttribute>().FirstOrDefault();
+        var openApiSchemaAttribute = member
+            .GetCustomAttributes(true)
+            .OfType<OpenApiSchemaAttribute>()
+            .FirstOrDefault();
         if (openApiSchemaAttribute != null)
         {
             if (openApiSchemaAttribute.Type != null)

@@ -1,4 +1,4 @@
-//
+﻿//
 // UriResponsePayload.cs
 //
 //   Created: 2022-10-31-08:33:05
@@ -20,7 +20,11 @@ public class UriResponsePayload : ResponsePayload<uri?>
     public UriResponsePayload(uri value, string? message = default!) : base(value, message) { }
 
     /// <inheritdoc />
-    [JProp("stringValue"), JIgnore(Condition = JIgnoreCond.WhenWritingNull), XmlAttribute("stringValue")]
+    [
+        JProp("stringValue"),
+        JIgnore(Condition = JIgnoreCond.WhenWritingNull),
+        XmlAttribute("stringValue")
+    ]
     public override string? StringValue
     {
         get => Value.ToString();

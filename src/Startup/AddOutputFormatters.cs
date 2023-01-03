@@ -1,4 +1,4 @@
-/*
+﻿/*
  * StartupExtensions.cs
  *
  *   Created: 2022-12-10-04:48:32
@@ -22,26 +22,41 @@ public static class StartupExtensions
 {
     public static WebApplicationBuilder AddFormatters(this WebApplicationBuilder builder)
     {
-        _ = builder.Services.AddControllers(options =>
-        {
-            options.RespectBrowserAcceptHeader = true;
-            options.ReturnHttpNotAcceptable = true;
+        _ = builder.Services
+            .AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.ReturnHttpNotAcceptable = true;
 
-            options.OutputFormatters.Insert(0, new JustinWritesCode.Payloads.Formatters.PlainTextPayloadFormatter());
-            options.InputFormatters.Add(new PlainTextInputFormatter());
+                options.OutputFormatters.Insert(
+                    0,
+                    new JustinWritesCode.Payloads.Formatters.PlainTextPayloadFormatter()
+                );
+                options.InputFormatters.Insert(0, new PlainTextInputFormatter());
 
-            options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-            options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-            options.OutputFormatters.Add(new BsonMediaTypeFormatter());
-            options.OutputFormatters.Add(new PlainTextProblemDetailsOutputFormatter());
-            options.OutputFormatters.Add(new PlainTextOutputFormatter());
+                options.OutputFormatters.Insert(0, new XmlSerializerOutputFormatter());
+                options.OutputFormatters.Insert(0, new XmlDataContractSerializerOutputFormatter());
+                options.OutputFormatters.Insert(0, new BsonOutputFormatter());
+                options.OutputFormatters.Insert(0, new PlainTextProblemDetailsOutputFormatter());
+                options.OutputFormatters.Insert(0, new PlainTextOutputFormatter());
 
-            options.OutputFormatters.Add(new MessagePackOutputFormatter(new MessagePackSerializerOptions(ContractlessStandardResolver.Instance)));
-            options.InputFormatters.Add(new MessagePackInputFormatter(new MessagePackSerializerOptions(ContractlessStandardResolver.Instance)));
+                options.OutputFormatters.Insert(
+                    0,
+                    new MessagePackOutputFormatter(
+                        new MessagePackSerializerOptions(ContractlessStandardResolver.Instance)
+                    )
+                );
+                options.InputFormatters.Insert(
+                    0,
+                    new MessagePackInputFormatter(
+                        new MessagePackSerializerOptions(ContractlessStandardResolver.Instance)
+                    )
+                );
 
-            options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-            // options.InputFormatters.Add(new XmlSerializerInputFormatter());
-        }).AddXmlSerializerFormatters();
+                // options.InutFormatters.Add(new XmlSerializerInputFormatter());
+            })
+            .AddXmlSerializerFormatters()
+            .AddXmlDataContractSerializerFormatters();
         _ = builder.AddPayloadFormatters();
         _ = builder.AddInputFormatters();
         return builder;
@@ -49,9 +64,7 @@ public static class StartupExtensions
 
     public static WebApplicationBuilder AddInputFormatters(this WebApplicationBuilder builder)
     {
-        _ = builder.Services.AddControllers(options =>
-        {
-        });
+        _ = builder.Services.AddControllers(options => { });
         return builder;
     }
 

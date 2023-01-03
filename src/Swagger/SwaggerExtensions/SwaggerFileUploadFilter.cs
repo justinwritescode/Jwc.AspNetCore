@@ -1,4 +1,4 @@
-/*
+﻿/*
  * SwaggerFileUploadFilter.cs
  *
  *   Created: 2022-12-31-01:09:15
@@ -19,23 +19,27 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace JustinWritesCode.AspNetCore.Swagger
 {
-
-
     public class SwaggerFileOperationFilter : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             var fileUploadMime = MultipartMediaTypeNames.FormData;
-            if (operation.RequestBody == null || !operation.RequestBody.Content.Any(x => x.Key.Equals(fileUploadMime, StringComparison.InvariantCultureIgnoreCase)))
+            if (
+                operation.RequestBody == null
+                || !operation.RequestBody.Content.Any(
+                    x => x.Key.Equals(fileUploadMime, StringComparison.InvariantCultureIgnoreCase)
+                )
+            )
                 return;
 
-            var fileParams = context.MethodInfo.GetParameters().Where(p => p.ParameterType == typeof(IFormFile));
+            var fileParams = context.MethodInfo
+                .GetParameters()
+                .Where(p => p.ParameterType == typeof(IFormFile));
             operation.RequestBody.Content[fileUploadMime].Schema.Properties =
-                fileParams.ToDictionary(k => k.Name, v => new OpenApiSchema()
-                {
-                    Type = "string",
-                    Format = "binary"
-                });
+                fileParams.ToDictionary(
+                    k => k.Name,
+                    v => new OpenApiSchema() { Type = "string", Format = "binary" }
+                );
         }
     }
 }
@@ -46,9 +50,10 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static WebApplicationBuilder DescribeFileUploads(this WebApplicationBuilder builder)
         {
-            builder.Services.ConfigureSwaggerGen(options => options.OperationFilter<SwaggerFileOperationFilter>());
+            builder.Services.ConfigureSwaggerGen(
+                options => options.OperationFilter<SwaggerFileOperationFilter>()
+            );
             return builder;
         }
     }
-
 }

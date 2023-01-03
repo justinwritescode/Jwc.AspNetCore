@@ -1,4 +1,4 @@
-//
+﻿//
 // NumericPayload.cs
 //
 //   Created: 2022-10-31-08:33:05
@@ -20,9 +20,12 @@ public class NumericPayload : Payload<decimal>
     public NumericPayload() : this(default) { }
 
     public NumericPayload(decimal value, string? stringValue = default) : base(value, stringValue)
-    {
-    }
+    { }
 
     [JProp("stringValue")]
-    public override string? StringValue { get => Value.ToString(); set => Value = decimal.Parse(value); }
+    public override string? StringValue
+    {
+        get => Value.ToString();
+        set => Value = decimal.Parse(value);
+    }
 }

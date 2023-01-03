@@ -1,0 +1,19 @@
+<!--
+ * JustinWritesCode.Http.csproj
+ * 
+ *   Created: 2023-01-03-08:02:16
+ *   Modified: 2023-01-03-08:02:18
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.Build.Traversal">
+  <ItemGroup>
+    <ProjectReference Include="./Extensions/JustinWritesCode.Http.Extensions.csproj" />
+    <ProjectReference Include="./Http/JustinWritesCode.Http.csproj" />
+    <ProjectReference Include="./MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+  </ItemGroup>
+</Project>

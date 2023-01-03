@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AllowAnonymousAttribute.cs
  *
  *   Created: 2022-12-14-10:52:11
@@ -10,8 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
- namespace JustinWritesCode.AspNetCore.Authorization;
+// namespace JustinWritesCode.AspNetCore.Authorization;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public class AllowAnonymousAttribute : Attribute
-{ }
+// [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+// public class AllowAnonymousAttribute : Attribute { }

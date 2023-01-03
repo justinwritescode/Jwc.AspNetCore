@@ -1,4 +1,4 @@
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 /*
  * SwaggerConflictingActionsResolver.cs
  *
@@ -19,7 +19,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 public static class SwaggerConflictingActionsResolver
 {
-    public static WebApplicationBuilder AddSwaggerConflictingActionsResolver(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddSwaggerConflictingActionsResolver(
+        this WebApplicationBuilder builder
+    )
     {
         builder.Services.ConfigureSwaggerGen(options =>
         {

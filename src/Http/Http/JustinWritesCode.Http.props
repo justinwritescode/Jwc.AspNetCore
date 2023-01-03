@@ -18,6 +18,5 @@
         <Using Include="System.Net.Http.Headers.HttpRequestHeaderNames" Alias="HResH" />
         <PackageReference Include="Microsoft.Net.Http.Headers" />
         <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
-        <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration" IncludeAssets="Analyzers;Build" PrivateAssets="All" />
     </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * PathLowercaseDocumentFilter.cs
  *
  *   Created: 2022-12-14-05:03:06
@@ -9,11 +9,12 @@
  *   Copyright © 2022 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
- #pragma warning disable
+#pragma warning disable
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection;
+
 public class PathLowercaseDocumentFilter : IDocumentFilter
 {
     public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
@@ -29,7 +30,8 @@ public class PathLowercaseDocumentFilter : IDocumentFilter
 
     private static string ToLowercase(string key)
     {
-        var parts = key.Split('/').Select(part => part.Contains("}") ? part : part.ToLowerInvariant());
+        var parts = key.Split('/')
+            .Select(part => part.Contains("}") ? part : part.ToLowerInvariant());
         return string.Join('/', parts);
     }
 }

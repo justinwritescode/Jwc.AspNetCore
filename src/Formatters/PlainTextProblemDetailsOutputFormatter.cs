@@ -1,4 +1,4 @@
-/*
+﻿/*
  * PlainTextProblemDetailsOutputFormatter.cs
  *
  *   Created: 2022-12-13-04:05:17
@@ -12,21 +12,23 @@
 
 namespace JustinWritesCode.AspNetCore.Formatters;
 
+using System.Net.Mime.MediaTypes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using System.Net.Mime.MediaTypes;
 using static System.Net.Http.Headers.HttpResponseHeaderNames;
 
-public class PlainTextProblemDetailsOutputFormatter : IOutputFormatter
+public class PlainTextProblemDetailsOutputFormatter : OutputFormatter
 {
-    public bool CanWriteResult(OutputFormatterCanWriteContext context)
+    public PlainTextProblemDetailsOutputFormatter()
     {
-        return context.Object is ProblemDetails &&
-               context.HttpContext.Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.ToLower().Equals(TextMediaTypeNames.Plain.ToLower()));
+        SupportedMediaTypes.Add(TextMediaTypeNames.Plain);
     }
 
-    public async Task WriteAsync(OutputFormatterWriteContext context)
+    public override bool CanWriteResult(OutputFormatterCanWriteContext context) =>
+        context.Object is ProblemDetails;
+
+    public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
     {
         var response = context.HttpContext.Response;
         response.ContentType = TextMediaTypeNames.PlainWithProblem;

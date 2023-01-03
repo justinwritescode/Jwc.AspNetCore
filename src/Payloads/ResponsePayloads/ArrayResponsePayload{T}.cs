@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ArrayResponsePayload{T}.cs
  *
  *   Created: 2022-11-20-07:14:18
@@ -18,16 +18,14 @@ using JustinWritesCode.Payloads.Abstractions;
 /// <inheritdoc cref="IArrayResponsePayload{T}"/>
 public class ArrayResponsePayload<T> : ResponsePayload<T[]>, IArrayResponsePayload<T>
 {
-    public ArrayResponsePayload()
-        : this(Empty<T>())
-    {
-    }
+    public ArrayResponsePayload() : this(Empty<T>()) { }
+
     public ArrayResponsePayload(
         T[] values,
         string? stringValue = default,
         string? message = default,
-        string itemSeparator = ArrayPayload<T>.DefaultItemSeparator)
-        : base(values, stringValue, message)
+        string itemSeparator = ArrayPayload<T>.DefaultItemSeparator
+    ) : base(values, stringValue, message)
     {
         ItemSeparator = itemSeparator;
         Message = message ?? string.Empty;
@@ -35,10 +33,18 @@ public class ArrayResponsePayload<T> : ResponsePayload<T[]>, IArrayResponsePaylo
 
     /// <summary>The arrray of values</summary>
     [JProp("values"), XmlAttribute("values"), JIgnore(Condition = JIgnoreCond.WhenWritingNull)]
-    public virtual T[]? Values { get => Value; set => Value = value; }
+    public virtual T[]? Values
+    {
+        get => Value;
+        set => Value = value;
+    }
 
     [JIgnore, XmlIgnore]
-    public override T[]? Value { get => base.Value; set => base.Value = value ?? Empty<T>(); }
+    public override T[]? Value
+    {
+        get => base.Value;
+        set => base.Value = value ?? Empty<T>();
+    }
 
     /// <summary>The number of items in the array</summary>
     [JProp("count"), XmlAttribute("count")]
@@ -47,9 +53,14 @@ public class ArrayResponsePayload<T> : ResponsePayload<T[]>, IArrayResponsePaylo
     public override string ToString() => _stringValue ?? Join(ItemSeparator, Values);
 
     private string? _stringValue;
-    /// <summary>The string representation of the array</summary>
+
+    /// <summary>The string representation of the array, which defaults to the string values of each of the elements separared by the <see cref="ItemSeparator" /></summary>
     /// <example>Foo, Bar, Baz</example>
-    [JProp("stringValue"), XmlAttribute("stringValue"), JIgnore(Condition = JIgnoreCond.WhenWritingNull)]
+    [
+        JProp("stringValue"),
+        XmlAttribute("stringValue"),
+        JIgnore(Condition = JIgnoreCond.WhenWritingNull)
+    ]
     public override string? StringValue
     {
         get => _stringValue ?? ToString();

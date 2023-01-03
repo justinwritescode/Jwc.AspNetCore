@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Payload.cs
  *
  *   Created: 2022-11-29-05:12:56
@@ -18,13 +18,9 @@ using JustinWritesCode.Payloads.Abstractions;
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]
 public class Payload : Payload<object>, IPayload, IPayload<object>
 {
-    public Payload()
-        : this(default, default)
-    {
-    }
+    public Payload() : this(default, default) { }
 
-    public Payload(object? value, string? stringValue = default)
-        : base(value, stringValue)
+    public Payload(object? value, string? stringValue = default) : base(value, stringValue)
     {
         Value = value;
         StringValue = stringValue ?? value?.ToString();

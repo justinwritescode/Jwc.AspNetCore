@@ -1,4 +1,5 @@
-using System.Security.AccessControl;
+﻿using System.Security.AccessControl;
+
 /*
  * EmailSender.cs
  *
@@ -29,12 +30,25 @@ public class EmailSender : IEmailSender
     public EmailSender(IOptions<EmailSenderOptions> options)
     {
         _options = options;
-        _client = new EmailClient(new Uri(_options.Value.ConnectionString), new DefaultAzureCredential());
+        _client = new EmailClient(
+            new Uri(_options.Value.ConnectionString),
+            new DefaultAzureCredential()
+        );
     }
 
-    public async System.Threading.Tasks.Task SendEmailAsync(string email, string subject, string htmlMessage)
+    public async System.Threading.Tasks.Task SendEmailAsync(
+        string email,
+        string subject,
+        string htmlMessage
+    )
     {
-        await SendEmailAsync(new EmailMessage(_options.Value.DefaultSender, new EmailContent(subject) { Html = htmlMessage }, new EmailRecipients(new[] { new EmailAddress(email) })));
+        await SendEmailAsync(
+            new EmailMessage(
+                _options.Value.DefaultSender,
+                new EmailContent(subject) { Html = htmlMessage },
+                new EmailRecipients(new[] { new EmailAddress(email) })
+            )
+        );
     }
 
     public async Task SendEmailAsync(EmailMessage message)

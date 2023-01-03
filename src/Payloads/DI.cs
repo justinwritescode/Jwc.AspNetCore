@@ -23,8 +23,20 @@ public static class RegisterPayloadFormattersExtensions
     {
         // services.AddScoped<IActionResultExecutor<IResponsePayload>, ResponsePayloadExecutor>();
         // services.AddScoped<IActionResultExecutor<IPager>, ResponsePayloadExecutor>();
-        services.Add(new ServiceDescriptor(typeof(IResponsePayload<>), typeof(ResponsePayloadExecutor<>), ServiceLifetime.Scoped));
-        services.Add(new ServiceDescriptor(typeof(IPager<>), typeof(ResponsePayloadExecutor<>), ServiceLifetime.Scoped));
+        services.Add(
+            new ServiceDescriptor(
+                typeof(IResponsePayload<>),
+                typeof(ResponsePayloadExecutor<>),
+                ServiceLifetime.Scoped
+            )
+        );
+        services.Add(
+            new ServiceDescriptor(
+                typeof(IPager<>),
+                typeof(ResponsePayloadExecutor<>),
+                ServiceLifetime.Scoped
+            )
+        );
         services.AddSingleton<OutputFormatterSelector, ResponsePayloadOutputFormatterSelector>();
         return services;
     }
@@ -33,15 +45,19 @@ public static class RegisterPayloadFormattersExtensions
     {
         builder.Services.ConfigureSwaggerGen(c =>
         {
-            c.MapType<JustinWritesCode.Payloads.Range>(() => new OpenApiSchema
-            {
-                Type = "string",
-                Pattern = JustinWritesCode.Payloads.Range.RegexString,
-                Format = nameof(JustinWritesCode.Payloads.Range),
-                Description = "Indicates the part of a resultset that the server should return.  It's a zero-based index from the start to the end if the desired resultset.  The format is \"items {start}-{end}\".  If the end is omitted, the server will return all items from the start to the end of the resultset.  If the start is omitted, the server will return all items from the beginning to the end of the resultset.  If both are omitted, the server will return all items in the resultset.  The server will return a 416 (Range Not Satisfiable) if the requested range is not satisfiable.",
-                Example = new OpenApiString("items 0-20"),
-                Default = new OpenApiString($"items 0-{int.MaxValue}")
-            });
+            c.MapType<JustinWritesCode.Payloads.Range>(
+                () =>
+                    new OpenApiSchema
+                    {
+                        Type = "string",
+                        Pattern = JustinWritesCode.Payloads.Range.RegexString,
+                        Format = nameof(JustinWritesCode.Payloads.Range),
+                        Description =
+                            "Indicates the part of a resultset that the server should return.  It's a zero-based index from the start to the end if the desired resultset.  The format is \"items {start}-{end}\".  If the end is omitted, the server will return all items from the start to the end of the resultset.  If the start is omitted, the server will return all items from the beginning to the end of the resultset.  If both are omitted, the server will return all items in the resultset.  The server will return a 416 (Range Not Satisfiable) if the requested range is not satisfiable.",
+                        Example = new OpenApiString("items 0-20"),
+                        Default = new OpenApiString($"items 0-{int.MaxValue}")
+                    }
+            );
         });
         return builder;
     }
