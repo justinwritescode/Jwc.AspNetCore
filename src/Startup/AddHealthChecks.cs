@@ -17,8 +17,7 @@ public static class JustinWritesCodeHealthChecksExtensions
     public static IHealthChecksBuilder AddJustinWritesCodeHealthChecks(this IHealthChecksBuilder builder)
     {
         builder.Services
-                .AddHealthChecks()
-                /*AddEfCoreHealthCheck()*/;
+                .AddHealthChecks();
         return builder;
     }
 }

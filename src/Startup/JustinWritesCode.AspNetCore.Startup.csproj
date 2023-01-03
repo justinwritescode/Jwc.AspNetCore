@@ -37,7 +37,7 @@
     <PackageReference Include="ThisAssembly.Project" />
     <PackageReference Include="JustinWritesCode.MediatR" />
     <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" />
-    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.HealthCheck" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
     <PackageReference Include="SendPulse.Api.HealthCheck" />
   </ItemGroup>
   <ItemGroup>
