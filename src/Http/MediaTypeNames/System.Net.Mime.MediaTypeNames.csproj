@@ -6,7 +6,7 @@
  * 
  *   Author: Justin Chase <justin@justinwritescode.com>
  *   
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
@@ -20,11 +20,9 @@
   <ItemGroup>
     <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
     <PackageReference Include="JustinWritesCode.Enumerations.Abstractions" />
-    <!-- <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration" IncludeAssets="Analyzers;Build" PrivateAssets="All" />   -->
     <PackageReference Include="System.ComponentModel.Annotations" />
     <PackageReference Include="System.ComponentModel.Usings" />
     <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration.V2" IncludeAssets="Analyzers;Build" PrivateAssets="All" />
-    <!-- <ProjectReference Include="../../../../Types/src/Enumerations/CodeGeneration/JustinWritesCode.Enumerations.CodeGeneration.csproj" TreatAsPackageReference="true" OutputItemType="Analyzer" ReferenceOutputAssembly="false" /> -->
   </ItemGroup>
   <ItemGroup>
     <PackageTag Include="mime" />

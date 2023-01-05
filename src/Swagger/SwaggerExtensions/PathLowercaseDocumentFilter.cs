@@ -6,14 +6,14 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 #pragma warning disable
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace JustinWritesCode.AspNetCore.Swagger;
 
 public class PathLowercaseDocumentFilter : IDocumentFilter
 {

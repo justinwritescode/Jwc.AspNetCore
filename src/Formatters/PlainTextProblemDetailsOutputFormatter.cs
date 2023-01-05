@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
@@ -20,20 +20,16 @@ using static System.Net.Http.Headers.HttpResponseHeaderNames;
 
 public class PlainTextProblemDetailsOutputFormatter : OutputFormatter
 {
-    public PlainTextProblemDetailsOutputFormatter()
-    {
-        SupportedMediaTypes.Add(TextMediaTypeNames.Plain);
-    }
+    public PlainTextProblemDetailsOutputFormatter() => SupportedMediaTypes.Add(TextMediaTypeNames.Plain);
 
     public override bool CanWriteResult(OutputFormatterCanWriteContext context) =>
-        context.Object is ProblemDetails;
+        context?.Object is ProblemDetails;
 
     public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
     {
-        var response = context.HttpContext.Response;
+        var response = context?.HttpContext.Response;
         response.ContentType = TextMediaTypeNames.PlainWithProblem;
         var problemDetails = (ProblemDetails)context.Object!;
-        var validationProblemDetails = problemDetails as ValidationProblemDetails;
         response.StatusCode = problemDetails.Status ?? StatusCodes.Status500InternalServerError;
         response.Headers.Add(XFailed, problemDetails.Title ?? "Unknown Error");
         response.Headers.Add(XProblemDetail, problemDetails.Detail ?? "Unknown Error");

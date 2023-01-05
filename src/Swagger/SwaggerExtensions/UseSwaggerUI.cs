@@ -6,17 +6,18 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
 using System.Net.Mime.MediaTypes;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -66,7 +67,7 @@ public static partial class UseSwaggerUIExtensions
 
     public static WebApplication UseCustomizedSwaggerUI<TAssemblyResource>(
         this WebApplication app,
-        Type tThisAssemblyProject,
+        type tThisAssemblyProject,
         string? indexDocumentAssemblyResourceName = "SwaggerUI.index.html",
         string? swaggerTheme = null
     )
@@ -81,7 +82,7 @@ public static partial class UseSwaggerUIExtensions
             options.RoutePrefix = string.Empty;
             options.DefaultModelExpandDepth(0);
             options.DefaultModelRendering(ModelRendering.Model);
-            options.DocExpansion(DocExpansion.List);
+            options.DocExpansion(DocExpansion.None);
             options.DisplayOperationId();
             options.DisplayRequestDuration();
             options.EnableDeepLinking();
@@ -120,6 +121,36 @@ public static partial class UseSwaggerUIExtensions
             );
         });
 
+        _ = app.MapGet("swagger-ui.css", () =>
+            """/* Begin Swagger UI Base CSS */""" +
+            CustomCss("swagger-ui.css") +
+            """/* End Swagger UI Base CSS */""" +
+            """/* Begin Swagger UI Custom CSS */""" +
+            CustomCss("SwaggerUI.swagger-ui.css") +
+            """/* End Swagger UI Custom CSS */"""
+            )
+            .WithOpenApi(op =>
+            {
+                op.Responses["200"] = new OpenApiResponse
+                {
+                    Description = "Swagger UI CSS",
+                    Content =
+                    {
+                        [TextMediaTypeNames.Css] = new OpenApiMediaType
+                        {
+                            Schema = new OpenApiSchema
+                            {
+                                Type = TextMediaTypeNames.Css,
+                                Description = "swagger ui css"
+                            },
+                            Example = _exampleCssOpenApiString
+                        }
+                    }
+                };
+                return op;
+            })
+            .Produces<string>(Status200OK, System.Net.Mime.MediaTypes.TextMediaTypeNames.Css);
+
         _ = app.MapGet(
                 "/swagger-ui/SwaggerUI.custom.css",
                 () =>
@@ -146,7 +177,8 @@ public static partial class UseSwaggerUIExtensions
                     }
                 };
                 return op;
-            });
+            })
+            .Produces<string>(Status200OK, System.Net.Mime.MediaTypes.TextMediaTypeNames.Css);
 
         foreach (var cssFile in _assembly.GetManifestResourceNames().Where(x => x.EndsWith(".css")))
         {
@@ -170,7 +202,8 @@ public static partial class UseSwaggerUIExtensions
                         }
                     };
                     return op;
-                });
+                })
+                .Produces<string>(Status200OK, System.Net.Mime.MediaTypes.TextMediaTypeNames.Css);
         }
 
         _ = app.MapGet(

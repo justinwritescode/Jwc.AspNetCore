@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
@@ -24,19 +24,19 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="System.Usings" />
-    <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles; Build" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+    <!-- <ProjectReference Include="../../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" /> -->
     <ProjectReference Include="../../Http/Http/JustinWritesCode.Http.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />
-    <PackageReference Include="JustinWritesCode.Abstractions" />
-    <PackageReference Include="JustinWritesCode.Identity.Claims" />
-    <PackageReference Include="JustinWritesCode.Identity.Models" />
-    <PackageReference Include="JustinWritesCode.Identity.EntityFrameworkCore" />
-    <PackageReference Include="JustinWritesCode.Identity.AspNetCore" />
-    <PackageReference Include="Telegram.Identity" />
+    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Abstractions" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Identity.Claims" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Identity.Models" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Identity.EntityFrameworkCore" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.Identity.AspNetCore" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles; Build" />
+    <PackageReference Include="Telegram.Identity" ExcludeAssets="ContentFiles" />
   </ItemGroup>
 </Project>

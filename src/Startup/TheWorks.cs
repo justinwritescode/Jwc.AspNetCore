@@ -19,21 +19,21 @@ public static class AddTheWorksExtensions
         Action<WebApplicationBuilder>? configure = default
     )
     {
-        builder.Logging
+        _ = builder.Logging
             .AddConfiguration(builder.Configuration.GetSection("Logging"))
             .AddConsole()
             .AddDebug();
 
-        builder.AddIdentity();
+        _ = builder.AddIdentity();
 
         typesToUseForAutoMapperAndMediatR = (
             typesToUseForAutoMapperAndMediatR ??= Empty<type>()
         ).Concat(AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes()));
 
-        builder.Services.AddAutoMapper(typesToUseForAutoMapperAndMediatR.ToArray());
+        _ = builder.Services.AddAutoMapper(typesToUseForAutoMapperAndMediatR.ToArray());
 
         tThisAssemblyProject ??= typeof(ThisAssembly.Project);
-        builder
+        _ = builder
             .AddSwaggerGen()
             .AddSwaggerMetadata(tThisAssemblyProject)
             .DescribeDataTypesToSwagger()
@@ -42,36 +42,37 @@ public static class AddTheWorksExtensions
             .DescribeCrudController()
             .AddSwaggerExamples()
             .AddSwaggerHeaderOperationFilter()
-            .DescribeFileUploads();
+            .DescribeFileUploads()
+            .AddDescribeTypesForAllOutputFormatters();
 
-        builder.Services.AddControllers().AddXmlSerializerFormatters();
+        _ = builder.Services.AddControllers().AddXmlSerializerFormatters();
 
-        builder.Services.AddRazorPages();
+        _ = builder.Services.AddRazorPages();
 
-        builder.AddJsonPatch();
+        _ = builder.AddJsonPatch();
 
-        builder.Configuration.AddUserSecrets(tThisAssemblyProject.Assembly);
-        builder.AddAzureAppConfig();
+        _ = builder.Configuration.AddUserSecrets(tThisAssemblyProject.Assembly);
+        _ = builder.AddAzureAppConfig();
 
-        builder.AddHttpLogging();
+        _ = builder.AddHttpLogging();
 
-        builder.AddApiAuthentication();
+        _ = builder.AddApiAuthentication();
 
         // builder.AddApiAuthentication(_ => { });
 
-        builder.AddFormatters();
+        _ = builder.AddFormatters();
 
-        builder.Services.AddHealthChecks();
+        _ = builder.Services.AddHealthChecks();
 
-        builder.AddPayloadServices();
+        _ = builder.AddPayloadServices();
 
         // builder.DescribeIdentityDataTypes();
 
-        builder.DescribeSchemasViaAttributes();
+        _ = builder.DescribeSchemasViaAttributes();
 
-        builder.AddHashids();
+        _ = builder.AddHashids();
 
-        builder.Services.AddMediatR(typesToUseForAutoMapperAndMediatR.ToArray());
+        _ = builder.Services.AddMediatR(typesToUseForAutoMapperAndMediatR.ToArray());
 
         // builder.();
 
@@ -83,7 +84,7 @@ public static class AddTheWorksExtensions
 
     public static WebApplication UseTheWorks(this WebApplication app, Type tThisAssemblyProject)
     {
-        app.Use(
+        _ = app.Use(
             (context, next) =>
             {
                 context.Response.Headers.AcceptRanges = "items";
@@ -93,35 +94,35 @@ public static class AddTheWorksExtensions
             }
         );
 
-        app.UseHttpLogging();
+        _ = app.UseHttpLogging();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment() || app.Environment.IsLocal())
         {
-            app.UseDeveloperExceptionPage();
+            _ = app.UseDeveloperExceptionPage();
         }
         else
         {
-            app.UseStatusCodePages();
+            _ = app.UseStatusCodePages();
         }
 
-        app.UseHttpsRedirection();
+        _ = app.UseHttpsRedirection();
 
-        app.UseStaticFiles();
+        _ = app.UseStaticFiles();
 
-        app.UseSwagger();
+        _ = app.UseSwagger();
         // app.UseSwaggerUI();
-        app.UseCustomizedSwaggerUI(tThisAssemblyProject);
+        _ = app.UseCustomizedSwaggerUI(tThisAssemblyProject);
 
-        app.UseApiBasicAuthentication();
+        _ = app.UseApiBasicAuthentication();
 
-        app.UseWelcomePage(new WelcomePageOptions { Path = "/welcome" });
+        _ = app.UseWelcomePage(new WelcomePageOptions { Path = "/welcome" });
 
-        app.MapPing();
+        _ = app.MapPing();
 
-        app.MapRazorPages();
+        _ = app.MapRazorPages();
 
-        app.MapControllers();
+        _ = app.MapControllers();
 
         return app;
     }

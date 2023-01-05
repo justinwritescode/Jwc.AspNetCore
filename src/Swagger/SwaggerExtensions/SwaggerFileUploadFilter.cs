@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
@@ -27,7 +27,7 @@ namespace JustinWritesCode.AspNetCore.Swagger
             if (
                 operation.RequestBody == null
                 || !operation.RequestBody.Content.Any(
-                    x => x.Key.Equals(fileUploadMime, StringComparison.InvariantCultureIgnoreCase)
+                    x => x.Key.Equals(fileUploadMime, InvariantCultureIgnoreCase)
                 )
             )
                 return;
@@ -46,7 +46,7 @@ namespace JustinWritesCode.AspNetCore.Swagger
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class SwaggerFileUploadFilter
+    public static class SwaggerFileUploadFilterExtension
     {
         public static WebApplicationBuilder DescribeFileUploads(this WebApplicationBuilder builder)
         {

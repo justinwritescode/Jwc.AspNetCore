@@ -6,13 +6,14 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 #pragma warning disable
 using JustinWritesCode.AspNetCore.Authentication;
 using JustinWritesCode.Identity;
 using JustinWritesCode.Identity.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -31,11 +32,7 @@ public static class AddApiAuthenticationExtensions
         builder.Services.AddScoped<IBasicApiAuthMiddleware, BasicApiAuthMiddleware>();
         builder.Services
             .AddAuthentication(ApiBasicAuthenticationOptions.AuthenticationSchemeName)
-            .AddScheme<ApiBasicAuthenticationOptions, BasicApiAuthHandler>(
-                ApiBasicAuthenticationOptions.AuthenticationSchemeName,
-                ApiBasicAuthenticationOptions.AuthenticationSchemeName,
-                _ => { }
-            );
+            .AddApiBasicAuthentication();
         return builder;
         // builder.Services
         //     .AddAuthentication()
@@ -67,6 +64,14 @@ public static class AddApiAuthenticationExtensions
         // // builder.AddIdentity();
         // // return builder;
     }
+
+    public static AuthenticationBuilder AddApiBasicAuthentication(this AuthenticationBuilder builder)
+     => builder
+            .AddScheme<ApiBasicAuthenticationOptions, BasicApiAuthHandler>(
+                ApiBasicAuthenticationOptions.AuthenticationSchemeName,
+                ApiBasicAuthenticationOptions.AuthenticationSchemeName,
+                _ => { }
+            );
 
     public static WebApplication UseApiBasicAuthentication(this WebApplication app)
     {

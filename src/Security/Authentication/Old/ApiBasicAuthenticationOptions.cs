@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 #pragma warning disable
@@ -31,8 +31,8 @@ public class ApiBasicAuthenticationOptions : AuthenticationSchemeOptions
 
     // public override string ClaimsIssuer => JustinWritesCode.Security.Claims.
 
-    public const string AuthenticationSchemeName = "Basic";
-    public const string AuthenticationSchemeDisplayName = "Basic Authentication";
+    public const string AuthenticationSchemeName = "API Basic";
+    public const string AuthenticationSchemeDisplayName = "API Basic Authentication";
     public const string AuthenticationSchemeDescription =
-        "Basic Authentication with a username and password";
+        "Basic Authentication for the API with a username and password";
 }

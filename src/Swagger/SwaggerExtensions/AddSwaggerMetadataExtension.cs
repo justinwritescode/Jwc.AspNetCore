@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 #pragma warning disable
@@ -49,7 +49,7 @@ public static partial class AddSwaggerMetadataExtension
         {
             c.CustomSchemaIds(type => type.ToString());
             c.SchemaFilter<EnusAsStringsSchemaFilter>();
-            c.DocumentFilter<PathLowercaseDocumentFilter>();
+            c.DocumentFilter<JustinWritesCode.AspNetCore.Swagger.PathLowercaseDocumentFilter>();
             c.SwaggerDoc("v1", openApiInfo);
             c.SwaggerDoc(openApiInfo.Version, openApiInfo);
         });

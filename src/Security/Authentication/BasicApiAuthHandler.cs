@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
@@ -21,7 +21,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using static System.Text.TextEncodingExtensions;
 
 using ClaimTypes = JwcCt;
 
@@ -60,7 +59,7 @@ public class BasicApiAuthHandler
                 Request.Headers[HttpRequestHeaderNames.Authorization]
             );
             var credentialBytes = FromBase64String(authHeader.Parameter);
-            var credentials = GetUTF8String(credentialBytes).Split(':', 2);
+            var credentials = System.Text.Encoding.UTF8.GetString(credentialBytes).Split(':', 2);
             var authUsername = credentials[0];
             var authPassword = credentials[1];
             Logger.AuthenticatingUser(authUsername);

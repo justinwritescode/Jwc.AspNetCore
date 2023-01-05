@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
@@ -25,7 +25,7 @@ public class PagedOutputJsonFormatter : OutputFormatter
         SupportedMediaTypes.Add(TextMediaTypeNames.Any);
     }
 
-    public bool CanWriteResult(OutputFormatterCanWriteContext context)
+    public override bool CanWriteResult(OutputFormatterCanWriteContext context)
     {
         return context.Object is IPager
             && context.HttpContext.Request

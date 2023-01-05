@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
@@ -26,7 +26,7 @@ public static class AddXmlCommentsToSwaggerExtensions
         var xmlDocs = Directory.GetFiles(binRoot, "*.xml");
         builder.Services.ConfigureSwaggerGen(options =>
         {
-            xmlDocs.ForEach(xmlDoc =>
+            Array.ForEach(xmlDocs, xmlDoc =>
             {
                 try
                 {

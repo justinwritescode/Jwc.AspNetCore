@@ -6,13 +6,13 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
 namespace System.Text.Json;
 
-public class HashidsAttribute : System.Text.Json.Serialization.JsonConverterAttribute
+public partial class HashidsAttribute : System.Text.Json.Serialization.JsonConverterAttribute
 {
     public HashidsAttribute() : base(typeof(global::AspNetCore.Hashids.Json.HashidsJsonConverter))
     { }

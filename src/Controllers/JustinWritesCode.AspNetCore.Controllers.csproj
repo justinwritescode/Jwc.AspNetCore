@@ -31,6 +31,8 @@
     <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" ExcludeAssets="ContentFiles" />
     <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" ExcludeAssets="ContentFiles" />
     <PackageReference Include="JustinWritesCode.Primitives" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.AspNetCore.Mvc" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="JustinWritesCode.InterfaceGenerator" IncludeAssets="Analyzers;Build" ExcludeAssets="ContentFiles;Lib;Runtime;Compile" />
   </ItemGroup>
   <ItemGroup>
     <!-- <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" /> -->

@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
@@ -33,7 +33,7 @@ public class SharedSecretAuthenticationOptions : AuthenticationSchemeOptions
 
     public string Secret { get; set; }
 
-    public const string AuthenticationSchemeName = "SharedSecret";
+    public const string AuthenticationSchemeName = "Shared Secret";
     public const string AuthenticationSchemeDisplayName = "Shared Secret";
     public const string AuthenticationSchemeDescription =
         "Insecure authentication with a common shared secret";

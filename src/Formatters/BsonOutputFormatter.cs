@@ -14,12 +14,9 @@ using Newtonsoft.Json.Bson;
 
 public class BsonOutputFormatter : OutputFormatter
 {
-    public BsonOutputFormatter()
-    {
-        SupportedMediaTypes.Add(ApplicationMediaTypeNames.Bson);
-    }
+    public BsonOutputFormatter() => SupportedMediaTypes.Add(ApplicationMediaTypeNames.Bson);
 
-    private JsonSerializerSettings __jsonSerializerSettings = CreateDefaultSerializerSettings();
+    private JsonSerializerSettings _jsonSerializerSettings = CreateDefaultSerializerSettings();
 
     public static JsonSerializerSettings CreateDefaultSerializerSettings()
     {
@@ -36,7 +33,7 @@ public class BsonOutputFormatter : OutputFormatter
     ) => new[] { ApplicationMediaTypeNames.Bson };
 
     public JsonSerializerSettings SerializerSettings =>
-        __jsonSerializerSettings ??= CreateDefaultSerializerSettings();
+        _jsonSerializerSettings ??= CreateDefaultSerializerSettings();
 
     public bool CanRead(InputFormatterContext context) =>
         context.HttpContext.Request

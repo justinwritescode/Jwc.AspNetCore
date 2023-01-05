@@ -6,7 +6,7 @@
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
- *   Copyright © 2022 Justin Chase, All Rights Reserved
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
@@ -145,14 +145,26 @@ public class ResponsePayload<T> : Payload<T>, IResponsePayload<T>, IPayload
         return schema;
     }
 
-    public static ResponsePayload<T> NotFound(string? messaage = "Not found") =>
-        new() { StatusCode = (int)HttpStatusCode.NotFound };
+    public static ResponsePayload<T> NotFound(string? message = "Not found")
+        => new() { Message = message, StatusCode = (int)HttpStatusCode.NotFound };
 
-    public static ResponsePayload<T> BadRequest(string? messaage = "Bad request") =>
-        new() { StatusCode = (int)HttpStatusCode.BadRequest };
+    public static ResponsePayload<T> BadRequest(string? message = "Bad request")
+        => new() { Message = message, StatusCode = (int)HttpStatusCode.BadRequest };
 
-    public static ResponsePayload<T> NoContent(string? messaage = "No content") =>
-        new() { StatusCode = (int)HttpStatusCode.NoContent };
+    public static ResponsePayload<T> NoContent(string? message = "No content")
+        => new() { Message = message, StatusCode = (int)HttpStatusCode.NoContent };
+
+    public static ResponsePayload<T> Unauthorized(string? message = "Unauthorized")
+        => new() { Message = message, StatusCode = (int)HttpStatusCode.Unauthorized };
+
+    public static ResponsePayload<T> Forbidden(string? message = "Forbidden")
+        => new() { Message = message, StatusCode = (int)HttpStatusCode.Forbidden };
+
+    public static ResponsePayload<T> InternalServerError(string? message = "Internal server error")
+        => Problem(message, HttpStatusCode.InternalServerError);
+
+    public static ResponsePayload<T> Problem(string? message = "Problem", HttpStatusCode statusCode = HttpStatusCode.InternalServerError) =>
+        new() { Message = message, StatusCode = (int)statusCode };
 
     public static ResponsePayload<T> Created(
         T value,
