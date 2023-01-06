@@ -6,6 +6,7 @@ using AutoMapper;
 using JustinWritesCode.AspNetCore.Authentication;
 using JustinWritesCode.AspNetCore.Controllers;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -74,6 +75,8 @@ public static class AddTheWorksExtensions
 
         _ = builder.Services.AddMediatR(typesToUseForAutoMapperAndMediatR.ToArray());
 
+        _ = builder.AddJsonSerializer();
+
         // builder.();
 
         // builder.AddProblemDetailsHandler();
@@ -123,6 +126,7 @@ public static class AddTheWorksExtensions
         _ = app.MapRazorPages();
 
         _ = app.MapControllers();
+
 
         return app;
     }
