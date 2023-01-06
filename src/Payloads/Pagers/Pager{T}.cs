@@ -91,7 +91,7 @@ public class Pager<T> : ArrayResponsePayload<T>, IPayload<T[]>, IPager<T>, IPayl
     public override int? StatusCode
     {
         get =>
-            _statusCode.HasValue && !_statusCode.Value.IsBetween(200, 299)
+            _statusCode.HasValue && !(_statusCode.Value >= 200 && _statusCode.Value <= 299)
                 ? _statusCode.Value
                 : HasNextPage || Page > 1
                     ? (int)PartialContent

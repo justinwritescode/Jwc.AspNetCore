@@ -91,7 +91,7 @@ public partial class ResponsePayloadExecutor<T> : IActionResultExecutor<IRespons
                 Join(", ", payload.ContentTypes),
                 payloadType.FullName
             );
-            throw new HttpRequestException(message);
+            throw new System.Net.Http.HttpRequestException(message);
         }
 
         payload.OnFormatting(formatterContext);

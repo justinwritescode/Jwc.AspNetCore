@@ -12,5 +12,5 @@
 
 namespace JustinWritesCode.Payloads.Abstractions;
 
-/// <inheritdoc cref="IArrayPayload{object}"/>
+/// <inheritdoc cref="IArrayPayload{Object}"/>
 public interface IArrayPayload : IArrayPayload<object>, IPayload<object[]> { }
