@@ -22,14 +22,16 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
-    <PackageReference Include="ThisAssembly.Project" />
-    <!-- <PackageReference Include="ThisAssembly.Resources" /> -->
+    <PackageReference Include="ThisAssembly" />
+    <!-- <PackageReference Include="ThisAssembly.Project" /> -->
+    <!-- <PackageReference Include="ThisAssembly.AssemblyInfo" /> -->
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" />
     <PackageReference Include="Telegram.Bot.Extensions" ExcludeAssets="ContentFiles" />
     <PackageReference Include="JustinWritesCode.Identity.Claims" ExcludeAssets="ContentFiles" />
     <PackageReference Include="JustinWritesCode.Primitives" ExcludeAssets="ContentFiles" />
     <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles" />
+    <PackageReference Include="System.Usings" />
     <!-- <PackageReference Include="JustinWritesCode.Primitives" /> -->
   </ItemGroup>
   <ItemGroup>
@@ -42,5 +44,6 @@
    <EmbeddedResource Include="./swagger-ui/themes/*.css" LogicalName="%(Filename)%(Extension)" />
    <EmbeddedResource Include="./swagger-ui/swagger-ui.css" LogicalName="%(Filename)%(Extension)" />
    <EmbeddedResource Include="./swagger-ui/SwaggerUI.index.html" LogicalName="SwaggerUI.index.html" />
+   <EmbeddedResource Include="swaggerui/swaggerui.*" LogicalName="%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>
