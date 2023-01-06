@@ -20,7 +20,7 @@
   <PropertyGroup>
     
   </PropertyGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
     <ProjectProperty Include="PackageVersion" />
     <ProjectProperty Include="Version" />
     <ProjectProperty Include="Title" />
@@ -32,7 +32,7 @@
     <ProjectProperty Include="LicenseExpression" />
     <ProjectProperty Include="ContactEmail" />
     <ProjectProperty Include="PackageProjectUrl" />
-  </ItemGroup>
+  </ItemGroup> -->
   <ItemGroup>
     <!-- This file will be compiled into the target project's code -->
     <!-- <Compile Include="./AddSwaggerGenExtension.cs" /> -->
