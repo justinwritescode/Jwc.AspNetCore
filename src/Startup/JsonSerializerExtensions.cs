@@ -33,7 +33,7 @@ public static class JsonSerializerExtensions
                 x.JsonSerializerOptions.NumberHandling =
                     JNumberHandling.AllowReadingFromString
                     | JNumberHandling.AllowNamedFloatingPointLiterals;
-                x.JsonSerializerOptions.ReadCommentHandling = JCommentHandling.Allow;
+                x.JsonSerializerOptions.ReadCommentHandling = JCommentHandling.Skip;
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 x.JsonSerializerOptions.UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement;
                 x.JsonSerializerOptions.WriteIndented = true;
