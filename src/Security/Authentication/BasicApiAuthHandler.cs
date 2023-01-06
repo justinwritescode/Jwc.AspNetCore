@@ -59,7 +59,7 @@ public class BasicApiAuthHandler
                 Request.Headers[HttpRequestHeaderNames.Authorization]
             );
             var credentialBytes = FromBase64String(authHeader.Parameter);
-            var credentials = System.Text.Encoding.UTF8.GetString(credentialBytes).Split(':', 2);
+            var credentials = UTF8.GetString(credentialBytes).Split(':', 2);
             var authUsername = credentials[0];
             var authPassword = credentials[1];
             Logger.AuthenticatingUser(authUsername);
@@ -73,11 +73,27 @@ public class BasicApiAuthHandler
                 );
                 var userClaims = await _userManager.GetClaimsAsync(user);
 
-                userClaims.Add(new(TelegramID.Username, user.TelegramUsername));
-                userClaims.Add(new(TelegramID.UserId, user.Id.ToString()));
-                if (!IsNullOrEmpty(user.Email))
+                userClaims.Add(new(TelegramID.UserId, user.TelegramId.ToString()));
+                userClaims.Add(new(JwcCt.NameIdentifier, user.Id.ToString()));
+                userClaims.Add(new(JwcCt.AuthenticationInstant, DateTimeOffset.UtcNow.ToString()));
+                userClaims.Add(new(JwcCt.AuthenticationMethod, ApiBasicAuthenticationOptions.AuthenticationSchemeName));
+                userClaims.Add(new(JwcCt.CommonName, user.GoByName));
+                userClaims.Add(new(JwcCt.GivenName, user.GivenName));
+                userClaims.Add(new(JwcCt.Surname, user.Surname));
+
+                if(!IsNullOrEmpty(user.TelegramUsername) && !userClaims.Any(c => c.Type == TelegramID.Username))
                 {
-                    userClaims.Add(new(ClaimTypes.Email, user.Email));
+                    userClaims.Add(new(TelegramID.Username, user.TelegramUsername));
+                }
+
+                if(user.Phone.HasValue && !userClaims.Any(c => c.Type == JwcCt.HomePhone))
+                {
+                    userClaims.Add(new(JwcCt.HomePhone, user.PhoneNumber));
+                }
+
+                if (user.EmailAddress.HasValue && !userClaims.Any(c => c.Type == JwcCt.Email))
+                {
+                    userClaims.Add(new(JwcCt.Email, user.EmailAddress));
                 }
 
                 identity.AddClaims(userClaims);

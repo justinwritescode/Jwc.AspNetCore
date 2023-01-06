@@ -17,17 +17,11 @@ using Microsoft.AspNetCore.Authorization;
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
 public class AdminAttribute : AuthorizeAttribute
 {
-    public AdminAttribute() : base()
-    {
-        this.Roles = JwcR.Admin;
-    }
+    public AdminAttribute() : base() => Roles = JwcR.Admin;
 }
 
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
 public class AuthenticatedUserAttribute : AuthorizeAttribute
 {
-    public AuthenticatedUserAttribute() : base()
-    {
-        this.Roles = JwcR.User;
-    }
+    public AuthenticatedUserAttribute() : base() => Roles = JwcR.User;
 }
