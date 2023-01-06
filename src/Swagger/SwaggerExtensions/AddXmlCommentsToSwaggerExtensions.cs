@@ -35,7 +35,7 @@ public static class AddXmlCommentsToSwaggerExtensions
                 }
                 catch (Exception ex)
                 {
-                    WriteLine($"Error in file {xmlDoc}: {ex.Message}");
+                    Console.WriteLine($"Error in file {xmlDoc}: {ex.Message}");
                 }
             });
             options.IncludeXmlCommentsFromInheritDocs(true);
