@@ -15,54 +15,68 @@ using System;
 using System.Reflection;
 using static System.String;
 
-public record ThisAssemblyProject(type TThisAssemblyProject)
+public record TThisAssemblyStaticProxy(type ThisAssemblyStaticProxy)
 {
+    public type? Project => ThisAssemblyStaticProxy.GetNestedTypes().FirstOrDefault(t => t.Name == nameof(Project));
+    public type? Info => ThisAssemblyStaticProxy.GetNestedTypes().FirstOrDefault(t => t.Name == nameof(Info));
+    public Assembly Assembly => ThisAssemblyStaticProxy.Assembly;
+
     public string? AssemblyVersion =>
-        TThisAssemblyProject.GetRuntimeField(nameof(AssemblyVersion))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(AssemblyVersion))?.GetValue(null) as string ??
+        Info?.GetRuntimeField(nameof(AssemblyVersion))?.GetValue(null) as string ??
+        Assembly.GetCustomAttributes<AssemblyVersionAttribute>()?.FirstOrDefault()?.Version;
     public string? Authors =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Authors))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(Authors))?.GetValue(null) as string;
     public string? Company =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Company))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(Company))?.GetValue(null) as string ??
+        Assembly.GetCustomAttributes<AssemblyCompanyAttribute>()?.FirstOrDefault()?.Company;
     public string? ContactEmail =>
-        TThisAssemblyProject.GetRuntimeField(nameof(ContactEmail))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(ContactEmail))?.GetValue(null) as string;
     public string? Copyright =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Copyright))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(Copyright))?.GetValue(null) as string ??
+        Assembly.GetCustomAttributes<AssemblyCopyrightAttribute>()?.FirstOrDefault()?.Copyright;
     public string? Description =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Description))?.GetValue(null) as string;
+        Assembly.GetCustomAttributes<AssemblyDescriptionAttribute>()?.FirstOrDefault()?.Description ??
+        this.ThisAssemblyStaticProxy?.GetRuntimeField(nameof(Description))?.GetValue(null)?.ToString() ??
+        Project?.GetRuntimeField(nameof(Description))?.GetValue(null) as string;
     public string? FileVersion =>
-        TThisAssemblyProject.GetRuntimeField(nameof(FileVersion))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(FileVersion))?.GetValue(null) as string ??
+        Assembly.GetCustomAttributes<AssemblyFileVersionAttribute>()?.FirstOrDefault()?.Version;
     public string? InformationalVersion =>
-        TThisAssemblyProject.GetRuntimeField(nameof(InformationalVersion))?.GetValue(null)
+        Project?.GetRuntimeField(nameof(InformationalVersion))?.GetValue(null)
         as string;
     public string? LicenseExpression =>
-        TThisAssemblyProject.GetRuntimeField(nameof(LicenseExpression))?.GetValue(null) as string
-        ?? this.PackageLicenseExpression;
+        Project?.GetRuntimeField(nameof(LicenseExpression))?.GetValue(null)?.ToString() ??
+        Project?.GetRuntimeField(nameof(LicenseExpression))?.GetValue(null)?.ToString()
+        ?? PackageLicenseExpression ??
+        "None";
     public string? Owners =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Owners))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(Owners))?.GetValue(null) as string;
     public string? PackageLicenseExpression =>
-        TThisAssemblyProject.GetRuntimeField(nameof(PackageLicenseExpression))?.GetValue(null)
+        Project?.GetRuntimeField(nameof(PackageLicenseExpression))?.GetValue(null)
         as string;
     public string? PackageTags =>
-        TThisAssemblyProject.GetRuntimeField(nameof(PackageTags))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(PackageTags))?.GetValue(null) as string;
     public string? PackageVersion =>
-        TThisAssemblyProject.GetRuntimeField(nameof(PackageVersion))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(PackageVersion))?.GetValue(null) as string;
     public string? Product =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Product))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(Product))?.GetValue(null) as string;
     public string? SwaggerTheme =>
-        TThisAssemblyProject.GetRuntimeField(nameof(SwaggerTheme))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(SwaggerTheme))?.GetValue(null) as string;
     public string? Title =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Title))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(Title))?.GetValue(null) as string ??
+        Assembly.GetCustomAttributes<AssemblyTitleAttribute>()?.FirstOrDefault()?.Title;
     public string? Version =>
-        TThisAssemblyProject.GetRuntimeField(nameof(Version))?.GetValue(null) as string;
+        Project?.GetRuntimeField(nameof(Version))?.GetValue(null) as string;
     public uri? LicenseUrl => $"https://opensource.org/licenses/{LicenseExpression}";
     public uri? PackageProjectUrl =>
-        TThisAssemblyProject.GetRuntimeField(nameof(PackageProjectUrl))?.GetValue(null) as string
+        Project?.GetRuntimeField(nameof(PackageProjectUrl))?.GetValue(null) as string
         ?? "https://example.com/contact";
     public uri? RepositoryUrl =>
-        TThisAssemblyProject.GetRuntimeField(nameof(RepositoryUrl))?.GetValue(null) as string
+        Project?.GetRuntimeField(nameof(RepositoryUrl))?.GetValue(null) as string
         ?? "about:blank";
     public uri? TermsOfServiceUrl =>
-        TThisAssemblyProject.GetRuntimeField(nameof(TermsOfServiceUrl))?.GetValue(null) as string
+        Project?.GetRuntimeField(nameof(TermsOfServiceUrl))?.GetValue(null) as string
         ?? "https://example.com/terms";
     public string? ApiVersion =>
         "v"
