@@ -24,11 +24,7 @@ public sealed class Produces400ErrorAttribute : SwaggerResponseAttribute
         Status400BadRequest,
         "You done fucked up!",
         typeof(BadRequestProblemDetails),
-        ApplicationMediaTypeNames.Json,
-        ApplicationMediaTypeNames.Xml,
-        ApplicationMediaTypeNames.MessagePack,
-        ApplicationMediaTypeNames.Bson,
-        TextMediaTypeNames.Plain
+        ApplicationMediaTypeNames.ProblemJson
     )
     { }
 }
@@ -40,11 +36,7 @@ public sealed class Produces401ErrorAttribute : SwaggerResponseAttribute
         Status401Unauthorized,
         "You're not allowed to fucking do that!",
         typeof(UnauthorizedProblemDetails),
-        ApplicationMediaTypeNames.Json,
-        ApplicationMediaTypeNames.Xml,
-        ApplicationMediaTypeNames.MessagePack,
-        ApplicationMediaTypeNames.Bson,
-        TextMediaTypeNames.Plain
+        ApplicationMediaTypeNames.ProblemJson
     )
     { }
 }
@@ -56,11 +48,7 @@ public sealed class Produces403ErrorAttribute : SwaggerResponseAttribute
         Status403Forbidden,
         "You're not allowed to fucking do that!",
         typeof(ForbiddenProblemDetails),
-        ApplicationMediaTypeNames.Json,
-        ApplicationMediaTypeNames.Xml,
-        ApplicationMediaTypeNames.MessagePack,
-        ApplicationMediaTypeNames.Bson,
-        TextMediaTypeNames.Plain
+        ApplicationMediaTypeNames.ProblemJson
     )
     { }
 }
@@ -72,11 +60,7 @@ public sealed class Produces404ErrorAttribute : SwaggerResponseAttribute
         Status404NotFound,
         "The shit you're looking for doesn't fucking exist!",
         typeof(NotFoundProblemDetails),
-        ApplicationMediaTypeNames.Json,
-        ApplicationMediaTypeNames.Xml,
-        ApplicationMediaTypeNames.MessagePack,
-        ApplicationMediaTypeNames.Bson,
-        TextMediaTypeNames.Plain
+        ApplicationMediaTypeNames.ProblemJson
     )
     { }
 }
@@ -88,11 +72,7 @@ public sealed class Produces500ErrorAttribute : SwaggerResponseAttribute
         Status500InternalServerError,
         "Shit hit the fucking fan!",
         typeof(InternalServerErrorProblemDetails),
-        ApplicationMediaTypeNames.Json,
-        ApplicationMediaTypeNames.Xml,
-        ApplicationMediaTypeNames.MessagePack,
-        ApplicationMediaTypeNames.Bson,
-        TextMediaTypeNames.Plain
+        ApplicationMediaTypeNames.ProblemJson
     )
     { }
 }
