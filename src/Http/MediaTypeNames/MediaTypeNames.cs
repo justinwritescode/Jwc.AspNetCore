@@ -15,14 +15,14 @@ namespace System.Net.Mime.MediaTypes;
 public static class MediaTypeNames
 {
     public const string All = "*/*";
-    public const string Text = "text/*";
-    public const string Image = "image/*";
-    public const string Audio = "audio/*";
-    public const string Video = "video/*";
-    public const string Application = "application/*";
-    public const string Multipart = "multipart/*";
-    public const string Message = "message/*";
-    public const string Model = "model/*";
+    public const string Text = TextMediaTypeNames.Base + "/*";
+    public const string Image = ImageMediaTypeNames.Base + "/*";
+    public const string Audio = AudioMediaTypeNames.Base + "/*";
+    public const string Video = VideoMediaTypeNames.Base + "/*";
+    public const string Application = ApplicationMediaTypeNames.Base + "/*";
+    public const string Multipart = MultipartMediaTypeNames.Base + "/*";
+    // public const string Message = "message/*";
+    // public const string Model = "model/*";
     public const string Example = "example/*";
-    public const string Font = "font/*";
+    // public const string Font = "font/*";
 }

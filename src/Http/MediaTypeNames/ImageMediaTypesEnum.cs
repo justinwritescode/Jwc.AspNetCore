@@ -18,6 +18,14 @@ using System.Runtime.Serialization;
 [GenerateEnumerationRecordStruct("ImageMediaType", "System.Net.Mime.MediaTypes")]
 public enum ImageMediaTypesEnum
 {
+    [Display(Name = ImageMediaTypeNames.Any, Description = nameof(Any))]
+    [EnumMember(Value = ImageMediaTypeNames.Any)]
+    Any = 0,
+
+    [Display(Name = ImageMediaTypeNames.Base, Description = nameof(Base))]
+    [EnumMember(Value = ImageMediaTypeNames.Base)]
+    Base,
+
     /// <summary>GIF image</summary>
     [Display(Name = ImageMediaTypeNames.Gif, Description = nameof(Gif))]
     [EnumMember(Value = ImageMediaTypeNames.Gif)]
@@ -77,4 +85,10 @@ public enum ImageMediaTypesEnum
     [Display(Name = ImageMediaTypeNames.Apng, Description = nameof(Apng))]
     [EnumMember(Value = ImageMediaTypeNames.Apng)]
     Apng
+}
+
+
+public partial record struct ImageMediaType : IMediaType
+{
+
 }

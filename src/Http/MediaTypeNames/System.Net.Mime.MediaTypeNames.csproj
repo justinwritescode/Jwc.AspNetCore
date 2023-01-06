@@ -22,7 +22,7 @@
     <PackageReference Include="JustinWritesCode.Enumerations.Abstractions" />
     <PackageReference Include="System.ComponentModel.Annotations" />
     <PackageReference Include="System.ComponentModel.Usings" />
-    <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration.V2" IncludeAssets="Analyzers;Build" PrivateAssets="All" />
+    <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration.V2" IncludeAssets="Analyzers;Build" PrivateAssets="All" ExcludeAssets="Lib;Source;Runtime;Compile;Native;ContentFiles" />
   </ItemGroup>
   <ItemGroup>
     <PackageTag Include="mime" />

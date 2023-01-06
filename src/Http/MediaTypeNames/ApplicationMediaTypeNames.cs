@@ -14,19 +14,41 @@ namespace System.Net.Mime.MediaTypes;
 
 public static class ApplicationMediaTypeNames
 {
-    public const string Base = "application/";
-    public const string Any = Base + "*";
-    public const string Octet = Base + "octet-stream";
-    public const string Pdf = Base + "pdf";
-    public const string Rtf = Base + "rtf";
-    public const string Soap = Base + "soap+xml";
-    public const string Xml = Base + "xml";
-    public const string Zip = Base + "zip";
-    public const string Json = Base + "json";
-    public const string JsonWithPlainText = Base + "json+plaintext";
-    public const string FormUrlEncoded = Base + "x-www-formurlencoded";
-    public const string ProblemJson = Base + "json+problem";
-    public const string JsonPatch = Base + "json-patch+json";
-    public const string Bson = Base + "bson";
-    public const string MessagePack = Base + "x-msgpack";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Base" />
+    public const string Base = "application";
+    ///  <inheritdoc cref="ApplicationMediaTypesEnum.Any" />
+    public const string Any = Base + "/" + "*";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.OctetStream" />
+    public const string OctetStream = Base + "/" + "octet-stream";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Pdf" />
+    public const string Pdf = Base + "/" + "pdf";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Rtf" />
+    public const string Rtf = Base + "/" + "rtf";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Soap" />
+    public const string Soap = Base + "/" + "soap+xml";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Xml" />
+    public const string Xml = Base + "/" + "xml";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Zip" />
+    public const string Zip = Base + "/" + "zip";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Json" />
+    public const string Json = Base + "/" + "json";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.JsonWithPlainText" />
+    public const string JsonWithPlainText = Base + "/" + "json+plaintext";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.FormUrlEncoded" />
+    public const string FormUrlEncoded = Base + "/" + "x-www-formurlencoded";
+    /// <inheritdoc  cref="ApplicationMediaTypesEnum.ProblemJson" />
+    public const string ProblemJson = Base + "/" + "json+problem";
+    /// <inheritdoc  cref="ApplicationMediaTypesEnum.JsonPatch" />
+    public const string JsonPatch = Base + "/" + "json-patch+json";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Bson" />
+    public const string Bson = Base + "/" + "bson";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.MessagePack" />
+    public const string MessagePack = Base + "/" + "x-msgpack";
+    /// <inheritdoc cref="ApplicationMediaTypesEnum.Example" />
+    public const string Example = Base + "/" + "example";
+}
+
+public partial record struct ApplicationMediaType : IMediaType
+{
+
 }

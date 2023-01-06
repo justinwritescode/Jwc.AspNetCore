@@ -96,3 +96,7 @@ public static class VideoMediaTypeNames
     public const string Vp9 = Base + "VP9";
     public const string Vorbis = Base + "Vorbis";
 }
+
+public partial record struct VideoMediaType : IMediaType
+{
+}

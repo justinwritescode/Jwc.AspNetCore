@@ -54,3 +54,6 @@ public enum TextMediaTypesEnum
     [EnumMember(Value = TextMediaTypeNames.Json)]
     Json
 }
+
+
+public partial record struct TextMediaType : IMediaType { }

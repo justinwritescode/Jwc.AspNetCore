@@ -18,51 +18,111 @@ using System.Runtime.Serialization;
 [GenerateEnumerationRecordStruct("ApplicationMediaType", "System.Net.Mime.MediaTypes")]
 public enum ApplicationMediaTypesEnum
 {
-    [Display(Name = ApplicationMediaTypeNames.Any, Description = nameof(Any))]
+    /// <summary> Any application media type. </summary>
+    /// <remarks> This is the default value. </remarks>
+    /// <seealso cref="ApplicationMediaTypeNames.Any"/>
+    /// <seealso cref="ApplicationMediaTypeNames.Base"/>
+    /// <remarks>See <see href="https://www.iana.org/assignments/media-types/media-types.xhtml#application">IANA Media Types</see> for more information.</remarks>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Any"/></value>
+    [Display(Name = ApplicationMediaTypeNames.Any, Description = nameof(Any), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.Any)]
     Any,
 
-    [Display(Name = ApplicationMediaTypeNames.Base, Description = nameof(Base))]
+    /// <summary>The base name for all application media types.</summary>
+    /// <remarks>See <see href="https://www.iana.org/assignments/media-types/media-types.xhtml#application">IANA Media Types</see> for more information.</remarks>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Base"/></value>
+    [Display(Name = ApplicationMediaTypeNames.Base, Description = nameof(Base), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.Base)]
     Base,
 
-    [Display(Name = ApplicationMediaTypeNames.Octet, Description = nameof(Octet))]
-    [EnumMember(Value = ApplicationMediaTypeNames.Octet)]
-    Octet,
+    /// <summary>A media type for a stream of bytes.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.OctetStream"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.OctetStream"/>
+    [Display(Name = ApplicationMediaTypeNames.OctetStream, Description = nameof(OctetStream), GroupName = ApplicationMediaTypeNames.Base)]
+    [EnumMember(Value = ApplicationMediaTypeNames.OctetStream)]
+    OctetStream,
 
-    [Display(Name = ApplicationMediaTypeNames.Pdf, Description = nameof(Pdf))]
+    /// <summary>A PDF document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Pdf"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Pdf"/>
+    [Display(Name = ApplicationMediaTypeNames.Pdf, Description = nameof(Pdf), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.Pdf)]
     Pdf,
 
-    [Display(Name = ApplicationMediaTypeNames.Rtf, Description = nameof(Rtf))]
-    [EnumMember(Value = ApplicationMediaTypeNames.Rtf)]
-    Rtf,
-
-    [Display(Name = ApplicationMediaTypeNames.Soap, Description = nameof(Soap))]
-    [EnumMember(Value = ApplicationMediaTypeNames.Soap)]
-    Soap,
-
-    [Display(Name = ApplicationMediaTypeNames.Xml, Description = nameof(Xml))]
-    [EnumMember(Value = ApplicationMediaTypeNames.Xml)]
-    Xml,
-
-    [Display(Name = ApplicationMediaTypeNames.Zip, Description = nameof(Zip))]
+    /// <summary>A ZIP archive.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Zip"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Zip"/>
+    [Display(Name = ApplicationMediaTypeNames.Zip, Description = nameof(Zip), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.Zip)]
     Zip,
 
-    [Display(Name = ApplicationMediaTypeNames.Json, Description = nameof(Json))]
+    /// <summary>Rich Text Format (RTF).</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Rtf"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Rtf"/>
+    [Display(Name = ApplicationMediaTypeNames.Rtf, Description = nameof(Rtf), GroupName = ApplicationMediaTypeNames.Base)]
+    [EnumMember(Value = ApplicationMediaTypeNames.Rtf)]
+    Rtf,
+
+    /// <summary>A SOAP envelope.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Soap"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Soap"/>
+    [Display(Name = ApplicationMediaTypeNames.Soap, Description = nameof(Soap), GroupName = ApplicationMediaTypeNames.Base)]
+    [EnumMember(Value = ApplicationMediaTypeNames.Soap)]
+    Soap,
+
+    /// <summary>An XML document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Xml"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Xml"/>
+    [Display(Name = ApplicationMediaTypeNames.Xml, Description = nameof(Xml), GroupName = ApplicationMediaTypeNames.Base)]
+    [EnumMember(Value = ApplicationMediaTypeNames.Xml)]
+    Xml,
+
+    /// <summary>A JSON document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Json"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Json"/>
+    [Display(Name = ApplicationMediaTypeNames.Json, Description = nameof(Json), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.Json)]
     Json,
 
-    [Display(Name = ApplicationMediaTypeNames.FormUrlEncoded, Description = nameof(FormUrlEncoded))]
+    /// <summary>A form URL-encoded document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.FormUrlEncoded"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.FormUrlEncoded"/>
+    [Display(Name = ApplicationMediaTypeNames.FormUrlEncoded, Description = nameof(FormUrlEncoded), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.FormUrlEncoded)]
     FormUrlEncoded,
 
-    [Display(Name = ApplicationMediaTypeNames.Bson, Description = nameof(Bson))]
+    /// <summary>A binary-encoded Javascript Oject Notation (BSON) document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Bson"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Bson"/>
+    [Display(Name = ApplicationMediaTypeNames.Bson, Description = nameof(Bson), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.Bson)]
     Bson,
 
-    [Display(Name = ApplicationMediaTypeNames.MessagePack, Description = nameof(MessagePack))]
+    /// <summary>A MessagePack document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.MessagePack"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.MessagePack"/>
+    [Display(Name = ApplicationMediaTypeNames.MessagePack, Description = nameof(MessagePack), GroupName = ApplicationMediaTypeNames.Base)]
     [EnumMember(Value = ApplicationMediaTypeNames.MessagePack)]
-    MessagePack
+    MessagePack,
+
+    /// <summary>A Problem JSON document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.ProblemJson"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.ProblemJson"/>
+    [Display(Name = ApplicationMediaTypeNames.ProblemJson, Description = nameof(ProblemJson), GroupName = ApplicationMediaTypeNames.Base)]
+    [EnumMember(Value = ApplicationMediaTypeNames.ProblemJson)]
+    ProblemJson,
+
+    /// <summary>A JSON Patch document.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.JsonPatch"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.JsonPatch"/>
+    [Display(Name = ApplicationMediaTypeNames.JsonPatch, Description = nameof(JsonPatch), GroupName = ApplicationMediaTypeNames.Base)]
+    [EnumMember(Value = ApplicationMediaTypeNames.JsonPatch)]
+    JsonPatch,
+
+    /// <summary>An example media type.</summary>
+    /// <value><inheritdoc cref="ApplicationMediaTypeNames.Example"/></value>
+    /// <seealso cref="ApplicationMediaTypeNames.Example"/>
+    [Display(Name = ApplicationMediaTypeNames.Example, Description = nameof(Example), GroupName = ApplicationMediaTypeNames.Base)]
+    [EnumMember(Value = ApplicationMediaTypeNames.Example)]
+    Example
 }
