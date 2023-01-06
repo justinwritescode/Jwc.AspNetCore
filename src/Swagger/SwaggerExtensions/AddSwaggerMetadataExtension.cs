@@ -138,7 +138,7 @@ public static partial class AddSwaggerMetadataExtension
 
     public static OpenApiInfo DefaultOpenApiInfo(Type tThisAssemblyProject)
     {
-        var thisAssemblyProject = new ThisAssemblyProject(tThisAssemblyProject);
+        var thisAssemblyProject = new TThisAssemblyStaticProxy(tThisAssemblyProject);
         var versionString = thisAssemblyProject.ApiVersion;
 
         var packageTags = new OpenApiArray();
@@ -154,10 +154,10 @@ public static partial class AddSwaggerMetadataExtension
             TermsOfService = thisAssemblyProject.TermsOfServiceUrl,
             Extensions =
             {
-                [nameof(ThisAssemblyProject.PackageProjectUrl)] = new OpenApiString(
+                [nameof(thisAssemblyProject.PackageProjectUrl)] = new OpenApiString(
                     thisAssemblyProject.PackageProjectUrl
                 ),
-                [nameof(ThisAssemblyProject.RepositoryUrl)] = new OpenApiString(
+                [nameof(thisAssemblyProject.RepositoryUrl)] = new OpenApiString(
                     thisAssemblyProject.RepositoryUrl
                 ),
                 ["Tags"] = packageTags
@@ -165,14 +165,14 @@ public static partial class AddSwaggerMetadataExtension
             Contact = new()
             {
                 Name = thisAssemblyProject.Company,
-                Email = new ThisAssemblyProject(tThisAssemblyProject).ContactEmail,
+                Email = thisAssemblyProject.ContactEmail,
                 Url = thisAssemblyProject.PackageProjectUrl,
                 Extensions =
                 {
-                    [nameof(ThisAssemblyProject.Authors)] = new OpenApiString(
+                    [nameof(thisAssemblyProject.Authors)] = new OpenApiString(
                         thisAssemblyProject.Authors
                     ),
-                    [nameof(ThisAssemblyProject.Owners)] = new OpenApiString(
+                    [nameof(thisAssemblyProject.Owners)] = new OpenApiString(
                         thisAssemblyProject.Owners
                     )
                 }
