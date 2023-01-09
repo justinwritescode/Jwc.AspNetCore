@@ -11,7 +11,6 @@
  */
 
 using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
 
 namespace JustinWritesCode.Swagger.Annotations;
 

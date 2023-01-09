@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-/*
+﻿/*
  * FormatOutput.cs
  *
  *   Created: 2022-12-02-03:19:16
@@ -13,11 +11,6 @@
  */
 
 namespace JustinWritesCode.Http.Extensions;
-using System.Net.Http.Headers;
-using System.Net.Cache;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-
 public static class FormatOutputMethod
 {
     // public static IActionResult FormatResponse<T>(this HttpContext ctx, object? value, int page = 1, int pageSize = 1, int total = 1)

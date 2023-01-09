@@ -1,6 +1,4 @@
-﻿using System.Net.Mime;
-
-/*
+﻿/*
  * HttpRequestExtensions.cs
  *
  *   Created: 2022-11-26-11:58:30
@@ -14,7 +12,6 @@
 
 namespace Microsoft.AspNetCore.Http;
 using static System.Net.Http.Headers.HttpRequestHeaderNames;
-using static System.Net.Mime.MediaTypeNames;
 
 public static partial class HttpRequestExtensions2
 {

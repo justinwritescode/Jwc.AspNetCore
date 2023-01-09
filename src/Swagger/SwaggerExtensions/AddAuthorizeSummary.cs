@@ -10,8 +10,8 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

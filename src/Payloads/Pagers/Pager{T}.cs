@@ -12,12 +12,6 @@
 
 using System.Collections;
 using System.Net;
-using JustinWritesCode.Payloads.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using static System.Net.HttpStatusCode;
 
@@ -44,6 +38,22 @@ public class Pager<T> : ArrayResponsePayload<T>, IPayload<T[]>, IPager<T>, IPayl
         PageSize = pageSize;
         TotalRecords = totalRecords;
         Message = message ?? string.Empty;
+    }
+
+    public Pager(
+        IQueryable<T>? items,
+        Range ramge,
+        string? message = default,
+        string itemSeparator = ArrayPayload<T>.DefaultItemSeparator,
+        int? statusCode = default
+    ) : base()
+    {
+        TotalRecords = items.Count();
+        Page = ramge.PageNumber;
+        PageSize = ramge.PageSize;
+        Message = message ?? string.Empty;
+        StatusCode = statusCode;
+        Items = items.Skip(ramge.Start).Take(ramge.PageSize).ToArray();
     }
 
     [JProp("items")]

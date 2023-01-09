@@ -11,9 +11,6 @@
  */
 
 namespace JustinWritesCode.AspNetCore.Authentication.Enums;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-
 [GenerateEnumerationClass(nameof(Operations), "JustinWritesCode.AspNetCore.Authentication")]
 public enum OperationsEnum
 {

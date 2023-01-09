@@ -1,14 +1,9 @@
-using System;
-
 namespace JustinWritesCode.AspNetCore.Formatters;
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime.MediaTypes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 

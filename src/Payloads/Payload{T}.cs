@@ -13,7 +13,6 @@
 namespace JustinWritesCode.Payloads;
 
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using JustinWritesCode.Payloads.Abstractions;
 
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]

@@ -9,7 +9,6 @@
  *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
-using System.ComponentModel.DataAnnotations;
 
 namespace System.Net.Http;
 

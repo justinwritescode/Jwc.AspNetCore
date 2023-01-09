@@ -10,11 +10,10 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
- namespace Microsoft.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection
 {
     using JustinWritesCode.AspNetCore.Swagger;
     using Microsoft.AspNetCore.Builder;
-    using Swashbuckle.AspNetCore.SwaggerGen;
     public static class DescribeTypesForAllOutputFormattersExtension
     {
         public static IServiceCollection AddDescribeTypesForAllOutputFormatters(this IServiceCollection services)
@@ -35,7 +34,6 @@ namespace JustinWritesCode.AspNetCore.Swagger
     using System.Linq;
     using System.Text;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.AspNetCore.Mvc.Formatters;
     using Microsoft.OpenApi.Any;
@@ -53,7 +51,7 @@ namespace JustinWritesCode.AspNetCore.Swagger
             {
                 var openApiResponse = operation.Responses.FirstOrDefault(x => x.Key == responseType.StatusCode.ToString()).Value ?? new OpenApiResponse();
 
-                foreach(var responseFormat in responseType.DetailedApiResponseFormats)
+                foreach (var responseFormat in responseType.DetailedApiResponseFormats)
                 {
                     var mediaType = responseFormat.MediaType;
                     var formatter = responseFormat.Formatter;
@@ -72,7 +70,7 @@ namespace JustinWritesCode.AspNetCore.Swagger
                         new OutputFormatterWriteContext(
                             httpContext, (stream, encoding) => new StreamWriter(stream, encoding), responseType.Type, @object));
 
-                    openApiMediaType.Example = new OpenApiString(Encoding.UTF8.GetString(ms.ToArray()));
+                    openApiMediaType.Example = new OpenApiString(UTF8.GetString(ms.ToArray()));
                     openApiResponse.Content[mediaType] = openApiMediaType;
                 }
             }

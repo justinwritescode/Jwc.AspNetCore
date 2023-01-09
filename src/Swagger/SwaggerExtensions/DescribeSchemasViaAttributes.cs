@@ -10,9 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-using JustinWritesCode.Swagger.Annotations;
 using Microsoft.AspNetCore.Builder;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

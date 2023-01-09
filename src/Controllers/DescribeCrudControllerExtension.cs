@@ -12,13 +12,11 @@
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-using System;
 using System.Net.Mime.MediaTypes;
 using JustinWritesCode.AspNetCore.Controllers;
 using JustinWritesCode.Payloads;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using static Microsoft.AspNetCore.Http.StatusCodes;

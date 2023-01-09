@@ -10,11 +10,9 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-using System.Reflection;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Writers;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace JustinWritesCode.Swagger.Annotations;

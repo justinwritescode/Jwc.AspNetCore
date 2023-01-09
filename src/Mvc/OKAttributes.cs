@@ -12,13 +12,12 @@
 
 namespace JustinWritesCode.AspNetCore.Mvc;
 
-using System.Linq.Expressions;
 using Swashbuckle.AspNetCore.Annotations;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 public class ProducesOKResponseAttribute : SwaggerResponseAttribute
 {
-    public ProducesOKResponseAttribute(Type modelType, string description = "The request was successful") : base(
+    public ProducesOKResponseAttribute(type modelType, string description = "The request was successful") : base(
         Status200OK,
         description ?? "The request was successful",
         modelType,
@@ -48,7 +47,7 @@ public class ProducesNoContentResponseAttribute : SwaggerResponseAttribute
 
 public class ProducesCreatedResponseAttribute : SwaggerResponseAttribute
 {
-    public ProducesCreatedResponseAttribute(Type modelType, string description = "The resource was created successfully.") : base(
+    public ProducesCreatedResponseAttribute(type modelType, string description = "The resource was created successfully.") : base(
         Status201Created,
         description ?? "The resource was created successfully.",
         modelType,
@@ -63,8 +62,8 @@ public class ProducesCreatedResponseAttribute : SwaggerResponseAttribute
 
 public class ProducesPartialContentResponseAttribute : SwaggerResponseAttribute
 {
-    public ProducesPartialContentResponseAttribute(Type modelType, string description = "The resource was created successfully.") : base(
-        Status201Created,
+    public ProducesPartialContentResponseAttribute(type modelType, string description = "The resource was created successfully.") : base(
+        Status206PartialContent,
         description ?? "The resource was created successfully.",
         modelType,
         ApplicationMediaTypeNames.Json,

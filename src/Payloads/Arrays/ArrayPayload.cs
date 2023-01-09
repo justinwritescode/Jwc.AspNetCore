@@ -11,15 +11,13 @@
  */
 
 using System.Collections;
-using System.Diagnostics;
-using JustinWritesCode.Payloads.Abstractions;
 
 namespace JustinWritesCode.Payloads;
 
 [DebuggerDisplay($"{{{nameof(StringValue)}}}")]
 public class ArrayPayload : ArrayPayload<object>
 {
-    public ArrayPayload() : this(Array.Empty<object>()) { }
+    public ArrayPayload() : this(Empty<object>()) { }
 
     public ArrayPayload(
         IEnumerable values,

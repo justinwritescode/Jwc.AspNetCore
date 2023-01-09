@@ -2,11 +2,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 using System.Net.Http.Headers;
 using System.Net.Mime.MediaTypes;
-using AutoMapper;
-using JustinWritesCode.AspNetCore.Authentication;
 using JustinWritesCode.AspNetCore.Controllers;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -85,7 +82,7 @@ public static class AddTheWorksExtensions
         return builder;
     }
 
-    public static WebApplication UseTheWorks(this WebApplication app, Type tThisAssemblyProject)
+    public static WebApplication UseTheWorks(this WebApplication app, type tThisAssemblyProject)
     {
         _ = app.Use(
             (context, next) =>
@@ -117,9 +114,13 @@ public static class AddTheWorksExtensions
         // app.UseSwaggerUI();
         _ = app.UseCustomizedSwaggerUI(tThisAssemblyProject);
 
+        _ = app.UseRequestDecompression()
+               .UseResponseCompression()
+               .UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
         _ = app.UseApiBasicAuthentication();
 
-        _ = app.UseWelcomePage(new WelcomePageOptions { Path = "/welcome" });
+        _ = app.UseWelcomePage(new WelcomePageOptions { Path = null });
 
         _ = app.MapPing();
 
@@ -127,13 +128,12 @@ public static class AddTheWorksExtensions
 
         _ = app.MapControllers();
 
-
         return app;
     }
 
     public static WebApplication UseTheWorks(
         this WebApplication app,
-        Type tThisAssemblyProject,
+        type tThisAssemblyProject,
         Action<WebApplication>? configure
     )
     {

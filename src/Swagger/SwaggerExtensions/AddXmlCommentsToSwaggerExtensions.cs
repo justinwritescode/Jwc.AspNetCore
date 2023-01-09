@@ -10,7 +10,6 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Builder;
 using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
@@ -26,7 +25,7 @@ public static class AddXmlCommentsToSwaggerExtensions
         var xmlDocs = Directory.GetFiles(binRoot, "*.xml");
         builder.Services.ConfigureSwaggerGen(options =>
         {
-            Array.ForEach(xmlDocs, xmlDoc =>
+            ForEach(xmlDocs, xmlDoc =>
             {
                 try
                 {
@@ -73,7 +72,7 @@ public static class AddXmlCommentsToSwaggerExtensions
 
                 // get descriptions from xml-file comments on the specified path
                 // should use "options.IncludeXmlComments(xmlFilePath);" before
-                Array.ForEach(xmlDocs, xmlDoc => o.IncludedXmlCommentsPaths.Add(xmlDoc));
+                ForEach(xmlDocs, xmlDoc => o.IncludedXmlCommentsPaths.Add(xmlDoc));
                 // the same for another xml-files...
             });
 

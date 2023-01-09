@@ -14,15 +14,11 @@ namespace JustinWritesCode.AspNetCore.Authentication;
 
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
 using JustinWritesCode.Abstractions;
-using JustinWritesCode.AspNetCore.Authentication;
 using JustinWritesCode.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using static System.Net.HttpStatusCode;
 
 public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
 {
@@ -49,7 +45,7 @@ public class BasicApiAuthMiddleware : IBasicApiAuthMiddleware, ILog
                 context.Request.Headers["Authorization"]
             );
             var credentialBytes = FromBase64String(authHeader.Parameter);
-            var credentials = System.Text.Encoding.UTF8.GetString(credentialBytes).Split(':', 2);
+            var credentials = UTF8.GetString(credentialBytes).Split(':', 2);
             var authUsername = credentials[0];
             var authPassword = credentials[1];
             Logger.AuthenticatingUser(authUsername);

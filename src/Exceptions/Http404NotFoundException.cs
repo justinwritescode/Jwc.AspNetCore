@@ -10,8 +10,6 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-using System;
-
 namespace Microsoft.AspNetCore;
 
 public class Http404NotFoundException : HttpRequestException

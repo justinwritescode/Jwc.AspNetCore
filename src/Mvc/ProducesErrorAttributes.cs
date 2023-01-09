@@ -1,4 +1,3 @@
-using System;
 /*
  * Attributes.cs
  *
@@ -13,7 +12,6 @@ using System;
 
 namespace JustinWritesCode.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 

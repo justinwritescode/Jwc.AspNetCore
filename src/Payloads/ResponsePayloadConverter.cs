@@ -1,6 +1,4 @@
-﻿using System;
-
-/*
+﻿/*
  * ResponsePayloadConverter.cs
  *
  *   Created: 2022-12-09-11:43:14

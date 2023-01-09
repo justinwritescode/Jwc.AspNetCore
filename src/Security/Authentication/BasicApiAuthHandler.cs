@@ -22,8 +22,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using ClaimTypes = JwcCt;
-
 public class BasicApiAuthHandler
     : AuthenticationHandler<ApiBasicAuthenticationOptions>,
         IHttpContextAccessor,
@@ -81,12 +79,12 @@ public class BasicApiAuthHandler
                 userClaims.Add(new(JwcCt.GivenName, user.GivenName));
                 userClaims.Add(new(JwcCt.Surname, user.Surname));
 
-                if(!IsNullOrEmpty(user.TelegramUsername) && !userClaims.Any(c => c.Type == TelegramID.Username))
+                if (!IsNullOrEmpty(user.TelegramUsername) && !userClaims.Any(c => c.Type == TelegramID.Username))
                 {
                     userClaims.Add(new(TelegramID.Username, user.TelegramUsername));
                 }
 
-                if(user.Phone.HasValue && !userClaims.Any(c => c.Type == JwcCt.HomePhone))
+                if (user.Phone.HasValue && !userClaims.Any(c => c.Type == JwcCt.HomePhone))
                 {
                     userClaims.Add(new(JwcCt.HomePhone, user.PhoneNumber));
                 }

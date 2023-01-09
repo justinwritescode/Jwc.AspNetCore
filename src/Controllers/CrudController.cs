@@ -108,7 +108,6 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <param name="itemSeparator" example="', '">The string to place in between items when rendering the payload as a plain text value</param>
     /// <param name="orderBy" default="'Id'">The name of the property to use to sort the returned items</param>
     /// <param name="sortDirection" example="'ascending' / 'descending'">Whether to sort the items in ascending or descending order</param>
-    //
     protected virtual async Task<Pager<TViewDto>> GetAllHead(
          Payloads.Range range,
          string itemSeparator = DefaultItemSeparator,
@@ -137,7 +136,6 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <param name="itemSeparator" example="', '">The string to place in between items when rendering the payload as a plain text value</param>
     /// <param name="orderBy" default="'Id'">The name of the property to use to sort the returned items</param>
     /// <param name="sortDirection" example="'ascending' / 'descending'">Whether to sort the items in ascending or descending order</param>
-    //
     protected virtual async Task<Pager<TViewDto>> GetAll(
      Payloads.Range range,
         Expression<Func<TViewDto, bool>> filter = null,
@@ -225,7 +223,7 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <param name="id" example="69">The unique ID of the item to look up</param>
     //
     //
-    protected virtual async Task<ResponsePayload<TViewDto>> Head( TId id) =>
+    protected virtual async Task<ResponsePayload<TViewDto>> Head(TId id) =>
         (await Db.Set<TModel>().FindAsync(id)) is not null
             ? new ResponsePayload<TViewDto>()
             : ResponsePayload<TViewDto>.NotFound();
@@ -276,7 +274,7 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <summary>Deletes the item with ID = <paramref name="id"/></summary>
 
     //
-    protected virtual async Task<IActionResult> Delete( TId id)
+    protected virtual async Task<IActionResult> Delete(TId id)
     {
         var model = await Db.Set<TModel>().FindAsync(id);
         if (model == null)

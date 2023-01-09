@@ -10,8 +10,6 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-using System.Net;
-
 namespace JustinWritesCode.Payloads.Abstractions;
 
 /// <summary>Represents a response payload that supports paging</summary>

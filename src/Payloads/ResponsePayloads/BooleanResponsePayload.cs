@@ -14,8 +14,6 @@
 namespace JustinWritesCode.Payloads;
 
 using System.Xml.Serialization;
-using JustinWritesCode.Payloads.Abstractions;
-using static Microsoft.AspNetCore.Http.StatusCodes;
 
 /// <summary>Represents a response payload with a <see langword="bool" /> value</summary>
 public class BooleanResponsePayload : ResponsePayload<bool>

@@ -12,14 +12,11 @@
 
 namespace JustinWritesCode.AspNetCore.Controllers;
 
-using System.Net.Mime.MediaTypes;
-
+using JustinWritesCode.Abstractions;
+using JustinWritesCode.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Abstractions;
 using Microsoft.Extensions.Logging;
-
-using JustinWritesCode.Abstractions;
-using JustinWritesCode.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]

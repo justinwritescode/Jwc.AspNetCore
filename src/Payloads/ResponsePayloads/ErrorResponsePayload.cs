@@ -11,16 +11,6 @@
  */
 
 namespace JustinWritesCode.Payloads;
-
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using JustinWritesCode.Payloads.Abstractions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
-using static System.Net.HttpStatusCode;
 // public class ErrorResponsePayload : ProblemDetails, IErrorResponsePayload
 // {
 //     public const string DefaultMessage = "An error has occurred.";

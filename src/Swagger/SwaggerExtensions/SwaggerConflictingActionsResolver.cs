@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-/*
+﻿/*
  * SwaggerConflictingActionsResolver.cs
  *
  *   Created: 2022-12-16-07:09:19
@@ -14,9 +13,6 @@
 using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore;
-using Swashbuckle.AspNetCore.SwaggerGen;
-
 public static class SwaggerConflictingActionsResolver
 {
     public static WebApplicationBuilder AddSwaggerConflictingActionsResolver(

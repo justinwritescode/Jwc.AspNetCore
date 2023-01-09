@@ -13,5 +13,5 @@
 using Microsoft.AspNetCore.Mvc;
 namespace JustinWritesCode.AspNetCore.Mvc;
 
-[GenerateInterfaceAttribute(typeof(ProblemDetails))]
+[GenerateInterface(typeof(ProblemDetails))]
 public partial interface IProblemDetails { }

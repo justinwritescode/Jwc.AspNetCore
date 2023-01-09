@@ -10,7 +10,6 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Swashbuckle.AspNetCore.Filters;
 

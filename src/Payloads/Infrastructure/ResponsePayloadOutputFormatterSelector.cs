@@ -11,14 +11,11 @@
  */
 namespace JustinWritesCode.Payloads.Infrastructure;
 
-using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using MvcJsonOptions = Microsoft.AspNetCore.Mvc.JsonOptions;
 
 public class ResponsePayloadOutputFormatterSelector : OutputFormatterSelector

@@ -34,6 +34,16 @@ public class SingleItemPager<T> : Pager<T>, ISingleItemPager<T>, IPager
         StringValue = value.ToString();
     }
 
+    public SingleItemPager(IQueryable<T> items, int itemNumber) : base()
+    {
+        TotalRecords = items.Count();
+        Page = itemNumber;
+        PageSize = 1;
+        Message = string.Empty;
+        Item = items.Skip(itemNumber - 1).FirstOrDefault();
+        StringValue = Item.ToString();
+    }
+
     [JProp("item")]
     public virtual T? Item
     {

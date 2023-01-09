@@ -15,13 +15,12 @@ namespace Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 public static partial class HttpRequestExtensions2
 {
     public static async Task<T?> ReadFromJsonAsync<T>(this HttpRequest req) =>
-        JsonSerializer.Deserialize<T>(
+        Deserialize<T>(
             await new StreamReader(req.Body).ReadToEndAsync().ConfigureAwait(false)
         );
 
@@ -31,13 +30,13 @@ public static partial class HttpRequestExtensions2
         T? defaultValue = default
     ) =>
         req.Query.ContainsKey(name)
-            ? (T)Convert.ChangeType(req.Query[name].First(), typeof(T))
+            ? (T)ChangeType(req.Query[name].First(), typeof(T))
             : defaultValue;
 
     public static bool TryGetQueryStringParam<T>(this HttpRequest req, string name, out T? value) =>
         (
             value = req.Query.TryGetValue(name, out var stringQueryValue)
-                ? (T)Convert.ChangeType(string.Join(stringQueryValue, ","), typeof(T))
+                ? (T)ChangeType(Join(stringQueryValue, ","), typeof(T))
                 : default
         )
             is not null;
@@ -61,13 +60,13 @@ public static partial class HttpRequestExtensions2
         T? defaultValue = default
     ) =>
         req.Headers.ContainsKey(name)
-            ? (T)Convert.ChangeType(req.Headers[name].First(), typeof(T))
+            ? (T)ChangeType(req.Headers[name].First(), typeof(T))
             : defaultValue;
 
     public static bool TryGetHeaderParam<T>(this HttpRequest req, string name, out T? value) =>
         (
             value = req.Headers.TryGetValue(name, out var stringHeaderValue)
-                ? (T)Convert.ChangeType(string.Join(stringHeaderValue, ","), typeof(T))
+                ? (T)ChangeType(Join(stringHeaderValue, ","), typeof(T))
                 : default
         )
             is not null;
@@ -82,5 +81,5 @@ public static partial class HttpRequestExtensions2
                 : defaultValue;
 
     public static Task WriteResponseAsync<T>(this HttpResponse res, T value) =>
-        res.WriteAsync(JsonSerializer.Serialize(value));
+        res.WriteAsync(Serialize(value));
 }

@@ -13,6 +13,7 @@
 using System.Net.Mime.MediaTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -25,8 +26,18 @@ public static partial class UseSwaggerUIExtensions
 {
     private static readonly Assembly _assembly = typeof(UseSwaggerUIExtensions).Assembly;
 
-    private static string CustomCss(string resourceName) =>
+    private static string GetManifestResourceString(string resourceName) =>
         new StreamReader(_assembly.GetManifestResourceStream(resourceName)).ReadToEnd();
+
+    private static string CustomCss(string resourceName) => GetManifestResourceString(resourceName);
+    // $$"""
+    // /* Begin Swagger UI Base CSS */
+    // {{GetManifestResourceString("swagger-ui.css")}}
+    // /* End Swagger UI Base CSS */
+    // /* Begin Swagger UI Custom CSS */
+    // {{GetManifestResourceString(resourceName)}}
+    // /* End Swagger UI Custom CSS */
+    // """;
 
     const string ExampleCss = """"
     @charset "UTF-8";
@@ -36,28 +47,6 @@ public static partial class UseSwaggerUIExtensions
 
     .swagger-ui *, .swagger-ui :after, .swagger-ui :before {
     box-sizing: inherit
-    }
-
-    .swagger-ui body {
-    margin: 0;
-    background: #fafafa
-    }
-
-    .swagger-ui .wrapper {
-    width: 100%;
-    max-width: 1460px;
-    margin: 0 auto;
-    padding: 0 20px
-    }
-
-    .swagger-ui .opblock-tag-section {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column
     }
 
     etc. etc. etc...
@@ -72,17 +61,19 @@ public static partial class UseSwaggerUIExtensions
         string? swaggerTheme = null
     )
     {
-        var thisAssemblyProject = new ThisAssemblyProject(tThisAssemblyProject);
+        var thisAssemblyProject = new TThisAssemblyStaticProxy(tThisAssemblyProject);
+        var logger = app.Logger;
+        var swaggerPath = $"/swagger/{thisAssemblyProject.ApiVersion}/swagger.json";
         _ = app.UseSwagger(options =>
         {
-            options.RouteTemplate = "/swagger/{documentName}/swagger.json";
+            options.RouteTemplate = swaggerPath;
         });
         _ = app.UseSwaggerUI(options =>
         {
             options.RoutePrefix = string.Empty;
             options.DefaultModelExpandDepth(0);
             options.DefaultModelRendering(ModelRendering.Model);
-            options.DocExpansion(DocExpansion.None);
+            options.DocExpansion(DocExpansion.List);
             options.DisplayOperationId();
             options.DisplayRequestDuration();
             options.EnableDeepLinking();
@@ -115,24 +106,17 @@ public static partial class UseSwaggerUIExtensions
                 app.Logger.CannotLoadIndexDocument(indexDocumentAssemblyResourceName);
             }
 
-            options.SwaggerEndpoint(
-                $"/swagger/{thisAssemblyProject.ApiVersion}/swagger.json",
-                $"{thisAssemblyProject.Title} v{thisAssemblyProject.Version}"
+            options.SwaggerEndpoint(swaggerPath,
+                $"{thisAssemblyProject.Title} {thisAssemblyProject.ApiVersion}"
             );
         });
 
-        _ = app.MapGet("swagger-ui.css", () =>
-            """/* Begin Swagger UI Base CSS */""" +
-            CustomCss("swagger-ui.css") +
-            """/* End Swagger UI Base CSS */""" +
-            """/* Begin Swagger UI Custom CSS */""" +
-            CustomCss("SwaggerUI.swagger-ui.css") +
-            """/* End Swagger UI Custom CSS */"""
-            )
+        _ = app.MapGet("swagger-ui/SwaggerUI.custom.css", () => new CssResult(CustomCss("swagger-ui.css")))
             .WithOpenApi(op =>
             {
                 op.Responses["200"] = new OpenApiResponse
                 {
+
                     Description = "Swagger UI CSS",
                     Content =
                     {
@@ -149,40 +133,44 @@ public static partial class UseSwaggerUIExtensions
                 };
                 return op;
             })
-            .Produces<string>(Status200OK, System.Net.Mime.MediaTypes.TextMediaTypeNames.Css);
+            .WithName("SwaggerUI.custom.css")
+            .WithGroupName("Style")
+            .WithSummary("Custom CSS for Swagger UI")
+            .WithTags(new[] { "Style" })
+            .Produces<string>(Status200OK, TextMediaTypeNames.Css);
 
-        _ = app.MapGet(
-                "/swagger-ui/SwaggerUI.custom.css",
-                () =>
-                    CustomCss(
-                        swaggerTheme ?? new ThisAssemblyProject(tThisAssemblyProject).SwaggerTheme
-                    )
-            )
-            .WithOpenApi(op =>
-            {
-                op.Responses["200"] = new OpenApiResponse
-                {
-                    Description = "Custom CSS",
-                    Content =
-                    {
-                        [TextMediaTypeNames.Css] = new OpenApiMediaType
-                        {
-                            Schema = new OpenApiSchema
-                            {
-                                Type = TextMediaTypeNames.Css,
-                                Description = "custom css"
-                            },
-                            Example = _exampleCssOpenApiString
-                        }
-                    }
-                };
-                return op;
-            })
-            .Produces<string>(Status200OK, System.Net.Mime.MediaTypes.TextMediaTypeNames.Css);
+        // _ = app.MapGet(
+        //         "/swagger-ui/SwaggerUI.custom.css",
+        //         () =>
+        //             CustomCss(
+        //                 swaggerTheme ?? new ThisAssemblyProject(tThisAssemblyProject).SwaggerTheme
+        //             )
+        //     )
+        //     .WithOpenApi(op =>
+        //     {
+        //         op.Responses["200"] = new OpenApiResponse
+        //         {
+        //             Description = "Custom CSS",
+        //             Content =
+        //             {
+        //                 [TextMediaTypeNames.Css] = new OpenApiMediaType
+        //                 {
+        //                     Schema = new OpenApiSchema
+        //                     {
+        //                         Type = TextMediaTypeNames.Css,
+        //                         Description = "custom css"
+        //                     },
+        //                     Example = _exampleCssOpenApiString
+        //                 }
+        //             }
+        //         };
+        //         return op;
+        //     })
+        //     .Produces<string>(Status200OK, TextMediaTypeNames.Css);
 
         foreach (var cssFile in _assembly.GetManifestResourceNames().Where(x => x.EndsWith(".css")))
         {
-            _ = app.MapGet($"/swagger-ui/{cssFile}", () => CustomCss(cssFile))
+            _ = app.MapGet($"/swagger-ui/{cssFile}", () => new CssResult(CustomCss(cssFile)))
                 .WithOpenApi(op =>
                 {
                     op.Responses["200"] = new OpenApiResponse
@@ -194,6 +182,7 @@ public static partial class UseSwaggerUIExtensions
                             {
                                 Schema = new OpenApiSchema
                                 {
+                                    Format = TextMediaTypeNames.Css,
                                     Type = TextMediaTypeNames.Css,
                                     Description = "custom css"
                                 },
@@ -203,33 +192,43 @@ public static partial class UseSwaggerUIExtensions
                     };
                     return op;
                 })
-                .Produces<string>(Status200OK, System.Net.Mime.MediaTypes.TextMediaTypeNames.Css);
+                .WithTags(new[] { "style", "ui" })
+                .Produces<string>(Status200OK, TextMediaTypeNames.Css);
         }
 
+        Console.WriteLine($"thisAssemblyProject.Version: {thisAssemblyProject.ApiVersion}");
+
         _ = app.MapGet(
-            $"/swagger/{thisAssemblyProject.Version}/swagger.json",
+            $"/swagger/{thisAssemblyProject.ApiVersion}/swagger.json",
             ctx =>
             {
                 ctx.Response.Redirect($"/swagger/v1/swagger.json");
                 return Task.CompletedTask;
             }
         );
-        // app.Services.GetRequiredService<ISwaggerProvider>().GetSwagger(thisAssemblyProject.Version, null, null)
+
+        _ = app.UseRewriter(new RewriteOptions().AddRedirect("^$", "swagger-ui/SwaggerUI.custom.css"))
+               .UseRewriter(new RewriteOptions().AddRedirect("swagger-ui.css", "swagger-ui"));
 
         _ = app.UseReDoc(opts =>
         {
+            opts.DocumentTitle = thisAssemblyProject.Title;
+            opts.SpecUrl = $"/swagger/{thisAssemblyProject.ApiVersion}/swagger.json";
+            opts.OnlyRequiredInSamples();
             opts.HeadContent +=
-                "<script type=\"application/javascript\" src=\"https://cdn.jsdelivr.net/npm/redoc-try-it-out/dist/try-it-out.min.js\"></script>";
+                """<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/redoc-try-it-out/dist/try-it-out.min.js"></script>""";
             opts.HeadContent +=
-                @"<script>
-    var redoc_container = document.createElement(""div"");
-    document.body.appendChild(redoc_container);
-    RedocTryItOut.init(
-        ""/swagger/v1/swagger.json"",
-        { title: ""Pet Store"" },
-        redoc_container
-    );
-</script>";
+                $$""""
+                <script>
+                    var redoc_container = document.createElement("div");
+                    document.body.appendChild(redoc_container);
+                    RedocTryItOut.init(
+                        "/{{opts.SpecUrl}}",
+                        { title: ""Pet Store"" },
+                        redoc_container
+                    );
+                </script>
+                """";
         });
 
         return app;
@@ -247,7 +246,7 @@ public static partial class UseSwaggerUIExtensions
 
     public static WebApplication UseCustomizedSwaggerUI(
         this WebApplication app,
-        Type tThisAssemblyProject,
+        type tThisAssemblyProject,
         string indexDocumentAssemblyResourceName = "SwaggerUI.index.html",
         string? swaggerTheme = null
     ) =>
@@ -258,4 +257,16 @@ public static partial class UseSwaggerUIExtensions
         );
 
     internal sealed class Foo { }
+
+    internal sealed class CssResult : IResult
+    {
+        private readonly string _css;
+        public CssResult(string css) => _css = css;
+
+        public Task ExecuteAsync(HttpContext httpContext)
+        {
+            httpContext.Response.ContentType = TextMediaTypeNames.Css;
+            return httpContext.Response.WriteAsync(_css);
+        }
+    }
 }
