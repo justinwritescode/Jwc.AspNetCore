@@ -10,7 +10,11 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
-<Project Sdk="Microsoft.Build.Traversal">
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="MetapackageSdk" />
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="./Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" />
     <ProjectReference Include="./Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" />
