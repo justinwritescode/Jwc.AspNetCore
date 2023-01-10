@@ -1,7 +1,7 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.AspNetCore.ErrorHandling", "JustinWritesCode.AspNetCore.ErrorHandling.csproj", "{CCCC6FC4-189C-4751-9F6F-5E11A23DB296}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWrritesCode.AspNetCore.Hosting.Extensions", "..\Hosting.Extensions\JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj", "{10E11BEB-C699-4BC2-81CC-C12CF4525FC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.AspNetCore.Hosting.Extensions", "..\Hosting.Extensions\JustinWritesCode.AspNetCore.Hosting.Extensions.csproj", "{10E11BEB-C699-4BC2-81CC-C12CF4525FC7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{88F3F3D9-6A81-4C6B-917A-CBA60704C1EE}"
 EndProject

@@ -43,7 +43,7 @@
   <ItemGroup>
     <ProjectReference Include="../Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" ExcludeAssets="ContentFiles" />
     <ProjectReference Include="../Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Hosting.Extensions/JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj" ExcludeAssets="ContentFiles" />
+    <ProjectReference Include="../Hosting.Extensions/JustinWritesCode.AspNetCore.Hosting.Extensions.csproj" ExcludeAssets="ContentFiles" />
     <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" ExcludeAssets="ContentFiles" />
     <ProjectReference Include="../Payloads/JustinWritesCode.Payloads.csproj" ExcludeAssets="ContentFiles" />
     <ProjectReference Include="../Formatters/JustinWritesCode.AspNetCore.Formatters.csproj" ExcludeAssets="ContentFiles" />

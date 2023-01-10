@@ -21,7 +21,7 @@
     <ProjectReference Include="./src/Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" />
     <ProjectReference Include="./src/ErrorHandling/JustinWritesCode.AspNetCore.ErrorHandling.csproj" />
     <ProjectReference Include="./src/Exceptions/JustinWritesCode.AspNetCore.Exceptions.csproj" />
-    <ProjectReference Include="./src/Hosting.Extensions/JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj" />
+    <ProjectReference Include="./src/Hosting.Extensions/JustinWritesCode.AspNetCore.Hosting.Extensions.csproj" />
     <ProjectReference Include="./src/Formatters/JustinWritesCode.AspNetCore.Formatters.csproj" />
     <ProjectReference Include="./src/Http/Extensions/JustinWritesCode.Http.Extensions.csproj" />
     <ProjectReference Include="./src/Http/Http/JustinWritesCode.Http.csproj" />

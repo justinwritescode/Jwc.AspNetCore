@@ -15,11 +15,7 @@
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App">
-      <GeneratePathProperty></GeneratePathProperty>
-      <IncludeAssets></IncludeAssets>
-      <ExcludeAssets></ExcludeAssets>
-    </PackageReference>
-    <ProjectReference Include="../Hosting.Extensions/JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="../Hosting.Extensions/JustinWritesCode.AspNetCore.Hosting.Extensions.csproj" />
   </ItemGroup>
 </Project>

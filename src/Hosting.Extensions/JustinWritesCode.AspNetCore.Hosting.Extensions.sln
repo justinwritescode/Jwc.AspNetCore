@@ -1,5 +1,5 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWrritesCode.AspNetCore.Hosting.Extensions", "JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj", "{AE5B5AA6-4447-41D7-9867-2DEBBE7B4061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.AspNetCore.Hosting.Extensions", "JustinWritesCode.AspNetCore.Hosting.Extensions.csproj", "{AE5B5AA6-4447-41D7-9867-2DEBBE7B4061}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B5E485E0-2A9E-4C98-BF19-07801723E6D8}"
 EndProject

@@ -5,7 +5,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.AspNetCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.AspNetCore.Formatters", "..\Formatters\JustinWritesCode.AspNetCore.Formatters.csproj", "{2127D59F-40BA-4EC6-9114-0C6C9787413B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWrritesCode.AspNetCore.Hosting.Extensions", "..\Hosting.Extensions\JustinWrritesCode.AspNetCore.Hosting.Extensions.csproj", "{C4BEE464-4D79-4D48-83B3-6C1D72A27B11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.AspNetCore.Hosting.Extensions", "..\Hosting.Extensions\JustinWritesCode.AspNetCore.Hosting.Extensions.csproj", "{C4BEE464-4D79-4D48-83B3-6C1D72A27B11}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustinWritesCode.Http.Extensions", "..\Http\Extensions\JustinWritesCode.Http.Extensions.csproj", "{27B58C0B-FF54-4AD4-8FCB-FFB5724CD80E}"
 EndProject
