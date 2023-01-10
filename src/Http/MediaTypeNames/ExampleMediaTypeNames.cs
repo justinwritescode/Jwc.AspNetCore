@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ExampleMediaTypeNames.cs
  *
  *   Created: 2023-01-06-07:26:23
@@ -20,6 +20,7 @@ public static class ExampleMediaTypeNames
     /// <remarks>See <see href="https://www.iana.org/assignments/media-types/media-types.xhtml#example">IANA Media Types</see> for more information.</remarks>
     /// <value>example</value>
     public const string Base = "example";
+
     /// <summary>Media type for any example.</summary>
     /// <value><inheritdoc cref="Base" />/*</value>
     public const string Any = Base + "/*";
@@ -46,8 +47,4 @@ public enum ExampleMediaTypesEnum
     Example
 }
 
-
-public partial record struct ExampleMediaType : IMediaType
-{
-
-}
+public partial record struct ExampleMediaType : IMediaType { }

@@ -11,6 +11,7 @@
  */
 
 namespace JustinWritesCode.Http.Extensions;
+
 public static class FormatOutputMethod
 {
     // public static IActionResult FormatResponse<T>(this HttpContext ctx, object? value, int page = 1, int pageSize = 1, int total = 1)

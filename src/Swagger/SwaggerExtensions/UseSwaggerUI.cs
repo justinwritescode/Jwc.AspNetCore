@@ -30,6 +30,7 @@ public static partial class UseSwaggerUIExtensions
         new StreamReader(_assembly.GetManifestResourceStream(resourceName)).ReadToEnd();
 
     private static string CustomCss(string resourceName) => GetManifestResourceString(resourceName);
+
     // $$"""
     // /* Begin Swagger UI Base CSS */
     // {{GetManifestResourceString("swagger-ui.css")}}
@@ -106,17 +107,20 @@ public static partial class UseSwaggerUIExtensions
                 app.Logger.CannotLoadIndexDocument(indexDocumentAssemblyResourceName);
             }
 
-            options.SwaggerEndpoint(swaggerPath,
+            options.SwaggerEndpoint(
+                swaggerPath,
                 $"{thisAssemblyProject.Title} {thisAssemblyProject.ApiVersion}"
             );
         });
 
-        _ = app.MapGet("swagger-ui/SwaggerUI.custom.css", () => new CssResult(CustomCss("swagger-ui.css")))
+        _ = app.MapGet(
+                "swagger-ui/SwaggerUI.custom.css",
+                () => new CssResult(CustomCss("swagger-ui.css"))
+            )
             .WithOpenApi(op =>
             {
                 op.Responses["200"] = new OpenApiResponse
                 {
-
                     Description = "Swagger UI CSS",
                     Content =
                     {
@@ -207,8 +211,10 @@ public static partial class UseSwaggerUIExtensions
             }
         );
 
-        _ = app.UseRewriter(new RewriteOptions().AddRedirect("^$", "swagger-ui/SwaggerUI.custom.css"))
-               .UseRewriter(new RewriteOptions().AddRedirect("swagger-ui.css", "swagger-ui"));
+        _ = app.UseRewriter(
+                new RewriteOptions().AddRedirect("^$", "swagger-ui/SwaggerUI.custom.css")
+            )
+            .UseRewriter(new RewriteOptions().AddRedirect("swagger-ui.css", "swagger-ui"));
 
         _ = app.UseReDoc(opts =>
         {
@@ -217,8 +223,7 @@ public static partial class UseSwaggerUIExtensions
             opts.OnlyRequiredInSamples();
             opts.HeadContent +=
                 """<script type="application/javascript" src="https://cdn.jsdelivr.net/npm/redoc-try-it-out/dist/try-it-out.min.js"></script>""";
-            opts.HeadContent +=
-                $$""""
+            opts.HeadContent += $$""""
                 <script>
                     var redoc_container = document.createElement("div");
                     document.body.appendChild(redoc_container);
@@ -261,6 +266,7 @@ public static partial class UseSwaggerUIExtensions
     internal sealed class CssResult : IResult
     {
         private readonly string _css;
+
         public CssResult(string css) => _css = css;
 
         public Task ExecuteAsync(HttpContext httpContext)

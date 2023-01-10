@@ -1,4 +1,4 @@
-/*
+﻿/*
  * IProblemDetails.cs
  *
  *   Created: 2023-01-04-04:30:24
@@ -11,6 +11,7 @@
  */
 
 using Microsoft.AspNetCore.Mvc;
+
 namespace JustinWritesCode.AspNetCore.Mvc;
 
 [GenerateInterface(typeof(ProblemDetails))]

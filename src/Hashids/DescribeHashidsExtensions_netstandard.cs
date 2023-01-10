@@ -22,9 +22,7 @@ public static partial class DescribeHashidsExtensions
         params Assembly[]? assemblies
     )
     {
-        services.ConfigureSwaggerGen(
-            options => options.OperationFilter<HashidsOperationFilter>()
-        );
+        services.ConfigureSwaggerGen(options => options.OperationFilter<HashidsOperationFilter>());
         // assemblies ??= AppDomain.CurrentDomain.GetAssemblies();
         // builder.Services.DescribeHashidsFromAssemblies(assemblies);
         return services;

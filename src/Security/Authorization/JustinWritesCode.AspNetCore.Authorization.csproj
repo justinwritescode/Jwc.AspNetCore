@@ -31,6 +31,7 @@
   <ItemGroup>
     <ProjectReference Include="../../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
     <ProjectReference Include="../../Http/Http/JustinWritesCode.Http.csproj" />
+    <ProjectReference Include="../../Payloads/JustinWritesCode.Payloads.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" />

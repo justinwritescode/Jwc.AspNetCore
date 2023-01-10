@@ -1,4 +1,4 @@
-/*
+﻿/*
  * MediaTypeNames.cs
  *
  *   Created: 2022-11-29-01:56:37
@@ -54,6 +54,5 @@ public enum TextMediaTypesEnum
     [EnumMember(Value = TextMediaTypeNames.Json)]
     Json
 }
-
 
 public partial record struct TextMediaType : IMediaType { }

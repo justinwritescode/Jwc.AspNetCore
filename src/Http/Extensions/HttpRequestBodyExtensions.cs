@@ -20,9 +20,7 @@ using System.Threading.Tasks;
 public static partial class HttpRequestExtensions2
 {
     public static async Task<T?> ReadFromJsonAsync<T>(this HttpRequest req) =>
-        Deserialize<T>(
-            await new StreamReader(req.Body).ReadToEndAsync().ConfigureAwait(false)
-        );
+        Deserialize<T>(await new StreamReader(req.Body).ReadToEndAsync().ConfigureAwait(false));
 
     public static T? GetQueryStringParam<T>(
         this HttpRequest req,

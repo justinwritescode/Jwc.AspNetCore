@@ -13,6 +13,7 @@
 using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.Extensions.DependencyInjection;
+
 public static class SwaggerConflictingActionsResolver
 {
     public static WebApplicationBuilder AddSwaggerConflictingActionsResolver(

@@ -65,13 +65,14 @@ public static class AddApiAuthenticationExtensions
         // // return builder;
     }
 
-    public static AuthenticationBuilder AddApiBasicAuthentication(this AuthenticationBuilder builder)
-     => builder
-            .AddScheme<ApiBasicAuthenticationOptions, BasicApiAuthHandler>(
-                ApiBasicAuthenticationOptions.AuthenticationSchemeName,
-                ApiBasicAuthenticationOptions.AuthenticationSchemeName,
-                _ => { }
-            );
+    public static AuthenticationBuilder AddApiBasicAuthentication(
+        this AuthenticationBuilder builder
+    ) =>
+        builder.AddScheme<ApiBasicAuthenticationOptions, BasicApiAuthHandler>(
+            ApiBasicAuthenticationOptions.AuthenticationSchemeName,
+            ApiBasicAuthenticationOptions.AuthenticationSchemeName,
+            _ => { }
+        );
 
     public static WebApplication UseApiBasicAuthentication(this WebApplication app)
     {

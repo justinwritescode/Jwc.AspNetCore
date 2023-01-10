@@ -1,4 +1,4 @@
-/*
+﻿/*
  * DescribeTypesForAllOutputFormatters.cs
  *
  *   Created: 2023-01-04-10:24:47
@@ -14,16 +14,26 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     using JustinWritesCode.AspNetCore.Swagger;
     using Microsoft.AspNetCore.Builder;
+
     public static class DescribeTypesForAllOutputFormattersExtension
     {
-        public static IServiceCollection AddDescribeTypesForAllOutputFormatters(this IServiceCollection services)
+        public static IServiceCollection AddDescribeTypesForAllOutputFormatters(
+            this IServiceCollection services
+        )
         {
-            services.ConfigureSwaggerGen(opts => opts.OperationFilter<DescribeTypesForAllOutputFormattersFilter>());
+            services.ConfigureSwaggerGen(
+                opts => opts.OperationFilter<DescribeTypesForAllOutputFormattersFilter>()
+            );
             return services;
         }
-        public static WebApplicationBuilder AddDescribeTypesForAllOutputFormatters(this WebApplicationBuilder builder)
+
+        public static WebApplicationBuilder AddDescribeTypesForAllOutputFormatters(
+            this WebApplicationBuilder builder
+        )
         {
-            builder.Services.ConfigureSwaggerGen(opts => opts.OperationFilter<DescribeTypesForAllOutputFormattersFilter>());
+            builder.Services.ConfigureSwaggerGen(
+                opts => opts.OperationFilter<DescribeTypesForAllOutputFormattersFilter>()
+            );
             return builder;
         }
     }
@@ -39,6 +49,7 @@ namespace JustinWritesCode.AspNetCore.Swagger
     using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
     using Swashbuckle.AspNetCore.SwaggerGen;
+
     public class DescribeTypesForAllOutputFormattersFilter : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
@@ -49,14 +60,19 @@ namespace JustinWritesCode.AspNetCore.Swagger
 
             foreach (var responseType in responseTypes)
             {
-                var openApiResponse = operation.Responses.FirstOrDefault(x => x.Key == responseType.StatusCode.ToString()).Value ?? new OpenApiResponse();
+                var openApiResponse =
+                    operation.Responses
+                        .FirstOrDefault(x => x.Key == responseType.StatusCode.ToString())
+                        .Value ?? new OpenApiResponse();
 
                 foreach (var responseFormat in responseType.DetailedApiResponseFormats)
                 {
                     var mediaType = responseFormat.MediaType;
                     var formatter = responseFormat.Formatter;
 
-                    var openApiMediaType = openApiResponse.Content.FirstOrDefault(x => x.Key == mediaType).Value ?? new OpenApiMediaType();
+                    var openApiMediaType =
+                        openApiResponse.Content.FirstOrDefault(x => x.Key == mediaType).Value
+                        ?? new OpenApiMediaType();
                     var ms = new MemoryStream();
                     var writer = new StreamWriter(ms);
                     var @object = Activator.CreateInstance(responseType.Type);
@@ -64,11 +80,19 @@ namespace JustinWritesCode.AspNetCore.Swagger
                     var httpContext = new DefaultHttpContext();
                     httpContext.Response.Body = ms;
 
-                    openApiMediaType.Schema = context.SchemaGenerator.GenerateSchema(responseType.Type, context.SchemaRepository);
+                    openApiMediaType.Schema = context.SchemaGenerator.GenerateSchema(
+                        responseType.Type,
+                        context.SchemaRepository
+                    );
 
                     formatter.WriteAsync(
                         new OutputFormatterWriteContext(
-                            httpContext, (stream, encoding) => new StreamWriter(stream, encoding), responseType.Type, @object));
+                            httpContext,
+                            (stream, encoding) => new StreamWriter(stream, encoding),
+                            responseType.Type,
+                            @object
+                        )
+                    );
 
                     openApiMediaType.Example = new OpenApiString(UTF8.GetString(ms.ToArray()));
                     openApiResponse.Content[mediaType] = openApiMediaType;
@@ -123,11 +147,22 @@ namespace JustinWritesCode.AspNetCore.Swagger
             HttpMethod = description.HttpMethod;
             RelativePath = description.RelativePath;
             GroupName = description.GroupName;
-            description.SupportedRequestFormats.Select(format => { SupportedRequestFormats.Add(format); return format; });
-            description.SupportedResponseTypes.Select(responseType => { SupportedResponseTypes.Add(responseType); return responseType; });
+            description.SupportedRequestFormats.Select(format =>
+            {
+                SupportedRequestFormats.Add(format);
+                return format;
+            });
+            description.SupportedResponseTypes.Select(responseType =>
+            {
+                SupportedResponseTypes.Add(responseType);
+                return responseType;
+            });
         }
 
-        public virtual IEnumerable<DetailedApiResponseType> DetailedApiResponseTypes => SupportedResponseTypes.Select(responseType => new DetailedApiResponseType(responseType));
+        public virtual IEnumerable<DetailedApiResponseType> DetailedApiResponseTypes =>
+            SupportedResponseTypes.Select(
+                responseType => new DetailedApiResponseType(responseType)
+            );
     }
 
     public class DetailedApiResponseType : ApiResponseType
@@ -138,10 +173,15 @@ namespace JustinWritesCode.AspNetCore.Swagger
             StatusCode = responseType.StatusCode;
             ModelMetadata = responseType.ModelMetadata;
             IsDefaultResponse = responseType.IsDefaultResponse;
-            responseType.ApiResponseFormats.Select(format => { ApiResponseFormats.Add(format); return format; });
+            responseType.ApiResponseFormats.Select(format =>
+            {
+                ApiResponseFormats.Add(format);
+                return format;
+            });
         }
 
-        public virtual IEnumerable<DetailedApiResponseFormat> DetailedApiResponseFormats => ApiResponseFormats.Select(format => new DetailedApiResponseFormat(format));
+        public virtual IEnumerable<DetailedApiResponseFormat> DetailedApiResponseFormats =>
+            ApiResponseFormats.Select(format => new DetailedApiResponseFormat(format));
     }
 
     public class DetailedApiResponseFormat : ApiResponseFormat

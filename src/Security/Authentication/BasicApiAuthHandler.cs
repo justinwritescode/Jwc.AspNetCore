@@ -74,12 +74,20 @@ public class BasicApiAuthHandler
                 userClaims.Add(new(TelegramID.UserId, user.TelegramId.ToString()));
                 userClaims.Add(new(JwcCt.NameIdentifier, user.Id.ToString()));
                 userClaims.Add(new(JwcCt.AuthenticationInstant, DateTimeOffset.UtcNow.ToString()));
-                userClaims.Add(new(JwcCt.AuthenticationMethod, ApiBasicAuthenticationOptions.AuthenticationSchemeName));
+                userClaims.Add(
+                    new(
+                        JwcCt.AuthenticationMethod,
+                        ApiBasicAuthenticationOptions.AuthenticationSchemeName
+                    )
+                );
                 userClaims.Add(new(JwcCt.CommonName, user.GoByName));
                 userClaims.Add(new(JwcCt.GivenName, user.GivenName));
                 userClaims.Add(new(JwcCt.Surname, user.Surname));
 
-                if (!IsNullOrEmpty(user.TelegramUsername) && !userClaims.Any(c => c.Type == TelegramID.Username))
+                if (
+                    !IsNullOrEmpty(user.TelegramUsername)
+                    && !userClaims.Any(c => c.Type == TelegramID.Username)
+                )
                 {
                     userClaims.Add(new(TelegramID.Username, user.TelegramUsername));
                 }

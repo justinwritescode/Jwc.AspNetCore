@@ -1,4 +1,4 @@
-/*
+﻿/*
  * MediaTypeNames.cs
  *
  *   Created: 2022-11-29-01:56:37
@@ -87,8 +87,4 @@ public enum ImageMediaTypesEnum
     Apng
 }
 
-
-public partial record struct ImageMediaType : IMediaType
-{
-
-}
+public partial record struct ImageMediaType : IMediaType { }

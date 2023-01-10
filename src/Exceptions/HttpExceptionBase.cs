@@ -26,7 +26,5 @@ public abstract class HttpExceptionBase : Exception
 
     public abstract ProblemDetails ToProblemDetails();
 
-    public HttpExceptionBase()
-    {
-    }
+    public HttpExceptionBase() { }
 }

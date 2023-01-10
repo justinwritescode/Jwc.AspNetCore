@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.EntityFrameworkCore.Abstractions;
 
-
 public abstract class ResourceBasedAuthorizationHandler<TDbContext, TModel, TId>
     : AuthorizationHandler<OperationAuthorizationRequirement>
     where TDbContext : IDbContext<TDbContext>

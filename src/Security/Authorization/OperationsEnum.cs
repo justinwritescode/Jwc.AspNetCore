@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Operations copy.cs
  *
  *   Created: 2023-01-03-03:13:58
@@ -11,6 +11,7 @@
  */
 
 namespace JustinWritesCode.AspNetCore.Authentication.Enums;
+
 [GenerateEnumerationClass(nameof(Operations), "JustinWritesCode.AspNetCore.Authentication")]
 public enum OperationsEnum
 {

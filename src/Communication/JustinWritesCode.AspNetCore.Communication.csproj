@@ -13,6 +13,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net6.0;net7.0</TargetFrameworks>
+   <Description>This package contains the communication classes for the project.  It's used for sending SMS and email messages.</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Azure.Communication.Email" />

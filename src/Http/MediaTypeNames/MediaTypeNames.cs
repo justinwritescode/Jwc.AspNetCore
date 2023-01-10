@@ -21,6 +21,7 @@ public static class MediaTypeNames
     public const string Video = VideoMediaTypeNames.Base + "/*";
     public const string Application = ApplicationMediaTypeNames.Base + "/*";
     public const string Multipart = MultipartMediaTypeNames.Base + "/*";
+
     // public const string Message = "message/*";
     // public const string Model = "model/*";
     public const string Example = "example/*";

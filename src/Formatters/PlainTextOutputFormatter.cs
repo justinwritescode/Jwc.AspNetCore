@@ -17,16 +17,20 @@ public class PlainTextOutputFormatter : OutputFormatter
     }
 
     protected virtual string GetContentType(OutputFormatterWriteContext context) =>
-        context.HttpContext.Request.Path.Value.EndsWith(".css") ||
-        context.HttpContext.Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.ToLower().Contains(TextMediaTypeNames.Css))
-        ? TextMediaTypeNames.Css
+        context.HttpContext.Request.Path.Value.EndsWith(".css")
+        || context.HttpContext.Request
+            .GetTypedHeaders()
+            .Accept.Any(a => a.MediaType.Value.ToLower().Contains(TextMediaTypeNames.Css))
+            ? TextMediaTypeNames.Css
             // : context.HttpContext.Request.Path.Value.EndsWith(".js") ?
             : TextMediaTypeNames.Plain;
 
     public override void WriteResponseHeaders(OutputFormatterWriteContext context)
     {
         base.WriteResponseHeaders(context);
-        context.HttpContext.Response.Headers[HttpResponseHeaderNames.ContentType] = GetContentType(context);
+        context.HttpContext.Response.Headers[HttpResponseHeaderNames.ContentType] = GetContentType(
+            context
+        );
         context.HttpContext.Response.ContentType = TextMediaTypeNames.Plain;
     }
 

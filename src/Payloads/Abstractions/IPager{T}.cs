@@ -1,4 +1,4 @@
-/*
+﻿/*
  * IPager{T}.cs
  *
  *   Created: 2022-11-29-08:40:53
@@ -11,6 +11,7 @@
  */
 
 namespace JustinWritesCode.Payloads.Abstractions;
+
 /// <summary>Represents a srrongly-typed response payload with a page of items of type <typeparamref name="T"/></summary>
 public interface IPager<T> : IResponsePayload<T[]>, IPager
 {

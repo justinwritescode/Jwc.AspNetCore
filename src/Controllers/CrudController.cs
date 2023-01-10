@@ -35,17 +35,19 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace JustinWritesCode.AspNetCore.Controllers;
 
-
 public abstract class CrudController<TModel, TDbContext, TId>
     : CrudController<TModel, TModel, TModel, TModel, TDbContext, TId>
     where TModel : class, IIdentifiable<TId>
     where TDbContext : IDbContext, IDbContext<TDbContext>
     where TId : IComparable, IEquatable<TId>
 {
-    protected CrudController(TDbContext dbContext, ILogger logger, IMapper mapper, IMediator mediator)
-        : base(dbContext, logger, mapper, mediator) { }
+    protected CrudController(
+        TDbContext dbContext,
+        ILogger logger,
+        IMapper mapper,
+        IMediator mediator
+    ) : base(dbContext, logger, mapper, mediator) { }
 }
-
 
 public abstract class CrudController<TModel, TDto, TDbContext, TId>
     : CrudController<TModel, TDto, TDto, TDto, TDbContext, TId>
@@ -54,11 +56,13 @@ public abstract class CrudController<TModel, TDto, TDbContext, TId>
     where TId : IComparable, IEquatable<TId>
     where TDto : class
 {
-    protected CrudController(TDbContext dbContext, ILogger logger, IMapper mapper, IMediator mediator)
-        : base(dbContext, logger, mapper, mediator) { }
+    protected CrudController(
+        TDbContext dbContext,
+        ILogger logger,
+        IMapper mapper,
+        IMediator mediator
+    ) : base(dbContext, logger, mapper, mediator) { }
 }
-
-
 
 public abstract class CrudController<TModel, TInsertDto, TDto, TDbContext, TId>
     : CrudController<TModel, TInsertDto, TDto, TDto, TDbContext, TId>
@@ -67,10 +71,13 @@ public abstract class CrudController<TModel, TInsertDto, TDto, TDbContext, TId>
     where TId : IComparable, IEquatable<TId>
     where TDto : class
 {
-    protected CrudController(TDbContext dbContext, ILogger logger, IMapper mapper, IMediator mediator)
-        : base(dbContext, logger, mapper, mediator) { }
+    protected CrudController(
+        TDbContext dbContext,
+        ILogger logger,
+        IMapper mapper,
+        IMediator mediator
+    ) : base(dbContext, logger, mapper, mediator) { }
 }
-
 
 public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, TDbContext, TId>
     : ApiControllerBase<TDbContext>,
@@ -86,8 +93,12 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     protected IMapper Mapper { get; }
     protected IMediator Mediator { get; }
 
-    protected CrudController(TDbContext dbContext, ILogger logger, IMapper mapper, IMediator mediator)
-        : base(dbContext, logger)
+    protected CrudController(
+        TDbContext dbContext,
+        ILogger logger,
+        IMapper mapper,
+        IMediator mediator
+    ) : base(dbContext, logger)
     {
         Mapper = mapper;
         Mediator = mediator;
@@ -109,10 +120,10 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <param name="orderBy" default="'Id'">The name of the property to use to sort the returned items</param>
     /// <param name="sortDirection" example="'ascending' / 'descending'">Whether to sort the items in ascending or descending order</param>
     protected virtual async Task<Pager<TViewDto>> GetAllHead(
-         Payloads.Range range,
-         string itemSeparator = DefaultItemSeparator,
-         string? orderBy = null,
-         ListSortDirection sortDirection = ListSortDirection.Ascending
+        Payloads.Range range,
+        string itemSeparator = DefaultItemSeparator,
+        string? orderBy = null,
+        ListSortDirection sortDirection = ListSortDirection.Ascending
     )
     {
         var response = await GetAll(range, null, itemSeparator, orderBy, sortDirection);
@@ -137,9 +148,9 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     /// <param name="orderBy" default="'Id'">The name of the property to use to sort the returned items</param>
     /// <param name="sortDirection" example="'ascending' / 'descending'">Whether to sort the items in ascending or descending order</param>
     protected virtual async Task<Pager<TViewDto>> GetAll(
-     Payloads.Range range,
+        Payloads.Range range,
         Expression<Func<TViewDto, bool>> filter = null,
-         string itemSeparator = DefaultItemSeparator,
+        string itemSeparator = DefaultItemSeparator,
         string? orderBy = null,
         ListSortDirection sortDirection = ListSortDirection.Ascending
     )
@@ -291,8 +302,8 @@ public abstract class CrudController<TModel, TInsertDto, TUpdateDto, TViewDto, T
     //
     //
     protected virtual async Task<ResponsePayload<TViewDto>> Patch(
-         TId id,
-         JsonPatchDocument<TUpdateDto> patch
+        TId id,
+        JsonPatchDocument<TUpdateDto> patch
     )
     {
         if (!ModelExists(id))

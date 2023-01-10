@@ -115,8 +115,8 @@ public static class AddTheWorksExtensions
         _ = app.UseCustomizedSwaggerUI(tThisAssemblyProject);
 
         _ = app.UseRequestDecompression()
-               .UseResponseCompression()
-               .UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            .UseResponseCompression()
+            .UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
         _ = app.UseApiBasicAuthentication();
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * MimeMediaType.cs
  *
  *   Created: 2023-01-06-06:35:11
@@ -35,20 +35,29 @@ public static class IMediaTypeExtensions
 {
     public static bool IsWildcard(this IMediaType @this) => @this.Name.Contains("*");
 
-    public static bool Matches(this IMediaType @this, IMediaType other)
-        => @this.IsWildcard() && other.Name.StartsWith(@this.Name.Split('/').First()) ||
-            other.IsWildcard() && @this.Name.StartsWith(other.Name.Split('/').First()) ||
-            @this.Name.Equals(other.Name);
+    public static bool Matches(this IMediaType @this, IMediaType other) =>
+        @this.IsWildcard() && other.Name.StartsWith(@this.Name.Split('/').First())
+        || other.IsWildcard() && @this.Name.StartsWith(other.Name.Split('/').First())
+        || @this.Name.Equals(other.Name);
 
-    public static bool Matches(this IMediaType @this, string other)
-        => @this.Matches(new ExampleMediaType(ExampleMediaTypesEnum.Any, (int)ExampleMediaTypesEnum.Any, other, other));
+    public static bool Matches(this IMediaType @this, string other) =>
+        @this.Matches(
+            new ExampleMediaType(
+                ExampleMediaTypesEnum.Any,
+                (int)ExampleMediaTypesEnum.Any,
+                other,
+                other
+            )
+        );
 }
-
-
 
 public class IMediaTypeJsonConverter : JsonConverter<IMediaType>
 {
-    public override IMediaType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override IMediaType Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
     {
         var mediaType = reader.GetString();
         if (mediaType is null)
@@ -57,12 +66,15 @@ public class IMediaTypeJsonConverter : JsonConverter<IMediaType>
         return new TempMediaType { Name = mediaType };
     }
 
-    public override void Write(Utf8JsonWriter writer, IMediaType value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        IMediaType value,
+        JsonSerializerOptions options
+    )
     {
         writer.WriteStringValue(value.ToString());
     }
 }
-
 
 public class TempMediaType : IMediaType
 {

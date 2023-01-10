@@ -1,4 +1,4 @@
-/*
+﻿/*
  * AddHealthChecks.cs
  *
  *   Created: 2023-01-03-07:17:59
@@ -14,10 +14,11 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class JustinWritesCodeHealthChecksExtensions
 {
-    public static IHealthChecksBuilder AddJustinWritesCodeHealthChecks(this IHealthChecksBuilder builder)
+    public static IHealthChecksBuilder AddJustinWritesCodeHealthChecks(
+        this IHealthChecksBuilder builder
+    )
     {
-        builder.Services
-                .AddHealthChecks();
+        builder.Services.AddHealthChecks();
         return builder;
     }
 }

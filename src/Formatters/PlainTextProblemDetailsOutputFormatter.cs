@@ -20,7 +20,8 @@ using static System.Net.Http.Headers.HttpResponseHeaderNames;
 
 public class PlainTextProblemDetailsOutputFormatter : OutputFormatter
 {
-    public PlainTextProblemDetailsOutputFormatter() => SupportedMediaTypes.Add(TextMediaTypeNames.Plain);
+    public PlainTextProblemDetailsOutputFormatter() =>
+        SupportedMediaTypes.Add(TextMediaTypeNames.Plain);
 
     public override bool CanWriteResult(OutputFormatterCanWriteContext context) =>
         context?.Object is ProblemDetails;

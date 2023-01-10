@@ -55,7 +55,7 @@ public class ResponsePayload<T> : Payload<T>, IResponsePayload<T>, IPayload
 
     /// <inheritdoc />
     [JProp("isSuccess"), XmlAttribute("isSuccess")]
-    public virtual bool IsSuccess => StatusCode!.Value >= 200 && StatusCode!.Value <= 299;//IsBetween(200, 299);
+    public virtual bool IsSuccess => StatusCode!.Value >= 200 && StatusCode!.Value <= 299; //IsBetween(200, 299);
 
     [XmlAttribute("message"), JProp("message"), JIgnore(Condition = JIgnoreCond.WhenWritingNull)]
     public virtual string Message { get; set; }
@@ -145,26 +145,29 @@ public class ResponsePayload<T> : Payload<T>, IResponsePayload<T>, IPayload
         return schema;
     }
 
-    public static ResponsePayload<T> NotFound(string? message = "Not found")
-        => new() { Message = message, StatusCode = (int)HttpStatusCode.NotFound };
+    public static ResponsePayload<T> NotFound(string? message = "Not found") =>
+        new() { Message = message, StatusCode = (int)HttpStatusCode.NotFound };
 
-    public static ResponsePayload<T> BadRequest(string? message = "Bad request")
-        => new() { Message = message, StatusCode = (int)HttpStatusCode.BadRequest };
+    public static ResponsePayload<T> BadRequest(string? message = "Bad request") =>
+        new() { Message = message, StatusCode = (int)HttpStatusCode.BadRequest };
 
-    public static ResponsePayload<T> NoContent(string? message = "No content")
-        => new() { Message = message, StatusCode = (int)HttpStatusCode.NoContent };
+    public static ResponsePayload<T> NoContent(string? message = "No content") =>
+        new() { Message = message, StatusCode = (int)HttpStatusCode.NoContent };
 
-    public static ResponsePayload<T> Unauthorized(string? message = "Unauthorized")
-        => new() { Message = message, StatusCode = (int)HttpStatusCode.Unauthorized };
+    public static ResponsePayload<T> Unauthorized(string? message = "Unauthorized") =>
+        new() { Message = message, StatusCode = (int)HttpStatusCode.Unauthorized };
 
-    public static ResponsePayload<T> Forbidden(string? message = "Forbidden")
-        => new() { Message = message, StatusCode = (int)HttpStatusCode.Forbidden };
+    public static ResponsePayload<T> Forbidden(string? message = "Forbidden") =>
+        new() { Message = message, StatusCode = (int)HttpStatusCode.Forbidden };
 
-    public static ResponsePayload<T> InternalServerError(string? message = "Internal server error")
-        => Problem(message, HttpStatusCode.InternalServerError);
+    public static ResponsePayload<T> InternalServerError(
+        string? message = "Internal server error"
+    ) => Problem(message, HttpStatusCode.InternalServerError);
 
-    public static ResponsePayload<T> Problem(string? message = "Problem", HttpStatusCode statusCode = HttpStatusCode.InternalServerError) =>
-        new() { Message = message, StatusCode = (int)statusCode };
+    public static ResponsePayload<T> Problem(
+        string? message = "Problem",
+        HttpStatusCode statusCode = HttpStatusCode.InternalServerError
+    ) => new() { Message = message, StatusCode = (int)statusCode };
 
     public static ResponsePayload<T> Created(
         T value,
