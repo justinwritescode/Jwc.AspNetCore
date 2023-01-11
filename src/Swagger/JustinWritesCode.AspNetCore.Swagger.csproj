@@ -23,6 +23,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
     <PackageReference Include="ThisAssembly" />
+    <PackageReference Include="ThisAssembly.Resources" />
     <!-- <PackageReference Include="ThisAssembly.Project" /> -->
     <!-- <PackageReference Include="ThisAssembly.AssemblyInfo" /> -->
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
@@ -41,9 +42,9 @@
     <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
   </ItemGroup>
   <ItemGroup>
-   <EmbeddedResource Include="./swagger-ui/themes/*.css" LogicalName="%(Filename)%(Extension)" />
-   <EmbeddedResource Include="./swagger-ui/swagger-ui.css" LogicalName="%(Filename)%(Extension)" />
-   <EmbeddedResource Include="./swagger-ui/SwaggerUI.index.html" LogicalName="SwaggerUI.index.html" />
-   <EmbeddedResource Include="swaggerui/swaggerui.*" LogicalName="%(Filename)%(Extension)" />
+   <EmbeddedResource Include="./swaggerui/themes/*.css" LogicalName="%(Filename)%(Extension)" Type="text" />
+   <EmbeddedResource Include="./swaggerui/swagger-ui.css" LogicalName="%(Filename)%(Extension)" Type="text" />
+   <EmbeddedResource Include="./swaggerui/indexmod.html" LogicalName="SwaggerUI.index.html"  Type="text" />
+   <EmbeddedResource Include="swaggerui/swaggerui.*" LogicalName="%(Filename)%(Extension)" Type="text" />
   </ItemGroup>
 </Project>
