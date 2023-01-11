@@ -9,7 +9,6 @@
  *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
-
 namespace System.Net.Mime.MediaTypes;
 
 public static class ApplicationMediaTypeNames
@@ -40,9 +39,6 @@ public static class ApplicationMediaTypeNames
 
     /// <inheritdoc cref="ApplicationMediaTypesEnum.Json" />
     public const string Json = Base + "/" + "json";
-
-    /// <inheritdoc cref="ApplicationMediaTypesEnum.JsonWithPlainText" />
-    public const string JsonWithPlainText = Base + "/" + "json+plaintext";
 
     /// <inheritdoc cref="ApplicationMediaTypesEnum.FormUrlEncoded" />
     public const string FormUrlEncoded = Base + "/" + "x-www-formurlencoded";

@@ -1,4 +1,16 @@
+/*
+ * Operations.cs
+ *
+ *   Created: 2023-01-02-11:13:55
+ *   Modified: 2023-01-10-06:40:18
+ *
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+ */
 namespace JustinWritesCode.AspNetCore.Authentication;
+using Enums;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using JwcSecOps = Security.Operations;
 

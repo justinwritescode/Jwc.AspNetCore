@@ -16,7 +16,7 @@ public abstract class ResourceBasedAuthorizationHandler<TDbContext, TModel, TId>
         OperationAuthorizationRequirement requirement
     )
     {
-        if (context.User.Identity is not null && context.User.Identity.IsAuthenticated)
+        if (context?.User?.Identity is not null && (context?.User?.Identity?.IsAuthenticated ?? false))
         {
             var resource = context.Resource as IAuthorizableEntity;
             if (resource is not null)
@@ -25,7 +25,7 @@ public abstract class ResourceBasedAuthorizationHandler<TDbContext, TModel, TId>
                 {
                     context.Succeed(requirement);
                 }
-                else if (resource.CanDo(context.User, requirement.Name))
+                else if (resource.CanDo(context.User, requirement?.Name))
                 {
                     context.Succeed(requirement);
                 }
