@@ -1,0 +1,5 @@
+[file "Init.proj"]
+	url = https://github.com/justinwritescode/justinwritescode/blob/main/Init.proj
+	sha = fc5e59cb7b19859cb3baab7c272a463986b23b1a
+	etag = feefd1c69885c3251e802c81ab3827f9599485099da1801200a1c42a55ebfa66
+	weak
