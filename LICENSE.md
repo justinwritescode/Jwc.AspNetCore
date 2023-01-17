@@ -16,10 +16,10 @@ keywords:
   - license
   - mit
 slug: mit-license
-authors:
+description: The MIT License
+date: 2023-01-16T11:55:48.194Z
+authors: 
   - name: Justin Chase
-    social: https://github.com/justinwritescode
-    
 ---
 # MIT License
 
