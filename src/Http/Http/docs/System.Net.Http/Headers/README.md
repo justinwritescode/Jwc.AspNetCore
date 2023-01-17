@@ -33,7 +33,7 @@
 | [HttpRequestHeaderName.Pragma](HttpRequestHeaderName/Pragma/README.md) | Pragma |
 | [HttpRequestHeaderName.ProxyAuthorization](HttpRequestHeaderName/ProxyAuthorization/README.md) | Proxy\-Authorization |
 | [HttpRequestHeaderName.Range](HttpRequestHeaderName/Range/README.md) | Range |
-| [HttpRequestHeaderName.Referersic](HttpRequestHeaderName/Referersic/README.md) | Referer\[sic\] |
+| [HttpRequestHeaderName.Referer](HttpRequestHeaderName/Referer/README.md) | Referer\[sic\] |
 | [HttpRequestHeaderName.TE](HttpRequestHeaderName/TE/README.md) | TE |
 | [HttpRequestHeaderName.Upgrade](HttpRequestHeaderName/Upgrade/README.md) | Upgrade |
 | [HttpRequestHeaderName.UserAgent](HttpRequestHeaderName/UserAgent/README.md) | User\-Agent |

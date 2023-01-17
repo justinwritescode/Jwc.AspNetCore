@@ -143,7 +143,7 @@ public static partial class AddSwaggerMetadataExtension
 
         var packageTags = new OpenApiArray();
         packageTags.AddRange(
-            thisAssemblyProject.PackageTags.Split(" ").Select(tag => new OpenApiString(tag))
+            thisAssemblyProject.PackageTags?.Split(" ").Select(tag => new OpenApiString(tag))
         );
 
         return new()

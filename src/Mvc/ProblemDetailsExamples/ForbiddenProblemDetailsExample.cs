@@ -1,20 +1,8 @@
 ﻿/*
- * UnauthorizedProblemDetailsExample copy.cs
+ * ForbiddenProblemDetailsExample.cs
  *
- *   Created: 2023-01-04-04:51:23
- *   Modified: 2023-01-04-04:51:23
- *
- *   Author: Justin Chase <justin@justinwritescode.com>
- *
- *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
- *      License: MIT (https://opensource.org/licenses/MIT)
- */
-
-/*
- * UnauthorizedProblemDetailsExample.cs
- *
- *   Created: 2022-12-19-05:26:13
- *   Modified: 2022-12-19-05:26:38
+ *   Created: 2023-01-11-03:05:49
+ *   Modified: 2023-01-16-09:33:51
  *
  *   Author: Justin Chase <justin@justinwritescode.com>
  *
@@ -52,18 +40,3 @@ public class ForbiddenProblemDetails : IProblemDetails
     public IDictionary<string, object?> Extensions { get; set; } =
         new Dictionary<string, object?> { { "traceId", "0HLQ9V1J3Q0:40000003" } };
 }
-// {
-//     public ProblemDetails GetExamples()
-//     {
-//         var pd = new ProblemDetails
-//         {
-//             Title = "Unauthorized",
-//             Status = Status401Unauthorized,
-//             Detail = "You're not allowed to fucking do this!",
-//             Type = "https://httpstatuses.com/401",
-//             Instance = "/api/endpoint"
-//         };
-//         pd.Extensions.Add("traceId", "0HLQ9V1J3Q0:00000001");
-//         return pd;
-//     }
-// }

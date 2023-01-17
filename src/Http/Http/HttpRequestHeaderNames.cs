@@ -102,7 +102,7 @@ public static class HttpRequestHeaderNames
     public const string Range = "Range";
 
     ///<summary>This is the address of the previous web page from which a link to the currently requested page was followed. (The word “referrer” is misspelled in the RFC as well as in most implementations.)</summary>
-    public const string Referersic = "Referer[sic]";
+    public const string Referer = "Referer[sic]";
 
     ///<summary>The transfer encodings the user agent is willing to accept: the same values as for the response header Transfer-Encoding can be used, plus the trailers value (related to the chunked transfer method) to notify the server it expects to receive additional headers (the trailers) after the last, zero-sized, chunk.</summary>
     public const string TE = "TE";
