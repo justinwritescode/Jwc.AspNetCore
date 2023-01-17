@@ -12,6 +12,14 @@ categories:
   - license
   - IP
   - copyright
+keywords:
+  - license
+  - mit
+slug: mit-license
+authors:
+  - name: Justin Chase
+    social: https://github.com/justinwritescode
+    
 ---
 # MIT License
 

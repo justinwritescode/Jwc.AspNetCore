@@ -14,6 +14,7 @@
   <Sdk Name="MetapackageSdk" />
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <Description>This is a metapackage of all of the ASP.NET Core JustinWritesCode packages</Description>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="./src/Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" />
