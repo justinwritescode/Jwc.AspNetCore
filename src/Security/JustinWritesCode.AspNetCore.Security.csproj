@@ -10,7 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
-<Project Sdk="Microsoft.NET.Sdk"">
+<Project Sdk="Microsoft.NET.Sdk">
   <Sdk Name="MetapackageSdk" />
   <PropertyGroup>
     <SlnGenSolutionFolder>security</SlnGenSolutionFolder>

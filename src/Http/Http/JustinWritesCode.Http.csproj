@@ -13,7 +13,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
-        <SlnGenSolutionFolder>net-http</SlnGenSolutionFolder>
+        <SlnGenSolutionFolder>constants</SlnGenSolutionFolder>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration.V2" IncludeAssets="Analyzers;Build" PrivateAssets="All" />

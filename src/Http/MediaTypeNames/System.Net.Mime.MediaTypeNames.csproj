@@ -18,7 +18,7 @@
             class.
         </Description>
         <GenerateNuspec>true</GenerateNuspec>
-        <SlnGenSolutionFolder>net-http</SlnGenSolutionFolder>
+        <SlnGenSolutionFolder>constants</SlnGenSolutionFolder>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
