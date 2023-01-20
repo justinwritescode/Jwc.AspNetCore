@@ -1,0 +1,36 @@
+<!--
+ * JustinWritesCode.AspNetCore.slnproj
+ * 
+ *   Created: 2022-12-10-06:11:32
+ *   Modified: 2022-12-10-06:11:32
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.Build.Traversal">
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Description>This is a metapackage of all of the ASP.NET Core JustinWritesCode packages</Description>
+        <SlnGenSolutionFolder>all</SlnGenSolutionFolder>
+	      <SlnGenFolders>true</SlnGenFolders>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="./src/Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" />
+        <ProjectReference Include="./src/Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" />
+        <ProjectReference Include="./src/Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" />
+        <ProjectReference Include="./src/ErrorHandling/JustinWritesCode.AspNetCore.ErrorHandling.csproj" />
+        <ProjectReference Include="./src/Exceptions/JustinWritesCode.AspNetCore.Exceptions.csproj" />
+        <ProjectReference Include="./src/Hosting.Extensions/JustinWritesCode.AspNetCore.Hosting.Extensions.csproj" />
+        <ProjectReference Include="./src/Formatters/JustinWritesCode.AspNetCore.Formatters.csproj" />
+        <ProjectReference Include="./src/Http/Extensions/JustinWritesCode.Http.Extensions.csproj" />
+        <ProjectReference Include="./src/Http/Http/JustinWritesCode.Http.csproj" />
+        <ProjectReference Include="./src/Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+        <ProjectReference Include="./src/Payloads/JustinWritesCode.Payloads.csproj" />
+        <ProjectReference Include="./src/Startup/JustinWritesCode.AspNetCore.Startup.csproj" />
+        <ProjectReference Include="./src/Swagger/JustinWritesCode.AspNetCore.Swagger.csproj" />
+        <ProjectReference Include="./src/Mvc/JustinWritesCode.AspNetCore.Mvc.csproj" />
+    </ItemGroup>
+</Project>
