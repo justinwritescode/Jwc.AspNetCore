@@ -70,7 +70,7 @@ public static class AddTheWorksExtensions
     )
     {
         if (@params.AddLogging)
-            _ = builder.Logging
+        _ = builder.Logging
                 .AddConfiguration(builder.Configuration.GetSection("Logging"));
 
         if (@params.AddConsoleLogger)
@@ -80,7 +80,7 @@ public static class AddTheWorksExtensions
             builder.Logging.AddDebug();
 
         if (@params.AddIdentity)
-            _ = builder.AddIdentity();
+        _ = builder.AddIdentity();
 
         @params.TypesForAutoMapperAndMediatR ??= Empty<type>();
 
@@ -93,29 +93,29 @@ public static class AddTheWorksExtensions
         if (@params.AddSwagger)
             _ = builder.AddSwaggerGen()
                 .AddSwaggerMetadata(@params.ThisAssemblyProject ?? typeof(ThisAssembly.Project))
-                .DescribeDataTypesToSwagger()
-                .DescribeBasicApiAuthentication()
-                .AddXmlCommentsToSwagger()
-                .DescribeCrudController()
-                .AddSwaggerExamples()
-                .AddSwaggerHeaderOperationFilter()
-                .DescribeFileUploads()
-                .AddDescribeTypesForAllOutputFormatters();
+            .DescribeDataTypesToSwagger()
+            .DescribeBasicApiAuthentication()
+            .AddXmlCommentsToSwagger()
+            .DescribeCrudController()
+            .AddSwaggerExamples()
+            .AddSwaggerHeaderOperationFilter()
+            .DescribeFileUploads()
+            .AddDescribeTypesForAllOutputFormatters();
 
         if (@params.AddXmlSerialization)
-            _ = builder.Services.AddControllers().AddXmlSerializerFormatters();
+        _ = builder.Services.AddControllers().AddXmlSerializerFormatters();
 
         if (@params.AddRazorPages)
-            _ = builder.Services.AddRazorPages();
+        _ = builder.Services.AddRazorPages();
 
         if (@params.AddJsonPatch)
-            _ = builder.AddJsonPatch();
+        _ = builder.AddJsonPatch();
 
 
         _ = builder.Configuration.AddUserSecrets(@params.ThisAssemblyProject.Assembly);
 
         if (@params.AddAzureAppConfig)
-            _ = builder.AddAzureAppConfig();
+        _ = builder.AddAzureAppConfig();
 
         if (@params.AddApiAuthentication)
             _ = builder.AddApiAuthentication();
@@ -128,7 +128,7 @@ public static class AddTheWorksExtensions
         _ = builder.AddFormatters();
 
         if (@params.AddHealthChecks)
-            _ = builder.Services.AddHealthChecks();
+        _ = builder.Services.AddHealthChecks();
 
         _ = builder.AddPayloadServices();
 
@@ -137,7 +137,7 @@ public static class AddTheWorksExtensions
         _ = builder.DescribeSchemasViaAttributes();
 
         if (@params.AddHashids)
-            _ = builder.AddHashids();
+        _ = builder.AddHashids();
 
         if (@params.AddMediatR)
             _ = builder.Services.AddMediatR(@params.TypesForAutoMapperAndMediatR.ToArray());
@@ -159,18 +159,18 @@ public static class AddTheWorksExtensions
         var @params = app.Services.GetRequiredService<IStartupParameters>();
 
         if (@params.AddJsonPatch)
-            _ = app.Use(
-                (context, next) =>
-                {
-                    context.Response.Headers.AcceptRanges = "items";
-                    context.Response.Headers[HttpResponseHeaderNames.AcceptPatch] =
-                        ApplicationMediaTypeNames.JsonPatch;
-                    return next();
-                }
-            );
+        _ = app.Use(
+            (context, next) =>
+            {
+                context.Response.Headers.AcceptRanges = "items";
+                context.Response.Headers[HttpResponseHeaderNames.AcceptPatch] =
+                    ApplicationMediaTypeNames.JsonPatch;
+                return next();
+            }
+        );
 
         if (@params.AddHttpLogging)
-            _ = app.UseHttpLogging();
+        _ = app.UseHttpLogging();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment() || app.Environment.IsLocal())
@@ -188,8 +188,8 @@ public static class AddTheWorksExtensions
 
         if (@params.AddSwagger)
         {
-            _ = app.UseSwagger();
-            // app.UseSwaggerUI();
+        _ = app.UseSwagger();
+        // app.UseSwaggerUI();
             _ = app.UseCustomizedSwaggerUI(@params.ThisAssemblyProject ?? typeof(ThisAssembly.Project));
         }
 
@@ -198,7 +198,7 @@ public static class AddTheWorksExtensions
             .UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
         if (@params.AddApiAuthentication)
-            _ = app.UseApiBasicAuthentication();
+        _ = app.UseApiBasicAuthentication();
 
         _ = app.UseWelcomePage(new WelcomePageOptions { Path = null });
 
