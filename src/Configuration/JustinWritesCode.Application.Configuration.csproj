@@ -14,6 +14,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
    <Description>This package contains the configuration classes for the project.  It's used for reading configuration values from the appsettings.json file and various other sources.</Description>
+    <SlnGenSolutionFolder>config</SlnGenSolutionFolder>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

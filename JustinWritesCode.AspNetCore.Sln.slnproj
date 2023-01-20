@@ -18,6 +18,7 @@
 	      <SlnGenFolders>true</SlnGenFolders>
     </PropertyGroup>
     <ItemGroup>
+        <ProjectReference Include="./src/Communication/JustinWritesCode.AspNetCore.Communication.csproj" />
         <ProjectReference Include="./src/Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" />
         <ProjectReference Include="./src/Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" />
         <ProjectReference Include="./src/Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" />

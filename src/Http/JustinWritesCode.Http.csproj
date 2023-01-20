@@ -10,7 +10,11 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
-<Project Sdk="Microsoft.Build.Traversal">
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="MetapackageSdk" />
+  <PropertyGroup>
+        <SlnGenSolutionFolder>net-http</SlnGenSolutionFolder>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="./Extensions/JustinWritesCode.Http.Extensions.csproj" />
     <ProjectReference Include="./Http/JustinWritesCode.Http.csproj" />
