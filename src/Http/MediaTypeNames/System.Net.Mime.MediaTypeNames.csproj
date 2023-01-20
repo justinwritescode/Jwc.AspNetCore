@@ -11,23 +11,26 @@
 -->
 
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <Description>Provides a set of constants for the most common media types.  Fills in the gaps left by the <see cref="System.Net.Mime.MediaTypeNames" />
- class.</Description>
-    <GenerateNuspec>true</GenerateNuspec>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
-    <PackageReference Include="JustinWritesCode.Enumerations.Abstractions" />
-    <PackageReference Include="System.ComponentModel.Annotations" />
-    <PackageReference Include="System.ComponentModel.Usings" />
-    <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration.V2" IncludeAssets="Analyzers;Build" PrivateAssets="All" ExcludeAssets="Lib;Source;Runtime;Compile;Native;ContentFiles" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageTag Include="mime" />
-    <PackageTag Include="patch" />
-    <PackageTag Include="system.net" />
-    <PackageTag Include="system" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <Description>
+            Provides a set of constants for the most common media types.  Fills in the gaps left by the <see cref="System.Net.Mime.MediaTypeNames" />
+            class.
+        </Description>
+        <GenerateNuspec>true</GenerateNuspec>
+        <SlnGenSolutionFolder>net-http</SlnGenSolutionFolder>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
+        <PackageReference Include="JustinWritesCode.Enumerations.Abstractions" />
+        <PackageReference Include="System.ComponentModel.Annotations" />
+        <PackageReference Include="System.ComponentModel.Usings" />
+        <PackageReference Include="JustinWritesCode.Enumerations.CodeGeneration.V2" IncludeAssets="Analyzers;Build" PrivateAssets="All" ExcludeAssets="Lib;Source;Runtime;Compile;Native;ContentFiles" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageTag Include="mime" />
+        <PackageTag Include="patch" />
+        <PackageTag Include="system.net" />
+        <PackageTag Include="system" />
+    </ItemGroup>
 </Project>

@@ -11,32 +11,33 @@
 -->
 
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net7.0</TargetFrameworks>
-  </PropertyGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.OpenApi" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" VersionOverride="$(JsonPatchVersion)" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
-    <PackageReference Include="System.Usings" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- <ProjectReference Include="../../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" /> -->
-    <ProjectReference Include="../../Http/Http/JustinWritesCode.Http.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.Abstractions" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.Identity.Claims" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.Identity.Models" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.Identity.EntityFrameworkCore" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.Identity.AspNetCore" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles; Build" />
-    <PackageReference Include="Telegram.Identity" ExcludeAssets="ContentFiles" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net7.0</TargetFrameworks>
+        <SlnGenSolutionFolder>security</SlnGenSolutionFolder>
+    </PropertyGroup>
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="Microsoft.OpenApi" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" VersionOverride="$(JsonPatchVersion)" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+        <PackageReference Include="System.Usings" />
+    </ItemGroup>
+    <ItemGroup>
+        <!-- <ProjectReference Include="../../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" /> -->
+        <ProjectReference Include="../../Http/Http/JustinWritesCode.Http.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="JustinWritesCode.EntityFrameworkCore.Abstractions" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.Abstractions" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.Identity.Claims" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.Identity.Models" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.Identity.EntityFrameworkCore" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.Identity.AspNetCore" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles; Build" />
+        <PackageReference Include="Telegram.Identity" ExcludeAssets="ContentFiles" />
+    </ItemGroup>
 </Project>

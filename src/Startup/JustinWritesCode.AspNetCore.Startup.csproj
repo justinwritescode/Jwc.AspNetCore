@@ -11,44 +11,45 @@
 -->
 
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net7.0</TargetFrameworks>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net7.0</TargetFrameworks>
+        <SlnGenSolutionFolder>extensions</SlnGenSolutionFolder>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <!-- <PackageReference Include="Microsoft.AspNetCore.App.Ref" /> -->
-    <PackageReference Include="AnyOf.Usings" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
-    <PackageReference Include="AutoMapper" />
-    <PackageReference Include="Azure.Identity" />
-    <PackageReference Include="Ben.Demystifier" />
-    <PackageReference Include="JustinWritesCode.AspNetCore.Hashids" ExcludeAssets="ContentFiles" />
-    <!-- <PackageReference Include="JustinWritesCode.Identity.AspNetCore" ExcludeAssets="ContentFiles" /> -->
-    <PackageReference Include="JustinWritesCode.Identity.EntityFrameworkCore" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.Primitives" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" />
-    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" ExcludeAssets="ContentFiles" VersionOverride="[5.2.0,)" />
-    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
-    <PackageReference Include="System.All.Usings" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" />
-    <PackageReference Include="System.Text.Json.Usings" />
-    <PackageReference Include="ThisAssembly.Project" />
-    <PackageReference Include="JustinWritesCode.MediatR" />
-    <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
-    <PackageReference Include="SendPulse.Api.HealthCheck" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="../Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Hosting.Extensions/JustinWritesCode.AspNetCore.Hosting.Extensions.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Payloads/JustinWritesCode.Payloads.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Formatters/JustinWritesCode.AspNetCore.Formatters.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" ExcludeAssets="ContentFiles" />
-    <ProjectReference Include="../Swagger/JustinWritesCode.AspNetCore.Swagger.csproj" ExcludeAssets="ContentFiles" />
-  </ItemGroup>
+    <ItemGroup>
+        <!-- <PackageReference Include="Microsoft.AspNetCore.App.Ref" /> -->
+        <PackageReference Include="AnyOf.Usings" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+        <PackageReference Include="AutoMapper" />
+        <PackageReference Include="Azure.Identity" />
+        <PackageReference Include="Ben.Demystifier" />
+        <PackageReference Include="JustinWritesCode.AspNetCore.Hashids" ExcludeAssets="ContentFiles" />
+        <!-- <PackageReference Include="JustinWritesCode.Identity.AspNetCore" ExcludeAssets="ContentFiles" /> -->
+        <PackageReference Include="JustinWritesCode.Identity.EntityFrameworkCore" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.Primitives" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" />
+        <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" ExcludeAssets="ContentFiles" VersionOverride="[5.2.0,)" />
+        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
+        <PackageReference Include="System.All.Usings" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" />
+        <PackageReference Include="System.Text.Json.Usings" />
+        <PackageReference Include="ThisAssembly.Project" />
+        <PackageReference Include="JustinWritesCode.MediatR" />
+        <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+        <PackageReference Include="SendPulse.Api.HealthCheck" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../Security/Authentication/JustinWritesCode.AspNetCore.Authentication.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Security/Authorization/JustinWritesCode.AspNetCore.Authorization.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Hosting.Extensions/JustinWritesCode.AspNetCore.Hosting.Extensions.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Payloads/JustinWritesCode.Payloads.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Formatters/JustinWritesCode.AspNetCore.Formatters.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Controllers/JustinWritesCode.AspNetCore.Controllers.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" ExcludeAssets="ContentFiles" />
+        <ProjectReference Include="../Swagger/JustinWritesCode.AspNetCore.Swagger.csproj" ExcludeAssets="ContentFiles" />
+    </ItemGroup>
 </Project>

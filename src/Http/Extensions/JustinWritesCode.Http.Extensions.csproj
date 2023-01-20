@@ -10,16 +10,17 @@
       License: MIT (https://opensource.org/licenses/MIT)
 -->
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <!-- <TargetFramework>netstandard2.0</TargetFramework> -->
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <PackageId>JustinWritesCode.Http.Extensions</PackageId>
-    <AssemblyName>$(PackageId)</AssemblyName>
-    <RootNamespace>$(PackageId)</RootNamespace>
-    <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
-    <SlnGenSolutionFolder>src</SlnGenSolutionFolder>
-    <ProjectGuid>f52d8a04-cd74-4a5d-900f-9df28dcce542</ProjectGuid>
-  </PropertyGroup>
+    <PropertyGroup>
+        <!-- <TargetFramework>netstandard2.0</TargetFramework> -->
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <PackageId>JustinWritesCode.Http.Extensions</PackageId>
+        <AssemblyName>$(PackageId)</AssemblyName>
+        <RootNamespace>$(PackageId)</RootNamespace>
+        <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
+        <SlnGenSolutionFolder>src</SlnGenSolutionFolder>
+        <ProjectGuid>f52d8a04-cd74-4a5d-900f-9df28dcce542</ProjectGuid>
+        <SlnGenSolutionFolder>extensions</SlnGenSolutionFolder>
+    </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="JustinWritesCode.Http" />
         <PackageReference Include="System.Net.Mime.MediaTypeNames" />

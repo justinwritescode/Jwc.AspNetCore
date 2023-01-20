@@ -11,18 +11,19 @@
 -->
 
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
-    <PackageReference Include="System.Text.Json" />
-    <PackageReference Include="System.Compat" IncludeAssets="ContentFiles" ExlcudeAssets="Runtime;Compile;Lib;Native;Analyzers" />
-    <PackageReference Include="System.Text.Json" />
-    <PackageReference Include="System.Net.Http.Json" />
-    <PackageReference Include="System.Net.Mime.MediaTypeNames" />
-    <PackageReference Include="JustinWritesCode.InterfaceGenerator" ExcludeAssets="Runtime;Lib;Source;Native" IncludeAssets="Build;Analyzers" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <SlnGenSolutionFolder>mvc</SlnGenSolutionFolder>
+    </PropertyGroup>
+    <ItemGroup>
+        <!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
+        <PackageReference Include="System.Text.Json" />
+        <PackageReference Include="System.Compat" IncludeAssets="ContentFiles" ExlcudeAssets="Runtime;Compile;Lib;Native;Analyzers" />
+        <PackageReference Include="System.Text.Json" />
+        <PackageReference Include="System.Net.Http.Json" />
+        <PackageReference Include="System.Net.Mime.MediaTypeNames" />
+        <PackageReference Include="JustinWritesCode.InterfaceGenerator" ExcludeAssets="Runtime;Lib;Source;Native" IncludeAssets="Build;Analyzers" />
+    </ItemGroup>
 </Project>

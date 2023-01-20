@@ -11,30 +11,31 @@
 -->
 
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <!-- <TargetFramework>netstandard2.0</TargetFramework> -->
-    <TargetFrameworks>net7.0</TargetFrameworks>
-    <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
-    <PackageId>JustinWritesCode.Payloads</PackageId>
-    <AssemblyName>$(PackageId)</AssemblyName>
-    <RootNamespace>$(PackageId)</RootNamespace>
-    <ExcludeRestorePackageImports>false</ExcludeRestorePackageImports>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-  <ItemGroup>
-    <!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
-    <PackageReference Include="System.Text.Json.Usings" />
-    <PackageReference Include="System.Text.RegularExpressions.Usings" />
-    <PackageReference Include="Vogen" />
-    <PackageReference Include="JustinWritesCode.Primitives" />
-    <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
+    <PropertyGroup>
+        <!-- <TargetFramework>netstandard2.0</TargetFramework> -->
+        <TargetFrameworks>net7.0</TargetFrameworks>
+        <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
+        <PackageId>JustinWritesCode.Payloads</PackageId>
+        <AssemblyName>$(PackageId)</AssemblyName>
+        <RootNamespace>$(PackageId)</RootNamespace>
+        <ExcludeRestorePackageImports>false</ExcludeRestorePackageImports>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <SlnGenSolutionFolder>mvc</SlnGenSolutionFolder>
+    </PropertyGroup>
+    <ItemGroup>
+        <!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+        <PackageReference Include="System.Text.Json.Usings" />
+        <PackageReference Include="System.Text.RegularExpressions.Usings" />
+        <PackageReference Include="Vogen" />
+        <PackageReference Include="JustinWritesCode.Primitives" />
+        <PackageReference Include="JustinWritesCode.Enumerations.Enumeration" />
 
-    <ProjectReference Include="../Http/Extensions/JustinWritesCode.Http.Extensions.csproj" />
-    <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" />
-    <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
-    <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles" />
-    <!-- <PackageReference Include="System.Net.Mime.MediaTypeNames" /> -->
-  </ItemGroup>
+        <ProjectReference Include="../Http/Extensions/JustinWritesCode.Http.Extensions.csproj" />
+        <ProjectReference Include="../Http/Http/JustinWritesCode.Http.csproj" />
+        <ProjectReference Include="../Http/MediaTypeNames/System.Net.Mime.MediaTypeNames.csproj" />
+        <PackageReference Include="JustinWritesCode.System.Extensions" ExcludeAssets="ContentFiles" />
+        <!-- <PackageReference Include="System.Net.Mime.MediaTypeNames" /> -->
+    </ItemGroup>
 </Project>
