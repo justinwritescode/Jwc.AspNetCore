@@ -8,59 +8,127 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+public interface IStartupParameters
+{
+    type? ThisAssemblyProject { get; set; }
+    IEnumerable<type>? TypesForAutoMapperAndMediatR { get; set; }
+    bool AddIdentity { get; set; }
+    bool AddSwagger { get; set; }
+    IEnumerable<string> AuthenticationSchemes { get; set; }
+    bool AddXmlSerialization { get; set; }
+    bool SearchEntireAppDomainForAutoMapperAndMediatRTypes { get; set; }
+    bool AddRazorPages { get; set; }
+    bool AddJsonPatch { get; set; }
+    bool AddApiAuthentication { get; set; }
+    bool AddAzureAppConfig { get; set; }
+    bool AddHashids { get; set; }
+    bool AddMediatR { get; set; }
+    bool AddAutoMapper { get; set; }
+    bool AddLogging { get; set; }
+    bool AddHttpLogging { get; set; }
+    bool AddConsoleLogger { get; set; }
+    bool AddDebugLogger { get; set; }
+    bool AddHealthChecks { get; set; }
+
+    bool Equals(object obj);
+    bool Equals(StartupParameters other);
+    int GetHashCode();
+    string ToString();
+}
+
+public record struct StartupParameters : IStartupParameters
+{
+    public StartupParameters() { }
+
+    public type? ThisAssemblyProject { get; set; } = null;
+    public IEnumerable<type>? TypesForAutoMapperAndMediatR { get; set; } = Array.Empty<type>();
+    public bool AddIdentity { get; set; } = true;
+    public bool AddSwagger { get; set; } = true;
+    public IEnumerable<string> AuthenticationSchemes { get; set; } = new[] { JustinWritesCode.AspNetCore.Authentication.ApiBasicAuthenticationOptions.AuthenticationSchemeName };
+    public bool AddXmlSerialization { get; set; } = true;
+    public bool SearchEntireAppDomainForAutoMapperAndMediatRTypes { get; set; } = true;
+    public bool AddRazorPages { get; set; } = true;
+    public bool AddJsonPatch { get; set; } = true;
+    public bool AddApiAuthentication { get; set; } = true;
+    public bool AddAzureAppConfig { get; set; } = true;
+    public bool AddHashids { get; set; } = true;
+    public bool AddMediatR { get; set; } = true;
+    public bool AddAutoMapper { get; set; } = true;
+    public bool AddLogging { get; set; } = true;
+    public bool AddHttpLogging { get; set; } = true;
+    public bool AddConsoleLogger { get; set; } = true;
+    public bool AddDebugLogger { get; set; } = true;
+    public bool AddHealthChecks { get; set; } = true;
+}
+
 public static class AddTheWorksExtensions
 {
     public static WebApplicationBuilder AddTheWorks(
         this WebApplicationBuilder builder,
-        type? tThisAssemblyProject = null,
-        IEnumerable<type>? typesToUseForAutoMapperAndMediatR = default,
+        IStartupParameters @params = default,
         Action<WebApplicationBuilder>? configure = default
     )
     {
-        _ = builder.Logging
-            .AddConfiguration(builder.Configuration.GetSection("Logging"))
-            .AddConsole()
-            .AddDebug();
+        if (@params.AddLogging)
+            _ = builder.Logging
+                .AddConfiguration(builder.Configuration.GetSection("Logging"));
 
-        _ = builder.AddIdentity();
+        if (@params.AddConsoleLogger)
+            builder.Logging.AddConsole();
 
-        typesToUseForAutoMapperAndMediatR = (
-            typesToUseForAutoMapperAndMediatR ??= Empty<type>()
-        ).Concat(AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes()));
+        if (@params.AddDebugLogger)
+            builder.Logging.AddDebug();
 
-        _ = builder.Services.AddAutoMapper(typesToUseForAutoMapperAndMediatR.ToArray());
+        if (@params.AddIdentity)
+            _ = builder.AddIdentity();
 
-        tThisAssemblyProject ??= typeof(ThisAssembly.Project);
-        _ = builder
-            .AddSwaggerGen()
-            .AddSwaggerMetadata(tThisAssemblyProject)
-            .DescribeDataTypesToSwagger()
-            .DescribeBasicApiAuthentication()
-            .AddXmlCommentsToSwagger()
-            .DescribeCrudController()
-            .AddSwaggerExamples()
-            .AddSwaggerHeaderOperationFilter()
-            .DescribeFileUploads()
-            .AddDescribeTypesForAllOutputFormatters();
+        @params.TypesForAutoMapperAndMediatR ??= Empty<type>();
 
-        _ = builder.Services.AddControllers().AddXmlSerializerFormatters();
+        if (@params.SearchEntireAppDomainForAutoMapperAndMediatRTypes)
+            @params.TypesForAutoMapperAndMediatR = @params.TypesForAutoMapperAndMediatR.Concat(AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes()));
 
-        _ = builder.Services.AddRazorPages();
+        if (@params.AddAutoMapper)
+            _ = builder.Services.AddAutoMapper(@params.TypesForAutoMapperAndMediatR.ToArray());
 
-        _ = builder.AddJsonPatch();
+        if (@params.AddSwagger)
+            _ = builder.AddSwaggerGen()
+                .AddSwaggerMetadata(@params.ThisAssemblyProject ?? typeof(ThisAssembly.Project))
+                .DescribeDataTypesToSwagger()
+                .DescribeBasicApiAuthentication()
+                .AddXmlCommentsToSwagger()
+                .DescribeCrudController()
+                .AddSwaggerExamples()
+                .AddSwaggerHeaderOperationFilter()
+                .DescribeFileUploads()
+                .AddDescribeTypesForAllOutputFormatters();
 
-        _ = builder.Configuration.AddUserSecrets(tThisAssemblyProject.Assembly);
-        _ = builder.AddAzureAppConfig();
+        if (@params.AddXmlSerialization)
+            _ = builder.Services.AddControllers().AddXmlSerializerFormatters();
 
-        _ = builder.AddHttpLogging();
+        if (@params.AddRazorPages)
+            _ = builder.Services.AddRazorPages();
 
-        _ = builder.AddApiAuthentication();
+        if (@params.AddJsonPatch)
+            _ = builder.AddJsonPatch();
+
+
+        _ = builder.Configuration.AddUserSecrets(@params.ThisAssemblyProject.Assembly);
+
+        if (@params.AddAzureAppConfig)
+            _ = builder.AddAzureAppConfig();
+
+        if (@params.AddApiAuthentication)
+            _ = builder.AddApiAuthentication();
+
+        if (@params.AddHttpLogging)
+            _ = builder.AddHttpLogging();
 
         // builder.AddApiAuthentication(_ => { });
 
         _ = builder.AddFormatters();
 
-        _ = builder.Services.AddHealthChecks();
+        if (@params.AddHealthChecks)
+            _ = builder.Services.AddHealthChecks();
 
         _ = builder.AddPayloadServices();
 
@@ -68,9 +136,11 @@ public static class AddTheWorksExtensions
 
         _ = builder.DescribeSchemasViaAttributes();
 
-        _ = builder.AddHashids();
+        if (@params.AddHashids)
+            _ = builder.AddHashids();
 
-        _ = builder.Services.AddMediatR(typesToUseForAutoMapperAndMediatR.ToArray());
+        if (@params.AddMediatR)
+            _ = builder.Services.AddMediatR(@params.TypesForAutoMapperAndMediatR.ToArray());
 
         _ = builder.AddJsonSerializer();
 
@@ -78,23 +148,29 @@ public static class AddTheWorksExtensions
 
         // builder.AddProblemDetailsHandler();
 
+        builder.Services.AddSingleton<IStartupParameters>(@params);
+
         configure?.Invoke(builder);
         return builder;
     }
 
     public static WebApplication UseTheWorks(this WebApplication app, type tThisAssemblyProject)
     {
-        _ = app.Use(
-            (context, next) =>
-            {
-                context.Response.Headers.AcceptRanges = "items";
-                context.Response.Headers[HttpResponseHeaderNames.AcceptPatch] =
-                    ApplicationMediaTypeNames.JsonPatch;
-                return next();
-            }
-        );
+        var @params = app.Services.GetRequiredService<IStartupParameters>();
 
-        _ = app.UseHttpLogging();
+        if (@params.AddJsonPatch)
+            _ = app.Use(
+                (context, next) =>
+                {
+                    context.Response.Headers.AcceptRanges = "items";
+                    context.Response.Headers[HttpResponseHeaderNames.AcceptPatch] =
+                        ApplicationMediaTypeNames.JsonPatch;
+                    return next();
+                }
+            );
+
+        if (@params.AddHttpLogging)
+            _ = app.UseHttpLogging();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment() || app.Environment.IsLocal())
@@ -110,15 +186,19 @@ public static class AddTheWorksExtensions
 
         _ = app.UseStaticFiles();
 
-        _ = app.UseSwagger();
-        // app.UseSwaggerUI();
-        _ = app.UseCustomizedSwaggerUI(tThisAssemblyProject);
+        if (@params.AddSwagger)
+        {
+            _ = app.UseSwagger();
+            // app.UseSwaggerUI();
+            _ = app.UseCustomizedSwaggerUI(@params.ThisAssemblyProject ?? typeof(ThisAssembly.Project));
+        }
 
         _ = app.UseRequestDecompression()
             .UseResponseCompression()
             .UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-        _ = app.UseApiBasicAuthentication();
+        if (@params.AddApiAuthentication)
+            _ = app.UseApiBasicAuthentication();
 
         _ = app.UseWelcomePage(new WelcomePageOptions { Path = null });
 

@@ -15,7 +15,7 @@ namespace JustinWritesCode.Payloads.Abstractions;
 /// <summary>Represents a payload with an array of values</summary>
 /// <typeparam name="T">The type of the values in the array</typeparam>
 /// <remarks>
-///  <see cref="IArrayPayload{T}"/> is a <see cref="IPayload{T[]}"/> with an array of values.
+///  <see cref="IArrayPayload{T}"/> is a <see cref="IPayload{Array{T}}"/> with an array of values.
 /// </remarks>
 /// <example>
 ///  <code>

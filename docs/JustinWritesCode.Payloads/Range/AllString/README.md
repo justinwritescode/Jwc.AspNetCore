@@ -1,0 +1,16 @@
+# Range\.AllString Field
+
+[Home](../../../README.md)
+
+**Containing Type**: JustinWritesCode\.Payloads\.[Range](../README.md)
+
+**Assembly**: JustinWritesCode\.Payloads\.dll
+
+```csharp
+public const string AllString = "items 0-*"
+```
+
+### Field Value
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)
+
