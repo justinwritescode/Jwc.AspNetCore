@@ -10,14 +10,15 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-namespace JustinWritesCode.AspNetCore.Mail;
+namespace JustinWritesCode.AspNetCore.Communication.Mail;
 
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Mail;
+using JustinWritesCode.AspNetCore.Communication;
 
-public record class EmailSenderOptions
+public record class EmailSenderOptions : AzureCommunicationServicesOptions<EmailAddress>
 {
-    public required string ConnectionString { get; init; }
-    public required string DefaultSender { get; init; }
+    public override required EmailAddress DefaultFrom { get; set; }
 
     public EmailSenderOptions(string connectionString)
     {

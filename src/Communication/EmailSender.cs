@@ -12,7 +12,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
-namespace JustinWritesCode.AspNetCore.Mail;
+namespace JustinWritesCode.AspNetCore.Communication.Mail;
 
 using Azure.Communication.Email;
 using Azure.Communication.Email.Models;
@@ -36,7 +36,7 @@ public class EmailSender : IEmailSender
         );
     }
 
-    public async System.Threading.Tasks.Task SendEmailAsync(
+    public async Task SendEmailAsync(
         string email,
         string subject,
         string htmlMessage
@@ -44,7 +44,7 @@ public class EmailSender : IEmailSender
     {
         await SendEmailAsync(
             new EmailMessage(
-                _options.Value.DefaultSender,
+                _options.Value.DefaultFrom,
                 new EmailContent(subject) { Html = htmlMessage },
                 new EmailRecipients(new[] { new EmailAddress(email) })
             )
